@@ -8,6 +8,7 @@ export async function run(): Promise<void> {
       accessKey: core.getInput("access-key"),
       secretKey: core.getInput("secret-key"),
       defaultProjectId: core.getInput("default-project-id"),
+      defaultOrganizationId: core.getInput("default-organization-id"),
       defaultRegion: core.getInput("default-region"),
       defaultZone: core.getInput("default-zone"),
     });

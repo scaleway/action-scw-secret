@@ -30,6 +30,7 @@ function run() {
                 accessKey: core_1.default.getInput("access-key"),
                 secretKey: core_1.default.getInput("secret-key"),
                 defaultProjectId: core_1.default.getInput("default-project-id"),
+                defaultOrganizationId: core_1.default.getInput("default-organization-id"),
                 defaultRegion: core_1.default.getInput("default-region"),
                 defaultZone: core_1.default.getInput("default-zone"),
             });
