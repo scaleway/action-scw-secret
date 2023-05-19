@@ -17,6 +17,7 @@
     "@scaleway/sdk": "^1.11.0"
   },
   "devDependencies": {
+    "@types/node": "^20.2.1",
     "@typescript-eslint/eslint-plugin": "^5.59.6",
     "@typescript-eslint/parser": "^5.59.6",
     "@vercel/ncc": "^0.36.1",
