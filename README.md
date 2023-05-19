@@ -39,7 +39,9 @@ uses: luxifer/scw-secret-manager-get-secrets@v1
 with:
   secret-names: |
     my-secret
-    MY_SECOND_SECRET,m-other-secret
-  access-key: "${secret.SCW_ACCESS}"
-  secret-key: "${secret.SCW_SECRET_KEY}"
+    MY_SECOND_SECRET,my-other-secret
+  access-key: ${{ secrets.SCW_ACCESS_KEY }}
+  secret-key: ${{ secrets.SCW_SECRET_KEY }}
+  default-project-id: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
+  default-organization-id: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}
 ```
