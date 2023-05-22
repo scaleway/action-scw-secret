@@ -1,4 +1,3 @@
-import core from "@actions/core";
 import { Secret } from "@scaleway/sdk";
 
 export function transformToValidEnvName(secretName: string): string {

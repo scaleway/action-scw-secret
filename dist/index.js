@@ -6712,6 +6712,29 @@ module.exports.implForWrapper = function (wrapper) {
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -6721,12 +6744,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
-const core_1 = __importDefault(__nccwpck_require__(2186));
+const core = __importStar(__nccwpck_require__(2186));
 __nccwpck_require__(2137);
 const sdk_1 = __nccwpck_require__(5701);
 const utils_1 = __nccwpck_require__(1314);
@@ -6734,33 +6754,33 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const client = (0, sdk_1.createClient)({
-                accessKey: core_1.default.getInput("access-key"),
-                secretKey: core_1.default.getInput("secret-key"),
-                defaultProjectId: core_1.default.getInput("default-project-id"),
-                defaultOrganizationId: core_1.default.getInput("default-organization-id"),
-                defaultRegion: core_1.default.getInput("default-region"),
-                defaultZone: core_1.default.getInput("default-zone"),
+                accessKey: core.getInput("access-key"),
+                secretKey: core.getInput("secret-key"),
+                defaultProjectId: core.getInput("default-project-id"),
+                defaultOrganizationId: core.getInput("default-organization-id"),
+                defaultRegion: core.getInput("default-region"),
+                defaultZone: core.getInput("default-zone"),
             });
             const api = new sdk_1.Secret.v1alpha1.API(client);
             const secretConfigInputs = [
-                ...new Set(core_1.default.getMultilineInput("secret-names")),
+                ...new Set(core.getMultilineInput("secret-names")),
             ];
             for (let secretConf of secretConfigInputs) {
                 const [envName, secretName] = (0, utils_1.extractAlias)(secretConf);
                 try {
                     const secretValue = yield (0, utils_1.getSecretValue)(api, secretName);
-                    core_1.default.setSecret(secretValue);
-                    core_1.default.debug(`Injecting secret ${secretName} as environment variable '${envName}'.`);
-                    core_1.default.exportVariable(envName, secretValue);
+                    core.setSecret(secretValue);
+                    core.debug(`Injecting secret ${secretName} as environment variable '${envName}'.`);
+                    core.exportVariable(envName, secretValue);
                 }
                 catch (error) {
-                    core_1.default.setFailed(`Failed to fetch secret: '${secretName}'. Error: ${error}.`);
+                    core.setFailed(`Failed to fetch secret: '${secretName}'. Error: ${error}.`);
                 }
             }
         }
         catch (error) {
             if (error instanceof Error)
-                core_1.default.setFailed(error.message);
+                core.setFailed(error.message);
         }
     });
 }
