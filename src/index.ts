@@ -1,4 +1,5 @@
 import core from "@actions/core";
+import 'cross-fetch/polyfill';
 import { createClient, Secret } from "@scaleway/sdk";
 import { extractAlias, getSecretValue } from "./utils";
 
