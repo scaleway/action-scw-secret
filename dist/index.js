@@ -1,121 +1,6 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 283:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.run = void 0;
-const core_1 = __importDefault(__nccwpck_require__(186));
-const sdk_1 = __nccwpck_require__(701);
-const utils_1 = __nccwpck_require__(729);
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const client = (0, sdk_1.createClient)({
-                accessKey: core_1.default.getInput("access-key"),
-                secretKey: core_1.default.getInput("secret-key"),
-                defaultProjectId: core_1.default.getInput("default-project-id"),
-                defaultOrganizationId: core_1.default.getInput("default-organization-id"),
-                defaultRegion: core_1.default.getInput("default-region"),
-                defaultZone: core_1.default.getInput("default-zone"),
-            });
-            const api = new sdk_1.Secret.v1alpha1.API(client);
-            const secretConfigInputs = [
-                ...new Set(core_1.default.getMultilineInput("secret-names")),
-            ];
-            for (let secretConf of secretConfigInputs) {
-                const [envName, secretName] = (0, utils_1.extractAlias)(secretConf);
-                try {
-                    const secretValue = yield (0, utils_1.getSecretValue)(api, secretName);
-                    core_1.default.setSecret(secretValue);
-                    core_1.default.debug(`Injecting secret ${secretName} as environment variable '${envName}'.`);
-                    core_1.default.exportVariable(envName, secretValue);
-                }
-                catch (error) {
-                    core_1.default.setFailed(`Failed to fetch secret: '${secretName}'. Error: ${error}.`);
-                }
-            }
-        }
-        catch (error) {
-            if (error instanceof Error)
-                core_1.default.setFailed(error.message);
-        }
-    });
-}
-exports.run = run;
-run();
-
-
-/***/ }),
-
-/***/ 729:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getSecretValue = exports.extractAlias = exports.transformToValidEnvName = void 0;
-function transformToValidEnvName(secretName) {
-    // Leading digits are invalid
-    if (secretName.match(/^[0-9]/)) {
-        secretName = "_".concat(secretName);
-    }
-    // Remove invalid characters
-    return secretName.replace(/[^a-zA-Z0-9_]/g, "_").toUpperCase();
-}
-exports.transformToValidEnvName = transformToValidEnvName;
-function extractAlias(input) {
-    const parsedInput = input.split(",");
-    if (parsedInput.length > 1) {
-        const alias = parsedInput[0].trim();
-        const secretName = parsedInput[1].trim();
-        const validateEnvName = transformToValidEnvName(alias);
-        if (alias !== validateEnvName) {
-            throw new Error(`The alias '${alias}' is not a valid environment name. Please verify that it has uppercase letters, numbers, and underscore only.`);
-        }
-        return [alias, secretName];
-    }
-    return [transformToValidEnvName(input.trim()), input.trim()];
-}
-exports.extractAlias = extractAlias;
-function getSecretValue(api, secretName) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const secretResponse = yield api.accessSecretVersionByName({
-            secretName: secretName,
-            revision: "latest",
-        });
-        return secretResponse.data;
-    });
-}
-exports.getSecretValue = getSecretValue;
-
-
-/***/ }),
-
 /***/ 351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -2815,6 +2700,121 @@ function version(uuid) {
 
 var _default = version;
 exports["default"] = _default;
+
+/***/ }),
+
+/***/ 144:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.run = void 0;
+const core_1 = __importDefault(__nccwpck_require__(186));
+const sdk_1 = __nccwpck_require__(701);
+const utils_1 = __nccwpck_require__(314);
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const client = (0, sdk_1.createClient)({
+                accessKey: core_1.default.getInput("access-key"),
+                secretKey: core_1.default.getInput("secret-key"),
+                defaultProjectId: core_1.default.getInput("default-project-id"),
+                defaultOrganizationId: core_1.default.getInput("default-organization-id"),
+                defaultRegion: core_1.default.getInput("default-region"),
+                defaultZone: core_1.default.getInput("default-zone"),
+            });
+            const api = new sdk_1.Secret.v1alpha1.API(client);
+            const secretConfigInputs = [
+                ...new Set(core_1.default.getMultilineInput("secret-names")),
+            ];
+            for (let secretConf of secretConfigInputs) {
+                const [envName, secretName] = (0, utils_1.extractAlias)(secretConf);
+                try {
+                    const secretValue = yield (0, utils_1.getSecretValue)(api, secretName);
+                    core_1.default.setSecret(secretValue);
+                    core_1.default.debug(`Injecting secret ${secretName} as environment variable '${envName}'.`);
+                    core_1.default.exportVariable(envName, secretValue);
+                }
+                catch (error) {
+                    core_1.default.setFailed(`Failed to fetch secret: '${secretName}'. Error: ${error}.`);
+                }
+            }
+        }
+        catch (error) {
+            if (error instanceof Error)
+                core_1.default.setFailed(error.message);
+        }
+    });
+}
+exports.run = run;
+run();
+
+
+/***/ }),
+
+/***/ 314:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getSecretValue = exports.extractAlias = exports.transformToValidEnvName = void 0;
+function transformToValidEnvName(secretName) {
+    // Leading digits are invalid
+    if (secretName.match(/^[0-9]/)) {
+        secretName = "_".concat(secretName);
+    }
+    // Remove invalid characters
+    return secretName.replace(/[^a-zA-Z0-9_]/g, "_").toUpperCase();
+}
+exports.transformToValidEnvName = transformToValidEnvName;
+function extractAlias(input) {
+    const parsedInput = input.split(",");
+    if (parsedInput.length > 1) {
+        const alias = parsedInput[0].trim();
+        const secretName = parsedInput[1].trim();
+        const validateEnvName = transformToValidEnvName(alias);
+        if (alias !== validateEnvName) {
+            throw new Error(`The alias '${alias}' is not a valid environment name. Please verify that it has uppercase letters, numbers, and underscore only.`);
+        }
+        return [alias, secretName];
+    }
+    return [transformToValidEnvName(input.trim()), input.trim()];
+}
+exports.extractAlias = extractAlias;
+function getSecretValue(api, secretName) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const secretResponse = yield api.accessSecretVersionByName({
+            secretName: secretName,
+            revision: "latest",
+        });
+        return secretResponse.data;
+    });
+}
+exports.getSecretValue = getSecretValue;
+
 
 /***/ }),
 
@@ -24709,7 +24709,7 @@ exports.withUserAgentSuffix = withUserAgentSuffix;
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(283);
+/******/ 	var __webpack_exports__ = __nccwpck_require__(144);
 /******/ 	module.exports = __webpack_exports__;
 /******/ 	
 /******/ })()
