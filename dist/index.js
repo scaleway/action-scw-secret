@@ -1,6 +1,142 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 9283:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.run = void 0;
+const core = __importStar(__nccwpck_require__(2186));
+__nccwpck_require__(2137);
+const sdk_1 = __nccwpck_require__(5701);
+const utils_1 = __nccwpck_require__(4729);
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const client = (0, sdk_1.createClient)({
+                accessKey: core.getInput("access-key"),
+                secretKey: core.getInput("secret-key"),
+                defaultProjectId: core.getInput("default-project-id"),
+                defaultOrganizationId: core.getInput("default-organization-id"),
+                defaultRegion: core.getInput("default-region"),
+                defaultZone: core.getInput("default-zone"),
+            });
+            const api = new sdk_1.Secret.v1alpha1.API(client);
+            const secretConfigInputs = [
+                ...new Set(core.getMultilineInput("secret-names")),
+            ];
+            for (let secretConf of secretConfigInputs) {
+                const [envName, secretName] = (0, utils_1.extractAlias)(secretConf);
+                try {
+                    const secretValue = yield (0, utils_1.getSecretValue)(api, secretName);
+                    core.setSecret(secretValue);
+                    core.debug(`Injecting secret ${secretName} as environment variable '${envName}'.`);
+                    core.exportVariable(envName, secretValue);
+                }
+                catch (error) {
+                    core.setFailed(`Failed to fetch secret: '${secretName}'. Error: ${error}.`);
+                }
+            }
+        }
+        catch (error) {
+            if (error instanceof Error)
+                core.setFailed(error.message);
+        }
+    });
+}
+exports.run = run;
+run();
+
+
+/***/ }),
+
+/***/ 4729:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getSecretValue = exports.extractAlias = exports.transformToValidEnvName = void 0;
+function transformToValidEnvName(secretName) {
+    // Leading digits are invalid
+    if (secretName.match(/^[0-9]/)) {
+        secretName = "_".concat(secretName);
+    }
+    // Remove invalid characters
+    return secretName.replace(/[^a-zA-Z0-9_]/g, "_").toUpperCase();
+}
+exports.transformToValidEnvName = transformToValidEnvName;
+function extractAlias(input) {
+    const parsedInput = input.split(",");
+    if (parsedInput.length > 1) {
+        const alias = parsedInput[0].trim();
+        const secretName = parsedInput[1].trim();
+        const validateEnvName = transformToValidEnvName(alias);
+        if (alias !== validateEnvName) {
+            throw new Error(`The alias '${alias}' is not a valid environment name. Please verify that it has uppercase letters, numbers, and underscore only.`);
+        }
+        return [alias, secretName];
+    }
+    return [transformToValidEnvName(input.trim()), input.trim()];
+}
+exports.extractAlias = extractAlias;
+function getSecretValue(api, secretName) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const secretResponse = yield api.accessSecretVersionByName({
+            secretName: secretName,
+            revision: "latest",
+        });
+        return secretResponse.data;
+    });
+}
+exports.getSecretValue = getSecretValue;
+
+
+/***/ }),
+
 /***/ 7351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -6703,142 +6839,6 @@ module.exports.implForWrapper = function (wrapper) {
   return wrapper[module.exports.implSymbol];
 };
 
-
-
-/***/ }),
-
-/***/ 6144:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.run = void 0;
-const core = __importStar(__nccwpck_require__(2186));
-__nccwpck_require__(2137);
-const sdk_1 = __nccwpck_require__(5701);
-const utils_1 = __nccwpck_require__(1314);
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const client = (0, sdk_1.createClient)({
-                accessKey: core.getInput("access-key"),
-                secretKey: core.getInput("secret-key"),
-                defaultProjectId: core.getInput("default-project-id"),
-                defaultOrganizationId: core.getInput("default-organization-id"),
-                defaultRegion: core.getInput("default-region"),
-                defaultZone: core.getInput("default-zone"),
-            });
-            const api = new sdk_1.Secret.v1alpha1.API(client);
-            const secretConfigInputs = [
-                ...new Set(core.getMultilineInput("secret-names")),
-            ];
-            for (let secretConf of secretConfigInputs) {
-                const [envName, secretName] = (0, utils_1.extractAlias)(secretConf);
-                try {
-                    const secretValue = yield (0, utils_1.getSecretValue)(api, secretName);
-                    core.setSecret(secretValue);
-                    core.debug(`Injecting secret ${secretName} as environment variable '${envName}'.`);
-                    core.exportVariable(envName, secretValue);
-                }
-                catch (error) {
-                    core.setFailed(`Failed to fetch secret: '${secretName}'. Error: ${error}.`);
-                }
-            }
-        }
-        catch (error) {
-            if (error instanceof Error)
-                core.setFailed(error.message);
-        }
-    });
-}
-exports.run = run;
-run();
-
-
-/***/ }),
-
-/***/ 1314:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getSecretValue = exports.extractAlias = exports.transformToValidEnvName = void 0;
-function transformToValidEnvName(secretName) {
-    // Leading digits are invalid
-    if (secretName.match(/^[0-9]/)) {
-        secretName = "_".concat(secretName);
-    }
-    // Remove invalid characters
-    return secretName.replace(/[^a-zA-Z0-9_]/g, "_").toUpperCase();
-}
-exports.transformToValidEnvName = transformToValidEnvName;
-function extractAlias(input) {
-    const parsedInput = input.split(",");
-    if (parsedInput.length > 1) {
-        const alias = parsedInput[0].trim();
-        const secretName = parsedInput[1].trim();
-        const validateEnvName = transformToValidEnvName(alias);
-        if (alias !== validateEnvName) {
-            throw new Error(`The alias '${alias}' is not a valid environment name. Please verify that it has uppercase letters, numbers, and underscore only.`);
-        }
-        return [alias, secretName];
-    }
-    return [transformToValidEnvName(input.trim()), input.trim()];
-}
-exports.extractAlias = extractAlias;
-function getSecretValue(api, secretName) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const secretResponse = yield api.accessSecretVersionByName({
-            secretName: secretName,
-            revision: "latest",
-        });
-        return secretResponse.data;
-    });
-}
-exports.getSecretValue = getSecretValue;
 
 
 /***/ }),
@@ -28782,7 +28782,7 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(6144);
+/******/ 	var __webpack_exports__ = __nccwpck_require__(9283);
 /******/ 	module.exports = __webpack_exports__;
 /******/ 	
 /******/ })()
