@@ -35,7 +35,7 @@ Scaleway default zone (default: fr-par-1).
 ## Example usage
 
 ```yaml
-uses: luxifer/scw-secret-manager-get-secrets@v1
+uses: scaleway/action-scw-secret@v1
 with:
   secret-names: |
     my-secret
