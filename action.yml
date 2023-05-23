@@ -1,27 +1,27 @@
-name: 'Scaleway Secret Manager GitHub Action'
-description: 'GitHub action for retrieving secrets from Scaleway Secret Manager'
+name: "Scaleway Secret Manager"
+description: "GitHub action for retrieving secrets from Scaleway Secret Manager"
 inputs:
   secret-names:
-    description: 'One or more secret names to retrieve'
+    description: "One or more secret names to retrieve"
     required: true
   access-key:
-    description: 'Scaleway access key'
+    description: "Scaleway access key"
     required: true
   secret-key:
-    description: 'Scaleway secret key'
+    description: "Scaleway secret key"
     required: true
   default-project-id:
-    description: 'Scaleway default project ID'
+    description: "Scaleway default project ID"
     required: false
   default-organization-id:
-    description: 'Scaleway default organization ID'
+    description: "Scaleway default organization ID"
     required: false
   default-region:
-    description: 'Scaleway default region'
+    description: "Scaleway default region"
     required: false
     default: fr-par
   default-zone:
-    description: 'Scaleway default zone'
+    description: "Scaleway default zone"
     required: false
     default: fr-par-1
 runs:

@@ -1,4 +1,4 @@
-# Scaleway Secret Manager get secrets action
+# Scaleway Secret Manager GitHub Action
 
 This action retrives secrets from Scaleway Secret Manager and inject them as environment variables.
 
