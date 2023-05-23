@@ -129,7 +129,7 @@ function getSecretValue(api, secretName) {
             secretName: secretName,
             revision: "latest",
         });
-        return secretResponse.data;
+        return Buffer.from(secretResponse.data, "base64").toString("binary");
     });
 }
 exports.getSecretValue = getSecretValue;

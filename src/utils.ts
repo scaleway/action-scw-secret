@@ -39,5 +39,5 @@ export async function getSecretValue(
     revision: "latest",
   });
 
-  return secretResponse.data;
+  return Buffer.from(secretResponse.data, "base64").toString("binary");
 }
