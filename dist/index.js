@@ -7156,13 +7156,13 @@ const hasAuthenticationSecrets = obj => typeof obj.accessKey === 'string' && obj
  */
 function assertValidAuthenticationSecrets(obj) {
   if (!(obj.accessKey && obj.secretKey)) {
-    throw new Error(`Invalid secrets, accessKey & secretKey must be defined. See https://www.scaleway.com/en/docs/console/my-project/how-to/generate-api-key/`);
+    throw new Error(`Invalid secrets, accessKey & secretKey must be defined. See https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/`);
   }
   if (!isAccessKey(obj.accessKey)) {
-    throw new Error(`Invalid access key format '${obj.accessKey}', expected SCWXXXXXXXXXXXXXXXXX format. See https://www.scaleway.com/en/docs/console/my-project/how-to/generate-api-key/`);
+    throw new Error(`Invalid access key format '${obj.accessKey}', expected SCWXXXXXXXXXXXXXXXXX format. See https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/`);
   }
   if (!isSecretKey(obj.secretKey)) {
-    throw new Error(`Invalid secret key format '${obj.secretKey}', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx. See https://www.scaleway.com/en/docs/console/my-project/how-to/generate-api-key/`);
+    throw new Error(`Invalid secret key format '${obj.secretKey}', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx. See https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/`);
   }
 }
 
@@ -7474,7 +7474,7 @@ const assertValidSettings = obj => {
   }
 };
 
-const version = 'v1.10.1';
+const version = 'v1.17.0';
 const userAgent = `scaleway-sdk-js/${version}`;
 
 const isBrowser = () => typeof window !== 'undefined' && typeof window.document !== 'undefined';
@@ -8521,7 +8521,7 @@ const createAdvancedClient = (...configs) => {
  * Creates a Scaleway client with a profile.
  *
  * @example
- * Creates a client with credentials & default values (see https://www.scaleway.com/en/docs/console/my-project/how-to/generate-api-key/):
+ * Creates a client with credentials & default values (see https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/):
  * ```
  * import { createClient } from '@scaleway/sdk'
  *
@@ -8535,7 +8535,7 @@ const createAdvancedClient = (...configs) => {
  * ```
  *
  * @example
- * Creates a client by loading values from the environment (see https://www.scaleway.com/en/docs/console/my-project/how-to/generate-api-key/#how-to-use-your-api-key)
+ * Creates a client by loading values from the environment (see https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/)
  * or the config file created by CLI `scw init` (see https://www.scaleway.com/en/cli/):
  * ```
  * import { loadProfileFromConfigurationFile } from '@scaleway/configuration-loader'
@@ -8554,7 +8554,7 @@ const createAdvancedClient = (...configs) => {
  */
 const createClient = (profile = {}) => createAdvancedClient(withProfile(profile));
 
-var index$t = /*#__PURE__*/Object.freeze({
+var index$u = /*#__PURE__*/Object.freeze({
   __proto__: null,
   AlreadyExistsError: AlreadyExistsError,
   DeniedAuthenticationError: DeniedAuthenticationError,
@@ -8682,7 +8682,7 @@ const waitForResource = (stop, fetcher, request, options, strategy = createExpon
  *
  * @internal
  */
-let API$q = class API {
+let API$s = class API {
   constructor(client) {
     this.client = client;
   }
@@ -9044,7 +9044,7 @@ const marshalUpdateProjectRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$m = {
+const jsonContentHeaders$o = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
@@ -9053,7 +9053,7 @@ const jsonContentHeaders$m = {
  *
  * User related data. This API allows you to manage projects.
  */
-let API$p = class API extends API$q {
+let API$r = class API extends API$s {
   /**
    * Create a new Project for an Organization. Generate a new Project for an
    * Organization, specifying its configuration including name and description.
@@ -9063,7 +9063,7 @@ let API$p = class API extends API$q {
    */
   createProject = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalCreateProjectRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$m,
+    headers: jsonContentHeaders$o,
     method: 'POST',
     path: `/account/v2/projects`
   }, unmarshalProject);
@@ -9119,7 +9119,7 @@ let API$p = class API extends API$q {
    */
   updateProject = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalUpdateProjectRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$m,
+    headers: jsonContentHeaders$o,
     method: 'PATCH',
     path: `/account/v2/projects/${validatePathParam('projectId', request.projectId ?? this.client.settings.defaultProjectId)}`
   }, unmarshalProject);
@@ -9128,14 +9128,14 @@ let API$p = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$l = /*#__PURE__*/Object.freeze({
+var index_gen$n = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$p
+  API: API$r
 });
 
-var index$s = /*#__PURE__*/Object.freeze({
+var index$t = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v2: index_gen$l
+  v2: index_gen$n
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -9254,32 +9254,12 @@ const marshalUpdateServerRequest$2 = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$l = {
+const jsonContentHeaders$n = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
-/**
- * Apple silicon API.
- *
- * Apple Mac mini as a service. Scaleway Apple silicon as-a-Service is built
- * using the latest generation of Apple Mac mini hardware (fifth generation).
- *
- * These dedicated Mac mini M1s are designed for developing, building, testing,
- * and signing applications for Apple devices, including iPhones, iPads, Mac
- * computers and much more.
- *
- * Get set to explore, learn and build on a dedicated Mac mini M1 with more
- * performance and speed than you ever thought possible.
- *
- * _Apple silicon as a Service comes with a minimum allocation period of 24
- * hours_*.
- *
- * Mac mini and macOS are trademarks of Apple Inc., registered in the U.S. and
- * other countries and regions. IOS is a trademark or registered trademark of
- * Cisco in the U.S. and other countries and is used by Apple under license.
- * Scaleway is not affiliated with Apple Inc.
- */
-let API$o = class API extends API$q {
+/** Apple silicon API. */
+let API$q = class API extends API$s {
   /** Lists the available zones of the API. */
   static LOCALITIES = ['fr-par-3'];
 
@@ -9317,7 +9297,7 @@ let API$o = class API extends API$q {
    */
   createServer = request => this.client.fetch({
     body: JSON.stringify(marshalCreateServerRequest$2(request, this.client.settings)),
-    headers: jsonContentHeaders$l,
+    headers: jsonContentHeaders$n,
     method: 'POST',
     path: `/apple-silicon/v1alpha1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers`
   }, unmarshalServer$2);
@@ -9395,7 +9375,7 @@ let API$o = class API extends API$q {
    */
   updateServer = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateServerRequest$2(request, this.client.settings)),
-    headers: jsonContentHeaders$l,
+    headers: jsonContentHeaders$n,
     method: 'PATCH',
     path: `/apple-silicon/v1alpha1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}`
   }, unmarshalServer$2);
@@ -9422,7 +9402,7 @@ let API$o = class API extends API$q {
    */
   rebootServer = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$l,
+    headers: jsonContentHeaders$n,
     method: 'POST',
     path: `/apple-silicon/v1alpha1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/reboot`
   }, unmarshalServer$2);
@@ -9438,7 +9418,7 @@ let API$o = class API extends API$q {
    */
   reinstallServer = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$l,
+    headers: jsonContentHeaders$n,
     method: 'POST',
     path: `/apple-silicon/v1alpha1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/reinstall`
   }, unmarshalServer$2);
@@ -9447,15 +9427,15 @@ let API$o = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$k = /*#__PURE__*/Object.freeze({
+var index_gen$m = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$o,
+  API: API$q,
   SERVER_TRANSIENT_STATUSES: SERVER_TRANSIENT_STATUSES$2
 });
 
-var index$r = /*#__PURE__*/Object.freeze({
+var index$s = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1alpha1: index_gen$k
+  v1alpha1: index_gen$m
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -9873,7 +9853,7 @@ const marshalUpdateSettingRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$k = {
+const jsonContentHeaders$m = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
@@ -9882,7 +9862,7 @@ const jsonContentHeaders$k = {
  *
  * This API allows to manage your Elastic Metal server. Elastic Metal API.
  */
-let API$n = class API extends API$q {
+let API$p = class API extends API$s {
   /** Lists the available zones of the API. */
   static LOCALITIES = ['fr-par-1', 'fr-par-2', 'nl-ams-1'];
   pageOfListServers = (request = {}) => this.client.fetch({
@@ -9930,7 +9910,7 @@ let API$n = class API extends API$q {
    */
   createServer = request => this.client.fetch({
     body: JSON.stringify(marshalCreateServerRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$k,
+    headers: jsonContentHeaders$m,
     method: 'POST',
     path: `/baremetal/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers`
   }, unmarshalServer$1);
@@ -9945,7 +9925,7 @@ let API$n = class API extends API$q {
    */
   updateServer = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateServerRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$k,
+    headers: jsonContentHeaders$m,
     method: 'PATCH',
     path: `/baremetal/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}`
   }, unmarshalServer$1);
@@ -9959,7 +9939,7 @@ let API$n = class API extends API$q {
    */
   installServer = request => this.client.fetch({
     body: JSON.stringify(marshalInstallServerRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$k,
+    headers: jsonContentHeaders$m,
     method: 'POST',
     path: `/baremetal/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/install`
   }, unmarshalServer$1);
@@ -9997,7 +9977,7 @@ let API$n = class API extends API$q {
    */
   rebootServer = request => this.client.fetch({
     body: JSON.stringify(marshalRebootServerRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$k,
+    headers: jsonContentHeaders$m,
     method: 'POST',
     path: `/baremetal/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/reboot`
   }, unmarshalServer$1);
@@ -10010,7 +9990,7 @@ let API$n = class API extends API$q {
    */
   startServer = request => this.client.fetch({
     body: JSON.stringify(marshalStartServerRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$k,
+    headers: jsonContentHeaders$m,
     method: 'POST',
     path: `/baremetal/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/start`
   }, unmarshalServer$1);
@@ -10025,7 +10005,7 @@ let API$n = class API extends API$q {
    */
   stopServer = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$k,
+    headers: jsonContentHeaders$m,
     method: 'POST',
     path: `/baremetal/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/stop`
   }, unmarshalServer$1);
@@ -10063,7 +10043,7 @@ let API$n = class API extends API$q {
    */
   startBMCAccess = request => this.client.fetch({
     body: JSON.stringify(marshalStartBMCAccessRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$k,
+    headers: jsonContentHeaders$m,
     method: 'POST',
     path: `/baremetal/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/bmc-access`
   }, unmarshalBMCAccess);
@@ -10101,7 +10081,7 @@ let API$n = class API extends API$q {
    */
   updateIP = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateIPRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$k,
+    headers: jsonContentHeaders$m,
     method: 'PATCH',
     path: `/baremetal/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/ips/${validatePathParam('ipId', request.ipId)}`
   }, unmarshalIP$1);
@@ -10115,7 +10095,7 @@ let API$n = class API extends API$q {
    */
   addOptionServer = request => this.client.fetch({
     body: JSON.stringify(marshalAddOptionServerRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$k,
+    headers: jsonContentHeaders$m,
     method: 'POST',
     path: `/baremetal/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/options/${validatePathParam('optionId', request.optionId)}`
   }, unmarshalServer$1);
@@ -10200,7 +10180,7 @@ let API$n = class API extends API$q {
    */
   updateSetting = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateSettingRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$k,
+    headers: jsonContentHeaders$m,
     method: 'PATCH',
     path: `/baremetal/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/settings/${validatePathParam('settingId', request.settingId)}`
   }, unmarshalSetting);
@@ -10232,7 +10212,7 @@ let API$n = class API extends API$q {
 };
 
 /** Elastic Metal Private Network API. */
-class PrivateNetworkAPI extends API$q {
+class PrivateNetworkAPI extends API$s {
   /** Lists the available zones of the API. */
   static LOCALITIES = ['fr-par-2'];
 
@@ -10245,7 +10225,7 @@ class PrivateNetworkAPI extends API$q {
    */
   addServerPrivateNetwork = request => this.client.fetch({
     body: JSON.stringify(marshalPrivateNetworkApiAddServerPrivateNetworkRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$k,
+    headers: jsonContentHeaders$m,
     method: 'POST',
     path: `/baremetal/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/private-networks`
   }, unmarshalServerPrivateNetwork);
@@ -10259,7 +10239,7 @@ class PrivateNetworkAPI extends API$q {
    */
   setServerPrivateNetworks = request => this.client.fetch({
     body: JSON.stringify(marshalPrivateNetworkApiSetServerPrivateNetworksRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$k,
+    headers: jsonContentHeaders$m,
     method: 'PUT',
     path: `/baremetal/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/private-networks`
   }, unmarshalSetServerPrivateNetworksResponse);
@@ -10290,7 +10270,7 @@ class PrivateNetworkAPI extends API$q {
   });
 }
 
-class BaremetalV1UtilsAPI extends API$n {
+class BaremetalV1UtilsAPI extends API$p {
   /**
    * Waits for {@link ServerInstall} to be in a final state.
    *
@@ -10420,7 +10400,7 @@ const UpdateServerRequest = {
   }
 };
 
-var validationRules_gen$4 = /*#__PURE__*/Object.freeze({
+var validationRules_gen$5 = /*#__PURE__*/Object.freeze({
   __proto__: null,
   CreateServerRequest: CreateServerRequest,
   CreateServerRequestInstall: CreateServerRequestInstall,
@@ -10434,19 +10414,19 @@ var validationRules_gen$4 = /*#__PURE__*/Object.freeze({
   UpdateServerRequest: UpdateServerRequest
 });
 
-var index$q = /*#__PURE__*/Object.freeze({
+var index$r = /*#__PURE__*/Object.freeze({
   __proto__: null,
   API: BaremetalV1UtilsAPI,
   PrivateNetworkAPI: PrivateNetworkAPI,
   SERVER_INSTALL_TRANSIENT_STATUSES: SERVER_INSTALL_TRANSIENT_STATUSES,
   SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES: SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES,
   SERVER_TRANSIENT_STATUSES: SERVER_TRANSIENT_STATUSES$1,
-  ValidationRules: validationRules_gen$4
+  ValidationRules: validationRules_gen$5
 });
 
-var index$p = /*#__PURE__*/Object.freeze({
+var index$q = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1: index$q
+  v1: index$r
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -10504,7 +10484,7 @@ const unmarshalListInvoicesResponse = data => {
  *
  * This API allows you to query your consumption. Billing API.
  */
-let API$m = class API extends API$q {
+let API$o = class API extends API$s {
   getConsumption = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/billing/v2alpha1/consumption`,
@@ -10527,14 +10507,14 @@ let API$m = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$j = /*#__PURE__*/Object.freeze({
+var index_gen$l = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$m
+  API: API$o
 });
 
-var index$o = /*#__PURE__*/Object.freeze({
+var index$p = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v2alpha1: index_gen$j
+  v2alpha1: index_gen$l
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -10758,7 +10738,7 @@ const marshalTriggerTestAlertRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$j = {
+const jsonContentHeaders$l = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
@@ -10769,7 +10749,7 @@ const jsonContentHeaders$j = {
  * Projects. Scaleway's Cockpit stores metrics and logs and provides a dedicated
  * Grafana for dashboarding to visualize them.
  */
-let API$l = class API extends API$q {
+let API$n = class API extends API$s {
   /**
    * Activate a Cockpit. Activate the Cockpit of the specified Project ID.
    *
@@ -10778,7 +10758,7 @@ let API$l = class API extends API$q {
    */
   activateCockpit = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalActivateCockpitRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/activate`
   }, unmarshalCockpit);
@@ -10825,7 +10805,7 @@ let API$l = class API extends API$q {
    */
   deactivateCockpit = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalDeactivateCockpitRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/deactivate`
   }, unmarshalCockpit);
@@ -10839,7 +10819,7 @@ let API$l = class API extends API$q {
    */
   resetCockpitGrafana = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalResetCockpitGrafanaRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/reset-grafana`
   }, unmarshalCockpit);
@@ -10852,7 +10832,7 @@ let API$l = class API extends API$q {
    */
   createToken = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalCreateTokenRequest$2(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/tokens`
   }, unmarshalToken$2);
@@ -10900,7 +10880,7 @@ let API$l = class API extends API$q {
    */
   createContactPoint = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalCreateContactPointRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/contact-points`
   }, unmarshalContactPoint);
@@ -10927,7 +10907,7 @@ let API$l = class API extends API$q {
    */
   deleteContactPoint = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalDeleteContactPointRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/delete-contact-point`
   });
@@ -10940,7 +10920,7 @@ let API$l = class API extends API$q {
    */
   enableManagedAlerts = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalEnableManagedAlertsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/enable-managed-alerts`
   });
@@ -10953,7 +10933,7 @@ let API$l = class API extends API$q {
    */
   disableManagedAlerts = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalDisableManagedAlertsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/disable-managed-alerts`
   });
@@ -10966,7 +10946,7 @@ let API$l = class API extends API$q {
    */
   triggerTestAlert = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalTriggerTestAlertRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/trigger-test-alert`
   });
@@ -10981,7 +10961,7 @@ let API$l = class API extends API$q {
    */
   createGrafanaUser = request => this.client.fetch({
     body: JSON.stringify(marshalCreateGrafanaUserRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/grafana-users`
   }, unmarshalGrafanaUser);
@@ -11008,7 +10988,7 @@ let API$l = class API extends API$q {
    */
   deleteGrafanaUser = request => this.client.fetch({
     body: JSON.stringify(marshalDeleteGrafanaUserRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/grafana-users/${validatePathParam('grafanaUserId', request.grafanaUserId)}/delete`
   });
@@ -11022,7 +11002,7 @@ let API$l = class API extends API$q {
    */
   resetGrafanaUserPassword = request => this.client.fetch({
     body: JSON.stringify(marshalResetGrafanaUserPasswordRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/grafana-users/${validatePathParam('grafanaUserId', request.grafanaUserId)}/reset-password`
   }, unmarshalGrafanaUser);
@@ -11050,7 +11030,7 @@ let API$l = class API extends API$q {
    */
   selectPlan = request => this.client.fetch({
     body: JSON.stringify(marshalSelectPlanRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$j,
+    headers: jsonContentHeaders$l,
     method: 'POST',
     path: `/cockpit/v1beta1/select-plan`
   }, unmarshalSelectPlanResponse);
@@ -11059,15 +11039,15 @@ let API$l = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$i = /*#__PURE__*/Object.freeze({
+var index_gen$k = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$l,
+  API: API$n,
   COCKPIT_TRANSIENT_STATUSES: COCKPIT_TRANSIENT_STATUSES
 });
 
-var index$n = /*#__PURE__*/Object.freeze({
+var index$o = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1beta1: index_gen$i
+  v1beta1: index_gen$k
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -11088,6 +11068,9 @@ const NAMESPACE_TRANSIENT_STATUSES$2 = ['deleting', 'creating', 'pending'];
 /** Lists transient statutes of the enum {@link TokenStatus}. */
 const TOKEN_TRANSIENT_STATUSES$1 = ['deleting', 'creating'];
 
+/** Lists transient statutes of the enum {@link TriggerStatus}. */
+const TRIGGER_TRANSIENT_STATUSES$1 = ['deleting', 'creating', 'pending'];
+
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 const unmarshalSecretHashedValue$1 = data => {
@@ -11097,6 +11080,41 @@ const unmarshalSecretHashedValue$1 = data => {
   return {
     hashedValue: data.hashed_value,
     key: data.key
+  };
+};
+const unmarshalTriggerMnqNatsClientConfig$1 = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'TriggerMnqNatsClientConfig' failed as data isn't a dictionary.`);
+  }
+  return {
+    mnqCredentialId: data.mnq_credential_id,
+    mnqNamespaceId: data.mnq_namespace_id,
+    mnqProjectId: data.mnq_project_id,
+    mnqRegion: data.mnq_region,
+    subject: data.subject
+  };
+};
+const unmarshalTriggerMnqSqsClientConfig$1 = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'TriggerMnqSqsClientConfig' failed as data isn't a dictionary.`);
+  }
+  return {
+    mnqCredentialId: data.mnq_credential_id,
+    mnqNamespaceId: data.mnq_namespace_id,
+    mnqProjectId: data.mnq_project_id,
+    mnqRegion: data.mnq_region,
+    queue: data.queue
+  };
+};
+const unmarshalTriggerSqsClientConfig$1 = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'TriggerSqsClientConfig' failed as data isn't a dictionary.`);
+  }
+  return {
+    accessKey: data.access_key,
+    endpoint: data.endpoint,
+    queueUrl: data.queue_url,
+    secretKey: data.secret_key
   };
 };
 const unmarshalContainer = data => {
@@ -11200,6 +11218,23 @@ const unmarshalToken$1 = data => {
     token: data.token
   };
 };
+const unmarshalTrigger$1 = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'Trigger' failed as data isn't a dictionary.`);
+  }
+  return {
+    containerId: data.container_id,
+    description: data.description,
+    errorMessage: data.error_message,
+    id: data.id,
+    inputType: data.input_type,
+    name: data.name,
+    scwNatsConfig: data.scw_nats_config ? unmarshalTriggerMnqNatsClientConfig$1(data.scw_nats_config) : undefined,
+    scwSqsConfig: data.scw_sqs_config ? unmarshalTriggerMnqSqsClientConfig$1(data.scw_sqs_config) : undefined,
+    sqsConfig: data.sqs_config ? unmarshalTriggerSqsClientConfig$1(data.sqs_config) : undefined,
+    status: data.status
+  };
+};
 const unmarshalListContainersResponse = data => {
   if (!isJSONObject(data)) {
     throw new TypeError(`Unmarshalling the type 'ListContainersResponse' failed as data isn't a dictionary.`);
@@ -11254,9 +11289,40 @@ const unmarshalListTokensResponse$1 = data => {
     totalCount: data.total_count
   };
 };
+const unmarshalListTriggersResponse$1 = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'ListTriggersResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    totalCount: data.total_count,
+    triggers: unmarshalArrayOfObject(data.triggers, unmarshalTrigger$1)
+  };
+};
+const marshalCreateTriggerRequestMnqNatsClientConfig$1 = (request, defaults) => ({
+  mnq_namespace_id: request.mnqNamespaceId,
+  mnq_project_id: request.mnqProjectId,
+  mnq_region: request.mnqRegion,
+  subject: request.subject
+});
+const marshalCreateTriggerRequestMnqSqsClientConfig$1 = (request, defaults) => ({
+  mnq_namespace_id: request.mnqNamespaceId,
+  mnq_project_id: request.mnqProjectId,
+  mnq_region: request.mnqRegion,
+  queue: request.queue
+});
+const marshalCreateTriggerRequestSqsClientConfig$1 = (request, defaults) => ({
+  access_key: request.accessKey,
+  endpoint: request.endpoint,
+  queue_url: request.queueUrl,
+  secret_key: request.secretKey
+});
 const marshalSecret$1 = (request, defaults) => ({
   key: request.key,
   value: request.value
+});
+const marshalUpdateTriggerRequestSqsClientConfig$1 = (request, defaults) => ({
+  access_key: request.accessKey,
+  secret_key: request.secretKey
 });
 const marshalCreateContainerRequest = (request, defaults) => ({
   cpu_limit: request.cpuLimit,
@@ -11304,6 +11370,21 @@ const marshalCreateTokenRequest$1 = (request, defaults) => ({
     value: request.namespaceId
   }])
 });
+const marshalCreateTriggerRequest$1 = (request, defaults) => ({
+  container_id: request.containerId,
+  description: request.description,
+  name: request.name,
+  ...resolveOneOf([{
+    param: 'scw_sqs_config',
+    value: request.scwSqsConfig ? marshalCreateTriggerRequestMnqSqsClientConfig$1(request.scwSqsConfig) : undefined
+  }, {
+    param: 'sqs_config',
+    value: request.sqsConfig ? marshalCreateTriggerRequestSqsClientConfig$1(request.sqsConfig) : undefined
+  }, {
+    param: 'scw_nats_config',
+    value: request.scwNatsConfig ? marshalCreateTriggerRequestMnqNatsClientConfig$1(request.scwNatsConfig) : undefined
+  }])
+});
 const marshalUpdateContainerRequest = (request, defaults) => ({
   cpu_limit: request.cpuLimit,
   description: request.description,
@@ -11332,15 +11413,23 @@ const marshalUpdateNamespaceRequest$3 = (request, defaults) => ({
   environment_variables: request.environmentVariables,
   secret_environment_variables: request.secretEnvironmentVariables ? request.secretEnvironmentVariables.map(elt => marshalSecret$1(elt)) : undefined
 });
+const marshalUpdateTriggerRequest$1 = (request, defaults) => ({
+  description: request.description,
+  name: request.name,
+  ...resolveOneOf([{
+    param: 'sqs_config',
+    value: request.sqsConfig ? marshalUpdateTriggerRequestSqsClientConfig$1(request.sqsConfig) : undefined
+  }])
+});
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$i = {
+const jsonContentHeaders$k = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
 /** Serverless Containers API. */
-let API$k = class API extends API$q {
+let API$m = class API extends API$s {
   /** Lists the available regions of the API. */
   static LOCALITIES = ['fr-par', 'nl-ams', 'pl-waw'];
   pageOfListNamespaces = (request = {}) => this.client.fetch({
@@ -11385,7 +11474,7 @@ let API$k = class API extends API$q {
    */
   createNamespace = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalCreateNamespaceRequest$3(request, this.client.settings)),
-    headers: jsonContentHeaders$i,
+    headers: jsonContentHeaders$k,
     method: 'POST',
     path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/namespaces`
   }, unmarshalNamespace$3);
@@ -11399,7 +11488,7 @@ let API$k = class API extends API$q {
    */
   updateNamespace = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateNamespaceRequest$3(request, this.client.settings)),
-    headers: jsonContentHeaders$i,
+    headers: jsonContentHeaders$k,
     method: 'PATCH',
     path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/namespaces/${validatePathParam('namespaceId', request.namespaceId)}`
   }, unmarshalNamespace$3);
@@ -11457,7 +11546,7 @@ let API$k = class API extends API$q {
    */
   createContainer = request => this.client.fetch({
     body: JSON.stringify(marshalCreateContainerRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$i,
+    headers: jsonContentHeaders$k,
     method: 'POST',
     path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/containers`
   }, unmarshalContainer);
@@ -11471,7 +11560,7 @@ let API$k = class API extends API$q {
    */
   updateContainer = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateContainerRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$i,
+    headers: jsonContentHeaders$k,
     method: 'PATCH',
     path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/containers/${validatePathParam('containerId', request.containerId)}`
   }, unmarshalContainer);
@@ -11495,7 +11584,7 @@ let API$k = class API extends API$q {
    */
   deployContainer = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$i,
+    headers: jsonContentHeaders$k,
     method: 'POST',
     path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/containers/${validatePathParam('containerId', request.containerId)}/deploy`
   }, unmarshalContainer);
@@ -11541,7 +11630,7 @@ let API$k = class API extends API$q {
    */
   createCron = request => this.client.fetch({
     body: JSON.stringify(marshalCreateCronRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$i,
+    headers: jsonContentHeaders$k,
     method: 'POST',
     path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/crons`
   }, unmarshalCron$1);
@@ -11554,7 +11643,7 @@ let API$k = class API extends API$q {
    */
   updateCron = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateCronRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$i,
+    headers: jsonContentHeaders$k,
     method: 'PATCH',
     path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/crons/${validatePathParam('cronId', request.cronId)}`
   }, unmarshalCron$1);
@@ -11628,7 +11717,7 @@ let API$k = class API extends API$q {
    */
   createDomain = request => this.client.fetch({
     body: JSON.stringify(marshalCreateDomainRequest$2(request, this.client.settings)),
-    headers: jsonContentHeaders$i,
+    headers: jsonContentHeaders$k,
     method: 'POST',
     path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/domains`
   }, unmarshalDomain$3);
@@ -11670,7 +11759,7 @@ let API$k = class API extends API$q {
    */
   createToken = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalCreateTokenRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$i,
+    headers: jsonContentHeaders$k,
     method: 'POST',
     path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/tokens`
   }, unmarshalToken$1);
@@ -11719,24 +11808,106 @@ let API$k = class API extends API$q {
     method: 'DELETE',
     path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/tokens/${validatePathParam('tokenId', request.tokenId)}`
   }, unmarshalToken$1);
+
+  /**
+   * Create a trigger. Create a new trigger for a specified container.
+   *
+   * @param request - The request {@link CreateTriggerRequest}
+   * @returns A Promise of Trigger
+   */
+  createTrigger = request => this.client.fetch({
+    body: JSON.stringify(marshalCreateTriggerRequest$1(request, this.client.settings)),
+    headers: jsonContentHeaders$k,
+    method: 'POST',
+    path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/triggers`
+  }, unmarshalTrigger$1);
+
+  /**
+   * Get a trigger. Get a trigger with a specified ID.
+   *
+   * @param request - The request {@link GetTriggerRequest}
+   * @returns A Promise of Trigger
+   */
+  getTrigger = request => this.client.fetch({
+    method: 'GET',
+    path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/triggers/${validatePathParam('triggerId', request.triggerId)}`
+  }, unmarshalTrigger$1);
+
+  /**
+   * Waits for {@link Trigger} to be in a final state.
+   *
+   * @param request - The request {@link GetTriggerRequest}
+   * @param options - The waiting options
+   * @returns A Promise of Trigger
+   */
+  waitForTrigger = (request, options) => waitForResource(options?.stop ?? (res => Promise.resolve(!TRIGGER_TRANSIENT_STATUSES$1.includes(res.status))), this.getTrigger, request, options);
+  pageOfListTriggers = (request = {}) => this.client.fetch({
+    method: 'GET',
+    path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/triggers`,
+    urlParams: urlParams(['order_by', request.orderBy ?? 'created_at_asc'], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ...Object.entries(resolveOneOf([{
+      default: this.client.settings.defaultProjectId,
+      param: 'project_id',
+      value: request.projectId
+    }, {
+      param: 'container_id',
+      value: request.containerId
+    }, {
+      param: 'namespace_id',
+      value: request.namespaceId
+    }])))
+  }, unmarshalListTriggersResponse$1);
+
+  /**
+   * List all triggers. List all triggers belonging to a specified Organization
+   * or Project.
+   *
+   * @param request - The request {@link ListTriggersRequest}
+   * @returns A Promise of ListTriggersResponse
+   */
+  listTriggers = (request = {}) => enrichForPagination('triggers', this.pageOfListTriggers, request);
+
+  /**
+   * Update a trigger. Update a trigger with a specified ID.
+   *
+   * @param request - The request {@link UpdateTriggerRequest}
+   * @returns A Promise of Trigger
+   */
+  updateTrigger = request => this.client.fetch({
+    body: JSON.stringify(marshalUpdateTriggerRequest$1(request, this.client.settings)),
+    headers: jsonContentHeaders$k,
+    method: 'PATCH',
+    path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/triggers/${validatePathParam('triggerId', request.triggerId)}`
+  }, unmarshalTrigger$1);
+
+  /**
+   * Delete a trigger. Delete a trigger with a specified ID.
+   *
+   * @param request - The request {@link DeleteTriggerRequest}
+   * @returns A Promise of Trigger
+   */
+  deleteTrigger = request => this.client.fetch({
+    method: 'DELETE',
+    path: `/containers/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/triggers/${validatePathParam('triggerId', request.triggerId)}`
+  }, unmarshalTrigger$1);
 };
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$h = /*#__PURE__*/Object.freeze({
+var index_gen$j = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$k,
+  API: API$m,
   CONTAINER_TRANSIENT_STATUSES: CONTAINER_TRANSIENT_STATUSES,
   CRON_TRANSIENT_STATUSES: CRON_TRANSIENT_STATUSES$1,
   DOMAIN_TRANSIENT_STATUSES: DOMAIN_TRANSIENT_STATUSES$3,
   NAMESPACE_TRANSIENT_STATUSES: NAMESPACE_TRANSIENT_STATUSES$2,
-  TOKEN_TRANSIENT_STATUSES: TOKEN_TRANSIENT_STATUSES$1
+  TOKEN_TRANSIENT_STATUSES: TOKEN_TRANSIENT_STATUSES$1,
+  TRIGGER_TRANSIENT_STATUSES: TRIGGER_TRANSIENT_STATUSES$1
 });
 
-var index$m = /*#__PURE__*/Object.freeze({
+var index$n = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1beta1: index_gen$h
+  v1beta1: index_gen$j
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -12926,7 +13097,7 @@ const marshalUpdateDNSZoneRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$h = {
+const jsonContentHeaders$j = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
@@ -12936,7 +13107,7 @@ const jsonContentHeaders$h = {
  * Domains and DNS API. Manage your domains, DNS zones and records with the
  * Domains and DNS API.
  */
-let API$j = class API extends API$q {
+let API$l = class API extends API$s {
   pageOfListDNSZones = request => this.client.fetch({
     method: 'GET',
     path: `/domain/v2beta1/dns-zones`,
@@ -12961,7 +13132,7 @@ let API$j = class API extends API$q {
    */
   createDNSZone = request => this.client.fetch({
     body: JSON.stringify(marshalCreateDNSZoneRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/dns-zones`
   }, unmarshalDNSZone);
@@ -12974,7 +13145,7 @@ let API$j = class API extends API$q {
    */
   updateDNSZone = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateDNSZoneRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'PATCH',
     path: `/domain/v2beta1/dns-zones/${validatePathParam('dnsZone', request.dnsZone)}`
   }, unmarshalDNSZone);
@@ -12988,7 +13159,7 @@ let API$j = class API extends API$q {
    */
   cloneDNSZone = request => this.client.fetch({
     body: JSON.stringify(marshalCloneDNSZoneRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/dns-zones/${validatePathParam('dnsZone', request.dnsZone)}/clone`
   }, unmarshalDNSZone);
@@ -13041,7 +13212,7 @@ let API$j = class API extends API$q {
    */
   updateDNSZoneRecords = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateDNSZoneRecordsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'PATCH',
     path: `/domain/v2beta1/dns-zones/${validatePathParam('dnsZone', request.dnsZone)}/records`
   }, unmarshalUpdateDNSZoneRecordsResponse);
@@ -13068,7 +13239,7 @@ let API$j = class API extends API$q {
    */
   updateDNSZoneNameservers = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateDNSZoneNameserversRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'PUT',
     path: `/domain/v2beta1/dns-zones/${validatePathParam('dnsZone', request.dnsZone)}/nameservers`
   }, unmarshalUpdateDNSZoneNameserversResponse);
@@ -13108,7 +13279,7 @@ let API$j = class API extends API$q {
    */
   importRawDNSZone = request => this.client.fetch({
     body: JSON.stringify(marshalImportRawDNSZoneRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/dns-zones/${validatePathParam('dnsZone', request.dnsZone)}/raw`
   }, unmarshalImportRawDNSZoneResponse);
@@ -13122,7 +13293,7 @@ let API$j = class API extends API$q {
    */
   importProviderDNSZone = request => this.client.fetch({
     body: JSON.stringify(marshalImportProviderDNSZoneRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/dns-zones/${validatePathParam('dnsZone', request.dnsZone)}/import-provider`
   }, unmarshalImportProviderDNSZoneResponse);
@@ -13137,7 +13308,7 @@ let API$j = class API extends API$q {
    */
   refreshDNSZone = request => this.client.fetch({
     body: JSON.stringify(marshalRefreshDNSZoneRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/dns-zones/${validatePathParam('dnsZone', request.dnsZone)}/refresh`
   }, unmarshalRefreshDNSZoneResponse);
@@ -13192,7 +13363,7 @@ let API$j = class API extends API$q {
    */
   restoreDNSZoneVersion = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/dns-zones/version/${validatePathParam('dnsZoneVersionId', request.dnsZoneVersionId)}/restore`
   }, unmarshalRestoreDNSZoneVersionResponse);
@@ -13227,7 +13398,7 @@ let API$j = class API extends API$q {
    */
   createSSLCertificate = request => this.client.fetch({
     body: JSON.stringify(marshalCreateSSLCertificateRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/ssl-certificates`
   }, unmarshalSSLCertificate);
@@ -13288,7 +13459,7 @@ let API$j = class API extends API$q {
  *
  * Domains and DNS - Registrar API. Manage your domains and contacts.
  */
-class RegistrarAPI extends API$q {
+class RegistrarAPI extends API$s {
   pageOfListTasks = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/domain/v2beta1/tasks`,
@@ -13296,7 +13467,8 @@ class RegistrarAPI extends API$q {
   }, unmarshalListTasksResponse);
 
   /**
-   * List tasks. List all account tasks. You can filter the list by domain name.
+   * List tasks. List all operations performed on the account. You can filter
+   * the list of tasks by domain name.
    *
    * @param request - The request {@link RegistrarApiListTasksRequest}
    * @returns A Promise of ListTasksResponse
@@ -13304,59 +13476,62 @@ class RegistrarAPI extends API$q {
   listTasks = (request = {}) => enrichForPagination('tasks', this.pageOfListTasks, request);
 
   /**
-   * Buy one or more domains. Request the registration of domain names. You can
-   * provide an already existing domain's contact or a new contact.
+   * Purchase domains. Request the registration of domain names. You can provide
+   * a domain's already existing contact or a new contact.
    *
    * @param request - The request {@link RegistrarApiBuyDomainsRequest}
    * @returns A Promise of OrderResponse
    */
   buyDomains = request => this.client.fetch({
     body: JSON.stringify(marshalRegistrarApiBuyDomainsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/buy-domains`
   }, unmarshalOrderResponse);
 
   /**
-   * Renew one or more domains. Request the renewal of domain names.
+   * Renew domains. Request the renewal of one or more domain names.
    *
    * @param request - The request {@link RegistrarApiRenewDomainsRequest}
    * @returns A Promise of OrderResponse
    */
   renewDomains = request => this.client.fetch({
     body: JSON.stringify(marshalRegistrarApiRenewDomainsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/renew-domains`
   }, unmarshalOrderResponse);
 
   /**
-   * Transfer a domain. Request the transfer from another registrar domain to
-   * Scaleway.
+   * Transfer a domain. Request the transfer of a domain from another registrar
+   * to Scaleway Domains and DNS.
    *
    * @param request - The request {@link RegistrarApiTransferInDomainRequest}
    * @returns A Promise of OrderResponse
    */
   transferInDomain = request => this.client.fetch({
     body: JSON.stringify(marshalRegistrarApiTransferInDomainRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/domains/transfer-domains`
   }, unmarshalOrderResponse);
 
   /**
-   * Trade a domain contact. Request a trade for the contact owner.<br/> If an
-   * `organization_id` is given, the change is from the current Scaleway account
-   * to another Scaleway account.<br/> If no contact is given, the first contact
-   * of the other Scaleway account is taken.<br/> If the other Scaleway account
-   * has no contact. An error occurs.
+   * Trade a domain's contact. Request to change a domain's contact owner.<br/>
+   * If you specify the `organization_id` of the domain's new owner, the contact
+   * will change from the current owner's Scaleway account to the new owner's
+   * Scaleway account.<br/> If the new owner's current contact information is
+   * not available, the first ever contact they have created for previous
+   * domains is taken into account to operate the change.<br/> If the new owner
+   * has never created a contact to register domains before, an error message
+   * displays.
    *
    * @param request - The request {@link RegistrarApiTradeDomainRequest}
    * @returns A Promise of OrderResponse
    */
   tradeDomain = request => this.client.fetch({
     body: JSON.stringify(marshalRegistrarApiTradeDomainRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/domains/${validatePathParam('domain', request.domain)}/trade`
   }, unmarshalOrderResponse);
@@ -13371,7 +13546,7 @@ class RegistrarAPI extends API$q {
    */
   registerExternalDomain = request => this.client.fetch({
     body: JSON.stringify(marshalRegistrarApiRegisterExternalDomainRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/external-domains`
   }, unmarshalRegisterExternalDomainResponse);
@@ -13388,9 +13563,10 @@ class RegistrarAPI extends API$q {
   }, unmarshalDeleteExternalDomainResponse);
 
   /**
-   * Check if contacts are compatible against a domain or a tld. Check if
-   * contacts are compatible against a domain or a tld. If not, it will return
-   * the information requiring a correction.
+   * Check if contacts are compatible with a domain or a TLD. Check whether
+   * contacts are compatible with a domain or a TLD. If contacts are not
+   * compatible with either the domain or the TLD, the information that needs to
+   * be corrected is returned.
    *
    * @param request - The request
    *   {@link RegistrarApiCheckContactsCompatibilityRequest}
@@ -13398,7 +13574,7 @@ class RegistrarAPI extends API$q {
    */
   checkContactsCompatibility = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalRegistrarApiCheckContactsCompatibilityRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/check-contacts-compatibility`
   }, unmarshalCheckContactsCompatibilityResponse);
@@ -13409,8 +13585,8 @@ class RegistrarAPI extends API$q {
   }, unmarshalListContactsResponse);
 
   /**
-   * List contacts. Return a list of contacts with their domains and roles. You
-   * can filter the list by domain name.
+   * List contacts. Retrieve the list of contacts and their associated domains
+   * and roles. You can filter the list by domain name.
    *
    * @param request - The request {@link RegistrarApiListContactsRequest}
    * @returns A Promise of ListContactsResponse
@@ -13418,8 +13594,8 @@ class RegistrarAPI extends API$q {
   listContacts = (request = {}) => enrichForPagination('contacts', this.pageOfListContacts, request);
 
   /**
-   * Get a contact. Return a contact details retrieved from the registrar using
-   * a given contact ID.
+   * Get a contact. Retrieve a contact's details from the registrar using the
+   * given contact's ID.
    *
    * @param request - The request {@link RegistrarApiGetContactRequest}
    * @returns A Promise of Contact
@@ -13430,14 +13606,14 @@ class RegistrarAPI extends API$q {
   }, unmarshalContact);
 
   /**
-   * Update contact. You can edit the contact coordinates.
+   * Update contact. Edit the contact's information.
    *
    * @param request - The request {@link RegistrarApiUpdateContactRequest}
    * @returns A Promise of Contact
    */
   updateContact = request => this.client.fetch({
     body: JSON.stringify(marshalRegistrarApiUpdateContactRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'PATCH',
     path: `/domain/v2beta1/contacts/${validatePathParam('contactId', request.contactId)}`
   }, unmarshalContact);
@@ -13448,7 +13624,7 @@ class RegistrarAPI extends API$q {
   }, unmarshalListDomainsResponse$2);
 
   /**
-   * List domains. Returns a list of domains owned by the user.
+   * List domains. Retrieve the list of domains you own.
    *
    * @param request - The request {@link RegistrarApiListDomainsRequest}
    * @returns A Promise of ListDomainsResponse
@@ -13461,9 +13637,9 @@ class RegistrarAPI extends API$q {
   }, unmarshalListRenewableDomainsResponse);
 
   /**
-   * List scaleway domains that can or not be renewed. Returns a list of domains
-   * owned by the user with a renew status and if renewable, the maximum renew
-   * duration in years.
+   * List domains that can be renewed. Retrieve the list of domains you own that
+   * can be renewed. You can also see the maximum renewal duration in years for
+   * your domains that are renewable.
    *
    * @param request - The request {@link RegistrarApiListRenewableDomainsRequest}
    * @returns A Promise of ListRenewableDomainsResponse
@@ -13471,7 +13647,8 @@ class RegistrarAPI extends API$q {
   listRenewableDomains = (request = {}) => enrichForPagination('domains', this.pageOfListRenewableDomains, request);
 
   /**
-   * Get domain. Returns a the domain with more informations.
+   * Get domain. Retrieve a specific domain and display the domain's
+   * information.
    *
    * @param request - The request {@link RegistrarApiGetDomainRequest}
    * @returns A Promise of Domain
@@ -13491,50 +13668,54 @@ class RegistrarAPI extends API$q {
   waitForDomain = (request, options) => waitForResource(options?.stop ?? (res => Promise.resolve(!DOMAIN_TRANSIENT_STATUSES$2.includes(res.status))), this.getDomain, request, options);
 
   /**
-   * Update a domain. Update the domain contacts or create a new one.<br/> If
-   * you add the same contact for multiple roles. Only one ID will be created
-   * and used for all of them.
+   * Update a domain's contacts. Update contacts for a specific domain or create
+   * a new contact.<br/> If you add the same contact for multiple roles (owner,
+   * administrative, technical), only one ID will be created and used for all of
+   * the roles.
    *
    * @param request - The request {@link RegistrarApiUpdateDomainRequest}
    * @returns A Promise of Domain
    */
   updateDomain = request => this.client.fetch({
     body: JSON.stringify(marshalRegistrarApiUpdateDomainRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'PATCH',
     path: `/domain/v2beta1/domains/${validatePathParam('domain', request.domain)}`
   }, unmarshalDomain$2);
 
   /**
-   * Lock domain transfer. Lock domain transfer. A locked domain transfer can't
-   * be transferred and the auth code can't be requested.
+   * Lock the transfer of a domain. Lock the transfer of a domain. This means
+   * that the domain cannot be transferred and the authorization code cannot be
+   * requested to your current registrar.
    *
    * @param request - The request {@link RegistrarApiLockDomainTransferRequest}
    * @returns A Promise of Domain
    */
   lockDomainTransfer = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/domains/${validatePathParam('domain', request.domain)}/lock-transfer`
   }, unmarshalDomain$2);
 
   /**
-   * Unlock domain transfer. Unlock domain transfer. An unlocked domain can be
-   * transferred and the auth code can be requested for this.
+   * Unlock the transfer of a domain. Unlock the transfer of a domain. This
+   * means that the domain can be transferred and the authorization code can be
+   * requested to your current registrar.
    *
    * @param request - The request {@link RegistrarApiUnlockDomainTransferRequest}
    * @returns A Promise of Domain
    */
   unlockDomainTransfer = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/domains/${validatePathParam('domain', request.domain)}/unlock-transfer`
   }, unmarshalDomain$2);
 
   /**
-   * Enable domain auto renew.
+   * Enable auto renew. Enable the `auto renew` feature for a domain. This means
+   * the domain will be automatically renewed before its expiry date.
    *
    * @param request - The request
    *   {@link RegistrarApiEnableDomainAutoRenewRequest}
@@ -13542,13 +13723,14 @@ class RegistrarAPI extends API$q {
    */
   enableDomainAutoRenew = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/domains/${validatePathParam('domain', request.domain)}/enable-auto-renew`
   }, unmarshalDomain$2);
 
   /**
-   * Disable domain auto renew.
+   * Disable auto renew. Disable the `auto renew` feature for a domain. This
+   * means the domain will not be renewed before its expiry date.
    *
    * @param request - The request
    *   {@link RegistrarApiDisableDomainAutoRenewRequest}
@@ -13556,16 +13738,17 @@ class RegistrarAPI extends API$q {
    */
   disableDomainAutoRenew = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/domains/${validatePathParam('domain', request.domain)}/disable-auto-renew`
   }, unmarshalDomain$2);
 
   /**
-   * Return domain auth code. If possible, return the auth code for an unlocked
-   * domain transfer, or an error if the domain is locked. Some TLD may have a
-   * different procedure to retrieve the auth code, in that case, the
-   * information is given in the message field.
+   * Get a domain's authorization code. Retrieve the authorization code to
+   * tranfer an unlocked domain. The output returns an error if the domain is
+   * locked. Some TLDs may have a different procedure to retrieve the
+   * authorization code. In that case, the information displays in the message
+   * field.
    *
    * @param request - The request {@link RegistrarApiGetDomainAuthCodeRequest}
    * @returns A Promise of GetDomainAuthCodeResponse
@@ -13577,56 +13760,37 @@ class RegistrarAPI extends API$q {
 
   /**
    * Update domain DNSSEC. If your domain has the default Scaleway NS and uses
-   * another registrar, you have to update the DS record manually. For the
-   * algorithm, here are the code numbers for each type:
-   *
-   * - 1: RSAMD5
-   * - 2: DIFFIE_HELLMAN
-   * - 3: DSA_SHA1
-   * - 5: RSA_SHA1
-   * - 6: DSA_NSEC3_SHA1
-   * - 7: RSASHA1_NSEC3_SHA1
-   * - 8: RSASHA256
-   * - 10: RSASHA512
-   * - 12: ECC_GOST
-   * - 13: ECDSAP256SHA256
-   * - 14: ECDSAP384SHA384
-   *
-   * And for the digest type:
-   *
-   * - 1: SHA_1
-   * - 2: SHA_256
-   * - 3: GOST_R_34_11_94
-   * - 4: SHA_384
+   * another registrar, you have to update the DS record manually.
    *
    * @param request - The request {@link RegistrarApiEnableDomainDNSSECRequest}
    * @returns A Promise of Domain
    */
   enableDomainDNSSEC = request => this.client.fetch({
     body: JSON.stringify(marshalRegistrarApiEnableDomainDNSSECRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/domains/${validatePathParam('domain', request.domain)}/enable-dnssec`
   }, unmarshalDomain$2);
 
   /**
-   * Disable domain DNSSEC.
+   * Disable a domain's DNSSEC. Disable DNSSEC for a domain.
    *
    * @param request - The request {@link RegistrarApiDisableDomainDNSSECRequest}
    * @returns A Promise of Domain
    */
   disableDomainDNSSEC = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/domains/${validatePathParam('domain', request.domain)}/disable-dnssec`
   }, unmarshalDomain$2);
 
   /**
-   * Search available domains. Search a domain (or at maximum, 10 domains).
+   * Search available domains. Search a domain or a maximum of 10 domains that
+   * are available.
    *
-   * If the TLD list is empty or not set the search returns the results from the
-   * most popular TLDs.
+   * If the TLD list is empty or not set, the search returns the results from
+   * the most popular TLDs.
    *
    * @param request - The request
    *   {@link RegistrarApiSearchAvailableDomainsRequest}
@@ -13639,14 +13803,15 @@ class RegistrarAPI extends API$q {
   }, unmarshalSearchAvailableDomainsResponse);
 
   /**
-   * Create domain hostname with glue IPs.
+   * Create a hostname for a domain. Create a hostname for a domain with glue
+   * IPs.
    *
    * @param request - The request {@link RegistrarApiCreateDomainHostRequest}
    * @returns A Promise of Host
    */
   createDomainHost = request => this.client.fetch({
     body: JSON.stringify(marshalRegistrarApiCreateDomainHostRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'POST',
     path: `/domain/v2beta1/domains/${validatePathParam('domain', request.domain)}/hosts`
   }, unmarshalHost);
@@ -13657,7 +13822,7 @@ class RegistrarAPI extends API$q {
   }, unmarshalListDomainHostsResponse);
 
   /**
-   * List domain hostnames with they glue IPs.
+   * List a domain's hostnames. List a domain's hostnames using their glue IPs.
    *
    * @param request - The request {@link RegistrarApiListDomainHostsRequest}
    * @returns A Promise of ListDomainHostsResponse
@@ -13665,20 +13830,20 @@ class RegistrarAPI extends API$q {
   listDomainHosts = request => enrichForPagination('hosts', this.pageOfListDomainHosts, request);
 
   /**
-   * Update domain hostname with glue IPs.
+   * Update a domain's hostname. Update a domain's hostname with glue IPs.
    *
    * @param request - The request {@link RegistrarApiUpdateDomainHostRequest}
    * @returns A Promise of Host
    */
   updateDomainHost = request => this.client.fetch({
     body: JSON.stringify(marshalRegistrarApiUpdateDomainHostRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$h,
+    headers: jsonContentHeaders$j,
     method: 'PATCH',
     path: `/domain/v2beta1/domains/${validatePathParam('domain', request.domain)}/hosts/${validatePathParam('name', request.name)}`
   }, unmarshalHost);
 
   /**
-   * Delete domain hostname.
+   * Delete a domain's hostname. Delete a domain's hostname.
    *
    * @param request - The request {@link RegistrarApiDeleteDomainHostRequest}
    * @returns A Promise of Host
@@ -13692,9 +13857,9 @@ class RegistrarAPI extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$g = /*#__PURE__*/Object.freeze({
+var index_gen$i = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$j,
+  API: API$l,
   DNS_ZONE_TRANSIENT_STATUSES: DNS_ZONE_TRANSIENT_STATUSES,
   DOMAIN_FEATURE_TRANSIENT_STATUSES: DOMAIN_FEATURE_TRANSIENT_STATUSES,
   DOMAIN_REGISTRATION_STATUS_TRANSFER_TRANSIENT_STATUSES: DOMAIN_REGISTRATION_STATUS_TRANSFER_TRANSIENT_STATUSES,
@@ -13705,9 +13870,9 @@ var index_gen$g = /*#__PURE__*/Object.freeze({
   TASK_TRANSIENT_STATUSES: TASK_TRANSIENT_STATUSES$1
 });
 
-var index$l = /*#__PURE__*/Object.freeze({
+var index$m = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v2beta1: index_gen$g
+  v2beta1: index_gen$i
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -13814,12 +13979,12 @@ const marshalUpdateFlexibleIPRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$g = {
+const jsonContentHeaders$i = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
 /** Elastic Metal - Flexible IP API. */
-let API$i = class API extends API$q {
+let API$k = class API extends API$s {
   /** Lists the available zones of the API. */
   static LOCALITIES = ['fr-par-1', 'fr-par-2', 'nl-ams-1'];
 
@@ -13832,7 +13997,7 @@ let API$i = class API extends API$q {
    */
   createFlexibleIP = request => this.client.fetch({
     body: JSON.stringify(marshalCreateFlexibleIPRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$g,
+    headers: jsonContentHeaders$i,
     method: 'POST',
     path: `/flexible-ip/v1alpha1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/fips`
   }, unmarshalFlexibleIP);
@@ -13882,7 +14047,7 @@ let API$i = class API extends API$q {
    */
   updateFlexibleIP = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateFlexibleIPRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$g,
+    headers: jsonContentHeaders$i,
     method: 'PATCH',
     path: `/flexible-ip/v1alpha1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/fips/${validatePathParam('fipId', request.fipId)}`
   }, unmarshalFlexibleIP);
@@ -13908,7 +14073,7 @@ let API$i = class API extends API$q {
    */
   attachFlexibleIP = request => this.client.fetch({
     body: JSON.stringify(marshalAttachFlexibleIPRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$g,
+    headers: jsonContentHeaders$i,
     method: 'POST',
     path: `/flexible-ip/v1alpha1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/fips/attach`
   }, unmarshalAttachFlexibleIPsResponse);
@@ -13922,7 +14087,7 @@ let API$i = class API extends API$q {
    */
   detachFlexibleIP = request => this.client.fetch({
     body: JSON.stringify(marshalDetachFlexibleIPRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$g,
+    headers: jsonContentHeaders$i,
     method: 'POST',
     path: `/flexible-ip/v1alpha1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/fips/detach`
   }, unmarshalDetachFlexibleIPsResponse);
@@ -13936,7 +14101,7 @@ let API$i = class API extends API$q {
    */
   generateMACAddr = request => this.client.fetch({
     body: JSON.stringify(marshalGenerateMACAddrRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$g,
+    headers: jsonContentHeaders$i,
     method: 'POST',
     path: `/flexible-ip/v1alpha1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/fips/${validatePathParam('fipId', request.fipId)}/mac`
   }, unmarshalFlexibleIP);
@@ -13951,7 +14116,7 @@ let API$i = class API extends API$q {
    */
   duplicateMACAddr = request => this.client.fetch({
     body: JSON.stringify(marshalDuplicateMACAddrRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$g,
+    headers: jsonContentHeaders$i,
     method: 'POST',
     path: `/flexible-ip/v1alpha1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/fips/${validatePathParam('fipId', request.fipId)}/mac/duplicate`
   }, unmarshalFlexibleIP);
@@ -13966,7 +14131,7 @@ let API$i = class API extends API$q {
    */
   moveMACAddr = request => this.client.fetch({
     body: JSON.stringify(marshalMoveMACAddrRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$g,
+    headers: jsonContentHeaders$i,
     method: 'POST',
     path: `/flexible-ip/v1alpha1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/fips/${validatePathParam('fipId', request.fipId)}/mac/move`
   }, unmarshalFlexibleIP);
@@ -13996,7 +14161,7 @@ const ListFlexibleIPsRequest = {
   }
 };
 
-var validationRules_gen$3 = /*#__PURE__*/Object.freeze({
+var validationRules_gen$4 = /*#__PURE__*/Object.freeze({
   __proto__: null,
   ListFlexibleIPsRequest: ListFlexibleIPsRequest
 });
@@ -14004,17 +14169,17 @@ var validationRules_gen$3 = /*#__PURE__*/Object.freeze({
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$f = /*#__PURE__*/Object.freeze({
+var index_gen$h = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$i,
+  API: API$k,
   FLEXIBLE_IP_TRANSIENT_STATUSES: FLEXIBLE_IP_TRANSIENT_STATUSES,
   MAC_ADDRESS_TRANSIENT_STATUSES: MAC_ADDRESS_TRANSIENT_STATUSES,
-  ValidationRules: validationRules_gen$3
+  ValidationRules: validationRules_gen$4
 });
 
-var index$k = /*#__PURE__*/Object.freeze({
+var index$l = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1alpha1: index_gen$f
+  v1alpha1: index_gen$h
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -14429,12 +14594,12 @@ const marshalUpdateTriggerRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$f = {
+const jsonContentHeaders$h = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
 /** Serverless Functions API. */
-let API$h = class API extends API$q {
+let API$j = class API extends API$s {
   /** Lists the available regions of the API. */
   static LOCALITIES = ['fr-par', 'nl-ams', 'pl-waw'];
   pageOfListNamespaces = (request = {}) => this.client.fetch({
@@ -14474,14 +14639,14 @@ let API$h = class API extends API$q {
 
   /**
    * Create a new namespace. Create a new namespace in a specified Organization
-   * or Proejct.
+   * or Project.
    *
    * @param request - The request {@link CreateNamespaceRequest}
    * @returns A Promise of Namespace
    */
   createNamespace = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalCreateNamespaceRequest$2(request, this.client.settings)),
-    headers: jsonContentHeaders$f,
+    headers: jsonContentHeaders$h,
     method: 'POST',
     path: `/functions/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/namespaces`
   }, unmarshalNamespace$2);
@@ -14495,7 +14660,7 @@ let API$h = class API extends API$q {
    */
   updateNamespace = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateNamespaceRequest$2(request, this.client.settings)),
-    headers: jsonContentHeaders$f,
+    headers: jsonContentHeaders$h,
     method: 'PATCH',
     path: `/functions/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/namespaces/${validatePathParam('namespaceId', request.namespaceId)}`
   }, unmarshalNamespace$2);
@@ -14554,7 +14719,7 @@ let API$h = class API extends API$q {
    */
   createFunction = request => this.client.fetch({
     body: JSON.stringify(marshalCreateFunctionRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$f,
+    headers: jsonContentHeaders$h,
     method: 'POST',
     path: `/functions/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/functions`
   }, unmarshalFunction);
@@ -14568,7 +14733,7 @@ let API$h = class API extends API$q {
    */
   updateFunction = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateFunctionRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$f,
+    headers: jsonContentHeaders$h,
     method: 'PATCH',
     path: `/functions/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/functions/${validatePathParam('functionId', request.functionId)}`
   }, unmarshalFunction);
@@ -14592,7 +14757,7 @@ let API$h = class API extends API$q {
    */
   deployFunction = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$f,
+    headers: jsonContentHeaders$h,
     method: 'POST',
     path: `/functions/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/functions/${validatePathParam('functionId', request.functionId)}/deploy`
   }, unmarshalFunction);
@@ -14675,7 +14840,7 @@ let API$h = class API extends API$q {
    */
   createCron = request => this.client.fetch({
     body: JSON.stringify(marshalCreateCronRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$f,
+    headers: jsonContentHeaders$h,
     method: 'POST',
     path: `/functions/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/crons`
   }, unmarshalCron);
@@ -14688,7 +14853,7 @@ let API$h = class API extends API$q {
    */
   updateCron = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateCronRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$f,
+    headers: jsonContentHeaders$h,
     method: 'PATCH',
     path: `/functions/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/crons/${validatePathParam('cronId', request.cronId)}`
   }, unmarshalCron);
@@ -14762,7 +14927,7 @@ let API$h = class API extends API$q {
    */
   createDomain = request => this.client.fetch({
     body: JSON.stringify(marshalCreateDomainRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$f,
+    headers: jsonContentHeaders$h,
     method: 'POST',
     path: `/functions/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/domains`
   }, unmarshalDomain$1);
@@ -14804,7 +14969,7 @@ let API$h = class API extends API$q {
    */
   createToken = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalCreateTokenRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$f,
+    headers: jsonContentHeaders$h,
     method: 'POST',
     path: `/functions/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/tokens`
   }, unmarshalToken);
@@ -14854,7 +15019,7 @@ let API$h = class API extends API$q {
   }, unmarshalToken);
   createTrigger = request => this.client.fetch({
     body: JSON.stringify(marshalCreateTriggerRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$f,
+    headers: jsonContentHeaders$h,
     method: 'POST',
     path: `/functions/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/triggers`
   }, unmarshalTrigger);
@@ -14889,7 +15054,7 @@ let API$h = class API extends API$q {
   listTriggers = (request = {}) => enrichForPagination('triggers', this.pageOfListTriggers, request);
   updateTrigger = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateTriggerRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$f,
+    headers: jsonContentHeaders$h,
     method: 'PATCH',
     path: `/functions/v1beta1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/triggers/${validatePathParam('triggerId', request.triggerId)}`
   }, unmarshalTrigger);
@@ -14902,9 +15067,9 @@ let API$h = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$e = /*#__PURE__*/Object.freeze({
+var index_gen$g = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$h,
+  API: API$j,
   CRON_TRANSIENT_STATUSES: CRON_TRANSIENT_STATUSES,
   DOMAIN_TRANSIENT_STATUSES: DOMAIN_TRANSIENT_STATUSES$1,
   FUNCTION_TRANSIENT_STATUSES: FUNCTION_TRANSIENT_STATUSES,
@@ -14913,9 +15078,9 @@ var index_gen$e = /*#__PURE__*/Object.freeze({
   TRIGGER_TRANSIENT_STATUSES: TRIGGER_TRANSIENT_STATUSES
 });
 
-var index$j = /*#__PURE__*/Object.freeze({
+var index$k = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1beta1: index_gen$e
+  v1beta1: index_gen$g
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -15191,6 +15356,10 @@ const marshalAddGroupMemberRequest = (request, defaults) => ({
     value: request.applicationId
   }])
 });
+const marshalAddGroupMembersRequest = (request, defaults) => ({
+  application_ids: request.applicationIds,
+  user_ids: request.userIds
+});
 const marshalCreateAPIKeyRequest = (request, defaults) => ({
   default_project_id: request.defaultProjectId,
   description: request.description,
@@ -15290,12 +15459,12 @@ const marshalUpdateSSHKeyRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$e = {
+const jsonContentHeaders$g = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
 /** IAM API. */
-let API$g = class API extends API$q {
+let API$i = class API extends API$s {
   pageOfListSSHKeys = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/iam/v1alpha1/ssh-keys`,
@@ -15322,7 +15491,7 @@ let API$g = class API extends API$q {
    */
   createSSHKey = request => this.client.fetch({
     body: JSON.stringify(marshalCreateSSHKeyRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'POST',
     path: `/iam/v1alpha1/ssh-keys`
   }, unmarshalSSHKey);
@@ -15349,7 +15518,7 @@ let API$g = class API extends API$q {
    */
   updateSSHKey = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateSSHKeyRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'PATCH',
     path: `/iam/v1alpha1/ssh-keys/${validatePathParam('sshKeyId', request.sshKeyId)}`
   }, unmarshalSSHKey);
@@ -15437,7 +15606,7 @@ let API$g = class API extends API$q {
    */
   createApplication = request => this.client.fetch({
     body: JSON.stringify(marshalCreateApplicationRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'POST',
     path: `/iam/v1alpha1/applications`
   }, unmarshalApplication);
@@ -15465,7 +15634,7 @@ let API$g = class API extends API$q {
    */
   updateApplication = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateApplicationRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'PATCH',
     path: `/iam/v1alpha1/applications/${validatePathParam('applicationId', request.applicationId)}`
   }, unmarshalApplication);
@@ -15509,7 +15678,7 @@ let API$g = class API extends API$q {
    */
   createGroup = request => this.client.fetch({
     body: JSON.stringify(marshalCreateGroupRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'POST',
     path: `/iam/v1alpha1/groups`
   }, unmarshalGroup);
@@ -15536,7 +15705,7 @@ let API$g = class API extends API$q {
    */
   updateGroup = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateGroupRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'PATCH',
     path: `/iam/v1alpha1/groups/${validatePathParam('groupId', request.groupId)}`
   }, unmarshalGroup);
@@ -15551,7 +15720,7 @@ let API$g = class API extends API$q {
    */
   setGroupMembers = request => this.client.fetch({
     body: JSON.stringify(marshalSetGroupMembersRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'PUT',
     path: `/iam/v1alpha1/groups/${validatePathParam('groupId', request.groupId)}/members`
   }, unmarshalGroup);
@@ -15566,9 +15735,27 @@ let API$g = class API extends API$q {
    */
   addGroupMember = request => this.client.fetch({
     body: JSON.stringify(marshalAddGroupMemberRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'POST',
     path: `/iam/v1alpha1/groups/${validatePathParam('groupId', request.groupId)}/add-member`
+  }, unmarshalGroup);
+
+  /**
+   * Add multiple users and applications to a group. Add multiple users and
+   * applications to a group in a single call. You can specify an array of
+   * `user_id`s and `application_id`s. Note that any existing users and
+   * applications in the group will remain. To add new users/applications and
+   * delete pre-existing ones, use the [Overwrite users and applications of a
+   * group](#path-groups-overwrite-users-and-applications-of-a-group) method.
+   *
+   * @param request - The request {@link AddGroupMembersRequest}
+   * @returns A Promise of Group
+   */
+  addGroupMembers = request => this.client.fetch({
+    body: JSON.stringify(marshalAddGroupMembersRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$g,
+    method: 'POST',
+    path: `/iam/v1alpha1/groups/${validatePathParam('groupId', request.groupId)}/add-members`
   }, unmarshalGroup);
 
   /**
@@ -15585,7 +15772,7 @@ let API$g = class API extends API$q {
    */
   removeGroupMember = request => this.client.fetch({
     body: JSON.stringify(marshalRemoveGroupMemberRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'POST',
     path: `/iam/v1alpha1/groups/${validatePathParam('groupId', request.groupId)}/remove-member`
   }, unmarshalGroup);
@@ -15631,7 +15818,7 @@ let API$g = class API extends API$q {
    */
   createPolicy = request => this.client.fetch({
     body: JSON.stringify(marshalCreatePolicyRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'POST',
     path: `/iam/v1alpha1/policies`
   }, unmarshalPolicy);
@@ -15660,7 +15847,7 @@ let API$g = class API extends API$q {
    */
   updatePolicy = request => this.client.fetch({
     body: JSON.stringify(marshalUpdatePolicyRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'PATCH',
     path: `/iam/v1alpha1/policies/${validatePathParam('policyId', request.policyId)}`
   }, unmarshalPolicy);
@@ -15687,7 +15874,7 @@ let API$g = class API extends API$q {
    */
   clonePolicy = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'POST',
     path: `/iam/v1alpha1/policies/${validatePathParam('policyId', request.policyId)}/clone`
   }, unmarshalPolicy);
@@ -15705,7 +15892,7 @@ let API$g = class API extends API$q {
    */
   setRules = request => this.client.fetch({
     body: JSON.stringify(marshalSetRulesRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'PUT',
     path: `/iam/v1alpha1/rules`
   }, unmarshalSetRulesResponse);
@@ -15776,7 +15963,7 @@ let API$g = class API extends API$q {
    */
   createAPIKey = request => this.client.fetch({
     body: JSON.stringify(marshalCreateAPIKeyRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'POST',
     path: `/iam/v1alpha1/api-keys`
   }, unmarshalAPIKey);
@@ -15806,7 +15993,7 @@ let API$g = class API extends API$q {
    */
   updateAPIKey = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateAPIKeyRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$e,
+    headers: jsonContentHeaders$g,
     method: 'PATCH',
     path: `/iam/v1alpha1/api-keys/${validatePathParam('accessKey', request.accessKey)}`
   }, unmarshalAPIKey);
@@ -16095,7 +16282,7 @@ const UpdateSSHKeyRequest = {
   }
 };
 
-var validationRules_gen$2 = /*#__PURE__*/Object.freeze({
+var validationRules_gen$3 = /*#__PURE__*/Object.freeze({
   __proto__: null,
   CreateAPIKeyRequest: CreateAPIKeyRequest,
   CreateApplicationRequest: CreateApplicationRequest,
@@ -16123,15 +16310,15 @@ var validationRules_gen$2 = /*#__PURE__*/Object.freeze({
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$d = /*#__PURE__*/Object.freeze({
+var index_gen$f = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$g,
-  ValidationRules: validationRules_gen$2
+  API: API$i,
+  ValidationRules: validationRules_gen$3
 });
 
-var index$i = /*#__PURE__*/Object.freeze({
+var index$j = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1alpha1: index_gen$d
+  v1alpha1: index_gen$f
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -16182,7 +16369,7 @@ const unmarshalServerTypeVolumeConstraintSizes = data => {
     minSize: data.min_size
   };
 };
-const unmarshalVolume$1 = data => {
+const unmarshalVolume$2 = data => {
   if (!isJSONObject(data)) {
     throw new TypeError(`Unmarshalling the type 'Volume' failed as data isn't a dictionary.`);
   }
@@ -16221,7 +16408,7 @@ const unmarshalImage$3 = data => {
     arch: data.arch,
     creationDate: unmarshalDate(data.creation_date),
     defaultBootscript: data.default_bootscript ? unmarshalBootscript(data.default_bootscript) : undefined,
-    extraVolumes: unmarshalMapOfObject(data.extra_volumes, unmarshalVolume$1),
+    extraVolumes: unmarshalMapOfObject(data.extra_volumes, unmarshalVolume$2),
     fromServer: data.from_server,
     id: data.id,
     modificationDate: unmarshalDate(data.modification_date),
@@ -16280,7 +16467,11 @@ const unmarshalServerIp = data => {
   return {
     address: data.address,
     dynamic: data.dynamic,
-    id: data.id
+    family: data.family,
+    gateway: data.gateway,
+    id: data.id,
+    netmask: data.netmask,
+    provisioningMode: data.provisioning_mode
   };
 };
 const unmarshalServerIpv6 = data => {
@@ -16425,10 +16616,13 @@ const unmarshalIp$1 = data => {
     address: data.address,
     id: data.id,
     organization: data.organization,
+    prefix: data.prefix,
     project: data.project,
     reverse: data.reverse,
     server: data.server ? unmarshalServerSummary(data.server) : undefined,
+    state: data.state,
     tags: data.tags,
+    type: data.type,
     zone: data.zone
   };
 };
@@ -16501,6 +16695,7 @@ const unmarshalServer = data => {
     image: data.image ? unmarshalImage$3(data.image) : undefined,
     ipv6: data.ipv6 ? unmarshalServerIpv6(data.ipv6) : undefined,
     location: data.location ? unmarshalServerLocation(data.location) : undefined,
+    macAddress: data.mac_address,
     maintenances: unmarshalArrayOfObject(data.maintenances, unmarshalServerMaintenance),
     modificationDate: unmarshalDate(data.modification_date),
     name: data.name,
@@ -16511,6 +16706,8 @@ const unmarshalServer = data => {
     project: data.project,
     protected: data.protected,
     publicIp: data.public_ip ? unmarshalServerIp(data.public_ip) : undefined,
+    publicIps: unmarshalArrayOfObject(data.public_ips, unmarshalServerIp),
+    routedIpEnabled: data.routed_ip_enabled,
     securityGroup: data.security_group ? unmarshalSecurityGroupSummary(data.security_group) : undefined,
     state: data.state,
     stateDetail: data.state_detail,
@@ -16654,7 +16851,7 @@ const unmarshalCreateVolumeResponse = data => {
     throw new TypeError(`Unmarshalling the type 'CreateVolumeResponse' failed as data isn't a dictionary.`);
   }
   return {
-    volume: data.volume ? unmarshalVolume$1(data.volume) : undefined
+    volume: data.volume ? unmarshalVolume$2(data.volume) : undefined
   };
 };
 const unmarshalExportSnapshotResponse = data => {
@@ -16750,7 +16947,8 @@ const unmarshalGetServerTypesAvailabilityResponse = data => {
     throw new TypeError(`Unmarshalling the type 'GetServerTypesAvailabilityResponse' failed as data isn't a dictionary.`);
   }
   return {
-    servers: unmarshalMapOfObject(data.servers, unmarshalGetServerTypesAvailabilityResponseAvailability)
+    servers: unmarshalMapOfObject(data.servers, unmarshalGetServerTypesAvailabilityResponseAvailability),
+    totalCount: data.total_count
   };
 };
 const unmarshalGetSnapshotResponse = data => {
@@ -16766,7 +16964,7 @@ const unmarshalGetVolumeResponse = data => {
     throw new TypeError(`Unmarshalling the type 'GetVolumeResponse' failed as data isn't a dictionary.`);
   }
   return {
-    volume: data.volume ? unmarshalVolume$1(data.volume) : undefined
+    volume: data.volume ? unmarshalVolume$2(data.volume) : undefined
   };
 };
 const unmarshalListBootscriptsResponse = data => {
@@ -16875,13 +17073,13 @@ const unmarshalListSnapshotsResponse$1 = data => {
     totalCount: data.total_count
   };
 };
-const unmarshalListVolumesResponse = data => {
+const unmarshalListVolumesResponse$1 = data => {
   if (!isJSONObject(data)) {
     throw new TypeError(`Unmarshalling the type 'ListVolumesResponse' failed as data isn't a dictionary.`);
   }
   return {
     totalCount: data.total_count,
-    volumes: unmarshalArrayOfObject(data.volumes, unmarshalVolume$1)
+    volumes: unmarshalArrayOfObject(data.volumes, unmarshalVolume$2)
   };
 };
 const unmarshalListVolumesTypesResponse = data => {
@@ -17002,7 +17200,7 @@ const unmarshalUpdateVolumeResponse = data => {
     throw new TypeError(`Unmarshalling the type 'UpdateVolumeResponse' failed as data isn't a dictionary.`);
   }
   return {
-    volume: data.volume ? unmarshalVolume$1(data.volume) : undefined
+    volume: data.volume ? unmarshalVolume$2(data.volume) : undefined
   };
 };
 const marshalServerSummary$1 = (request, defaults) => ({
@@ -17097,7 +17295,11 @@ const marshalServerActionRequestVolumeBackupTemplate = (request, defaults) => ({
 const marshalServerIp = (request, defaults) => ({
   address: request.address,
   dynamic: request.dynamic,
-  id: request.id
+  family: request.family,
+  gateway: request.gateway,
+  id: request.id,
+  netmask: request.netmask,
+  provisioning_mode: request.provisioningMode
 });
 const marshalServerIpv6 = (request, defaults) => ({
   address: request.address,
@@ -17177,6 +17379,7 @@ const marshalCreateImageRequest = (request, defaults) => ({
 const marshalCreateIpRequest$1 = (request, defaults) => ({
   server: request.server,
   tags: request.tags,
+  type: request.type ?? 'unknown_iptype',
   ...resolveOneOf([{
     default: defaults.defaultProjectId,
     param: 'project',
@@ -17203,6 +17406,7 @@ const marshalCreatePlacementGroupRequest = (request, defaults) => ({
   }])
 });
 const marshalCreatePrivateNICRequest = (request, defaults) => ({
+  ip_ids: request.ipIds,
   private_network_id: request.privateNetworkId,
   tags: request.tags
 });
@@ -17251,6 +17455,8 @@ const marshalCreateServerRequest = (request, defaults) => ({
   name: request.name || randomName('srv'),
   placement_group: request.placementGroup,
   public_ip: request.publicIp,
+  public_ips: request.publicIps,
+  routed_ip_enabled: request.routedIpEnabled,
   security_group: request.securityGroup,
   tags: request.tags,
   volumes: request.volumes ? Object.entries(request.volumes).reduce((acc, [key, value]) => ({
@@ -17285,7 +17491,7 @@ const marshalCreateSnapshotRequest$1 = (request, defaults) => ({
     value: request.organization
   }])
 });
-const marshalCreateVolumeRequest = (request, defaults) => ({
+const marshalCreateVolumeRequest$1 = (request, defaults) => ({
   name: request.name || randomName('vol'),
   tags: request.tags,
   volume_type: request.volumeType ?? 'l_ssd',
@@ -17403,6 +17609,8 @@ const marshalSetServerRequest = (request, defaults) => ({
   project: request.project,
   protected: request.protected,
   public_ip: request.publicIp ? marshalServerIp(request.publicIp) : undefined,
+  public_ips: request.publicIps ? request.publicIps.map(elt => marshalServerIp(elt)) : undefined,
+  routed_ip_enabled: request.routedIpEnabled,
   security_group: request.securityGroup ? marshalSecurityGroupSummary(request.securityGroup) : undefined,
   state: request.state,
   state_detail: request.stateDetail,
@@ -17428,7 +17636,8 @@ const marshalSetSnapshotRequest = (request, defaults) => ({
 const marshalUpdateIpRequest$1 = (request, defaults) => ({
   reverse: request.reverse,
   server: request.server,
-  tags: request.tags
+  tags: request.tags,
+  type: request.type ?? 'unknown_iptype'
 });
 const marshalUpdatePlacementGroupRequest = (request, defaults) => ({
   name: request.name,
@@ -17451,6 +17660,8 @@ const marshalUpdateServerRequest = (request, defaults) => ({
   placement_group: request.placementGroup,
   private_nics: request.privateNics ? request.privateNics.map(elt => marshalPrivateNIC(elt)) : undefined,
   protected: request.protected,
+  public_ips: request.publicIps ? request.publicIps.map(elt => marshalServerIp(elt)) : undefined,
+  routed_ip_enabled: request.routedIpEnabled,
   security_group: request.securityGroup ? marshalSecurityGroupTemplate(request.securityGroup) : undefined,
   tags: request.tags,
   volumes: request.volumes ? Object.entries(request.volumes).reduce((acc, [key, value]) => ({
@@ -17458,7 +17669,7 @@ const marshalUpdateServerRequest = (request, defaults) => ({
     [key]: marshalVolumeServerTemplate(value)
   }), {}) : undefined
 });
-const marshalUpdateVolumeRequest = (request, defaults) => ({
+const marshalUpdateVolumeRequest$1 = (request, defaults) => ({
   name: request.name,
   size: request.size,
   tags: request.tags
@@ -17466,14 +17677,14 @@ const marshalUpdateVolumeRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$d = {
+const jsonContentHeaders$f = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
 /** Instance API. */
-let API$f = class API extends API$q {
+let API$h = class API extends API$s {
   /** Lists the available zones of the API. */
-  static LOCALITIES = ['fr-par-1', 'fr-par-2', 'fr-par-3', 'nl-ams-1', 'nl-ams-2', 'pl-waw-1', 'pl-waw-2'];
+  static LOCALITIES = ['fr-par-1', 'fr-par-2', 'fr-par-3', 'nl-ams-1', 'nl-ams-2', 'nl-ams-3', 'pl-waw-1', 'pl-waw-2'];
 
   /**
    * Get availability. Get availability for all Instance types.
@@ -17527,7 +17738,7 @@ let API$f = class API extends API$q {
   listServers = (request = {}) => enrichForPagination('servers', this.pageOfListServers, request);
   _createServer = request => this.client.fetch({
     body: JSON.stringify(marshalCreateServerRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'POST',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers`
   }, unmarshalCreateServerResponse);
@@ -17554,13 +17765,13 @@ let API$f = class API extends API$q {
   }, unmarshalGetServerResponse);
   _setServer = request => this.client.fetch({
     body: JSON.stringify(marshalSetServerRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PUT',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('id', request.id)}`
   }, unmarshalSetServerResponse);
   _updateServer = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateServerRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PATCH',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}`
   }, unmarshalUpdateServerResponse);
@@ -17584,6 +17795,7 @@ let API$f = class API extends API$q {
    * keep the slot on the hypervisor. `reboot`: Stop the instance and restart
    * it. `backup`: Create an image with all the volumes of an Instance.
    * `terminate`: Delete the Instance along with all attached volumes.
+   * `enable_routed_ip`: Migrate the Instance to the new network stack.
    *
    * Keep in mind that terminating an Instance will result in the deletion of
    * all attached volumes, including local and block storage. If you want to
@@ -17597,7 +17809,7 @@ let API$f = class API extends API$q {
    */
   serverAction = request => this.client.fetch({
     body: JSON.stringify(marshalServerActionRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'POST',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/action`
   }, unmarshalServerActionResponse);
@@ -17656,13 +17868,13 @@ let API$f = class API extends API$q {
    */
   createImage = request => this.client.fetch({
     body: JSON.stringify(marshalCreateImageRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'POST',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/images`
   }, unmarshalCreateImageResponse);
   _setImage = request => this.client.fetch({
     body: JSON.stringify(marshalSetImageRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PUT',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/images/${validatePathParam('id', request.id)}`
   }, unmarshalSetImageResponse);
@@ -17701,7 +17913,7 @@ let API$f = class API extends API$q {
    */
   createSnapshot = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalCreateSnapshotRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'POST',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/snapshots`
   }, unmarshalCreateSnapshotResponse);
@@ -17718,7 +17930,7 @@ let API$f = class API extends API$q {
   }, unmarshalGetSnapshotResponse);
   _setSnapshot = request => this.client.fetch({
     body: JSON.stringify(marshalSetSnapshotRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PUT',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/snapshots/${validatePathParam('snapshotId', request.snapshotId)}`
   }, unmarshalSetSnapshotResponse);
@@ -17742,7 +17954,7 @@ let API$f = class API extends API$q {
    */
   exportSnapshot = request => this.client.fetch({
     body: JSON.stringify(marshalExportSnapshotRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'POST',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/snapshots/${validatePathParam('snapshotId', request.snapshotId)}/export`
   }, unmarshalExportSnapshotResponse);
@@ -17750,7 +17962,7 @@ let API$f = class API extends API$q {
     method: 'GET',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/volumes`,
     urlParams: urlParams(['name', request.name], ['organization', request.organization], ['page', request.page], ['per_page', request.perPage ?? this.client.settings.defaultPageSize], ['project', request.project], ['tags', request.tags && request.tags.length > 0 ? request.tags.join(',') : undefined], ['volume_type', request.volumeType])
-  }, unmarshalListVolumesResponse);
+  }, unmarshalListVolumesResponse$1);
 
   /**
    * List volumes. List volumes in the specified Availability Zone. You can
@@ -17769,8 +17981,8 @@ let API$f = class API extends API$q {
    * @returns A Promise of CreateVolumeResponse
    */
   createVolume = (request = {}) => this.client.fetch({
-    body: JSON.stringify(marshalCreateVolumeRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    body: JSON.stringify(marshalCreateVolumeRequest$1(request, this.client.settings)),
+    headers: jsonContentHeaders$f,
     method: 'POST',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/volumes`
   }, unmarshalCreateVolumeResponse);
@@ -17795,8 +18007,8 @@ let API$f = class API extends API$q {
    * @returns A Promise of UpdateVolumeResponse
    */
   updateVolume = request => this.client.fetch({
-    body: JSON.stringify(marshalUpdateVolumeRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    body: JSON.stringify(marshalUpdateVolumeRequest$1(request, this.client.settings)),
+    headers: jsonContentHeaders$f,
     method: 'PATCH',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/volumes/${validatePathParam('volumeId', request.volumeId)}`
   }, unmarshalUpdateVolumeResponse);
@@ -17833,7 +18045,7 @@ let API$f = class API extends API$q {
    */
   createSecurityGroup = request => this.client.fetch({
     body: JSON.stringify(marshalCreateSecurityGroupRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'POST',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/security_groups`
   }, unmarshalCreateSecurityGroupResponse);
@@ -17861,7 +18073,7 @@ let API$f = class API extends API$q {
   });
   _setSecurityGroup = request => this.client.fetch({
     body: JSON.stringify(marshalSetSecurityGroupRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PUT',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/security_groups/${validatePathParam('id', request.id)}`
   }, unmarshalSetSecurityGroupResponse);
@@ -17899,7 +18111,7 @@ let API$f = class API extends API$q {
    */
   createSecurityGroupRule = request => this.client.fetch({
     body: JSON.stringify(marshalCreateSecurityGroupRuleRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'POST',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/security_groups/${validatePathParam('securityGroupId', request.securityGroupId)}/rules`
   }, unmarshalCreateSecurityGroupRuleResponse);
@@ -17915,7 +18127,7 @@ let API$f = class API extends API$q {
    */
   setSecurityGroupRules = request => this.client.fetch({
     body: JSON.stringify(marshalSetSecurityGroupRulesRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PUT',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/security_groups/${validatePathParam('securityGroupId', request.securityGroupId)}/rules`
   }, unmarshalSetSecurityGroupRulesResponse);
@@ -17942,7 +18154,7 @@ let API$f = class API extends API$q {
   }, unmarshalGetSecurityGroupRuleResponse);
   _setSecurityGroupRule = request => this.client.fetch({
     body: JSON.stringify(marshalSetSecurityGroupRuleRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PUT',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/security_groups/${validatePathParam('securityGroupId', request.securityGroupId)}/rules/${validatePathParam('securityGroupRuleId', request.securityGroupRuleId)}`
   }, unmarshalSetSecurityGroupRuleResponse);
@@ -17970,7 +18182,7 @@ let API$f = class API extends API$q {
    */
   createPlacementGroup = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalCreatePlacementGroupRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'POST',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/placement_groups`
   }, unmarshalCreatePlacementGroupResponse);
@@ -17994,7 +18206,7 @@ let API$f = class API extends API$q {
    */
   setPlacementGroup = request => this.client.fetch({
     body: JSON.stringify(marshalSetPlacementGroupRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PUT',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/placement_groups/${validatePathParam('placementGroupId', request.placementGroupId)}`
   }, unmarshalSetPlacementGroupResponse);
@@ -18008,7 +18220,7 @@ let API$f = class API extends API$q {
    */
   updatePlacementGroup = request => this.client.fetch({
     body: JSON.stringify(marshalUpdatePlacementGroupRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PATCH',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/placement_groups/${validatePathParam('placementGroupId', request.placementGroupId)}`
   }, unmarshalUpdatePlacementGroupResponse);
@@ -18044,7 +18256,7 @@ let API$f = class API extends API$q {
    */
   setPlacementGroupServers = request => this.client.fetch({
     body: JSON.stringify(marshalSetPlacementGroupServersRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PUT',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/placement_groups/${validatePathParam('placementGroupId', request.placementGroupId)}/servers`
   }, unmarshalSetPlacementGroupServersResponse);
@@ -18058,7 +18270,7 @@ let API$f = class API extends API$q {
    */
   updatePlacementGroupServers = request => this.client.fetch({
     body: JSON.stringify(marshalUpdatePlacementGroupServersRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PATCH',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/placement_groups/${validatePathParam('placementGroupId', request.placementGroupId)}/servers`
   }, unmarshalUpdatePlacementGroupServersResponse);
@@ -18085,7 +18297,7 @@ let API$f = class API extends API$q {
    */
   createIp = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalCreateIpRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'POST',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/ips`
   }, unmarshalCreateIpResponse);
@@ -18110,7 +18322,7 @@ let API$f = class API extends API$q {
    */
   updateIp = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateIpRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PATCH',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/ips/${validatePathParam('ip', request.ip)}`
   }, unmarshalUpdateIpResponse);
@@ -18146,7 +18358,7 @@ let API$f = class API extends API$q {
    */
   createPrivateNIC = request => this.client.fetch({
     body: JSON.stringify(marshalCreatePrivateNICRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'POST',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/private_nics`
   }, unmarshalCreatePrivateNICResponse);
@@ -18171,7 +18383,7 @@ let API$f = class API extends API$q {
    */
   updatePrivateNIC = request => this.client.fetch({
     body: JSON.stringify(marshalUpdatePrivateNICRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$d,
+    headers: jsonContentHeaders$f,
     method: 'PATCH',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers/${validatePathParam('serverId', request.serverId)}/private_nics/${validatePathParam('privateNicId', request.privateNicId)}`
   }, unmarshalPrivateNIC);
@@ -18223,6 +18435,9 @@ let API$f = class API extends API$q {
 
 /** Lists transient statutes of the enum {@link ImageState}. */
 const IMAGE_TRANSIENT_STATUSES$1 = ['creating'];
+
+/** Lists transient statutes of the enum {@link IpState}. */
+const IP_TRANSIENT_STATUSES = ['pending'];
 
 /** Lists transient statutes of the enum {@link PrivateNICState}. */
 const PRIVATE_NIC_TRANSIENT_STATUSES = ['syncing'];
@@ -18308,7 +18523,7 @@ const validateNotUndefined = obj => {
   if (obj === undefined) throw new TypeError(`object was found undefined`);
   return obj;
 };
-class InstanceV1UtilsAPI extends API$f {
+class InstanceV1UtilsAPI extends API$h {
   /**
    * Waits for {@link Image} to be in a final state.
    *
@@ -18665,10 +18880,11 @@ class InstanceV1UtilsAPI extends API$f {
   });
 }
 
-var index$h = /*#__PURE__*/Object.freeze({
+var index$i = /*#__PURE__*/Object.freeze({
   __proto__: null,
   API: InstanceV1UtilsAPI,
   IMAGE_TRANSIENT_STATUSES: IMAGE_TRANSIENT_STATUSES$1,
+  IP_TRANSIENT_STATUSES: IP_TRANSIENT_STATUSES,
   PRIVATE_NIC_TRANSIENT_STATUSES: PRIVATE_NIC_TRANSIENT_STATUSES,
   SECURITY_GROUP_TRANSIENT_STATUSES: SECURITY_GROUP_TRANSIENT_STATUSES,
   SERVER_TRANSIENT_STATUSES: SERVER_TRANSIENT_STATUSES,
@@ -18678,9 +18894,9 @@ var index$h = /*#__PURE__*/Object.freeze({
   VOLUME_TRANSIENT_STATUSES: VOLUME_TRANSIENT_STATUSES
 });
 
-var index$g = /*#__PURE__*/Object.freeze({
+var index$h = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1: index$h
+  v1: index$i
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -19124,7 +19340,7 @@ const marshalUpdateRouteRequest$1 = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$c = {
+const jsonContentHeaders$e = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
@@ -19133,7 +19349,7 @@ const jsonContentHeaders$c = {
  *
  * This API allows you to manage IoT hubs and devices. IoT Hub API.
  */
-let API$e = class API extends API$q {
+let API$g = class API extends API$s {
   /** Lists the available regions of the API. */
   static LOCALITIES = ['fr-par'];
   pageOfListHubs = (request = {}) => this.client.fetch({
@@ -19161,7 +19377,7 @@ let API$e = class API extends API$q {
    */
   createHub = request => this.client.fetch({
     body: JSON.stringify(marshalCreateHubRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'POST',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/hubs`
   }, unmarshalHub);
@@ -19197,7 +19413,7 @@ let API$e = class API extends API$q {
    */
   updateHub = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateHubRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'PATCH',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/hubs/${validatePathParam('hubId', request.hubId)}`
   }, unmarshalHub);
@@ -19210,7 +19426,7 @@ let API$e = class API extends API$q {
    */
   enableHub = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'POST',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/hubs/${validatePathParam('hubId', request.hubId)}/enable`
   }, unmarshalHub);
@@ -19223,7 +19439,7 @@ let API$e = class API extends API$q {
    */
   disableHub = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'POST',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/hubs/${validatePathParam('hubId', request.hubId)}/disable`
   }, unmarshalHub);
@@ -19263,7 +19479,7 @@ let API$e = class API extends API$q {
    */
   setHubCA = request => this.client.fetch({
     body: JSON.stringify(marshalSetHubCARequest(request, this.client.settings)),
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'POST',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/hubs/${validatePathParam('hubId', request.hubId)}/ca`
   }, unmarshalHub);
@@ -19303,7 +19519,7 @@ let API$e = class API extends API$q {
    */
   createDevice = request => this.client.fetch({
     body: JSON.stringify(marshalCreateDeviceRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'POST',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/devices`
   }, unmarshalCreateDeviceResponse);
@@ -19330,7 +19546,7 @@ let API$e = class API extends API$q {
    */
   updateDevice = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateDeviceRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'PATCH',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/devices/${validatePathParam('deviceId', request.deviceId)}`
   }, unmarshalDevice);
@@ -19343,7 +19559,7 @@ let API$e = class API extends API$q {
    */
   enableDevice = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'POST',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/devices/${validatePathParam('deviceId', request.deviceId)}/enable`
   }, unmarshalDevice);
@@ -19356,7 +19572,7 @@ let API$e = class API extends API$q {
    */
   disableDevice = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'POST',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/devices/${validatePathParam('deviceId', request.deviceId)}/disable`
   }, unmarshalDevice);
@@ -19370,7 +19586,7 @@ let API$e = class API extends API$q {
    */
   renewDeviceCertificate = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'POST',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/devices/${validatePathParam('deviceId', request.deviceId)}/renew-certificate`
   }, unmarshalRenewDeviceCertificateResponse);
@@ -19384,7 +19600,7 @@ let API$e = class API extends API$q {
    */
   setDeviceCertificate = request => this.client.fetch({
     body: JSON.stringify(marshalSetDeviceCertificateRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'PUT',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/devices/${validatePathParam('deviceId', request.deviceId)}/certificate`
   }, unmarshalSetDeviceCertificateResponse);
@@ -19459,7 +19675,7 @@ let API$e = class API extends API$q {
    */
   createRoute = request => this.client.fetch({
     body: JSON.stringify(marshalCreateRouteRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'POST',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/routes`
   }, unmarshalRoute$1);
@@ -19473,7 +19689,7 @@ let API$e = class API extends API$q {
    */
   updateRoute = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateRouteRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'PATCH',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/routes/${validatePathParam('routeId', request.routeId)}`
   }, unmarshalRoute$1);
@@ -19525,7 +19741,7 @@ let API$e = class API extends API$q {
    */
   createNetwork = request => this.client.fetch({
     body: JSON.stringify(marshalCreateNetworkRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'POST',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/networks`
   }, unmarshalCreateNetworkResponse);
@@ -19573,7 +19789,7 @@ let API$e = class API extends API$q {
    */
   putTwinDocument = request => this.client.fetch({
     body: JSON.stringify(marshalPutTwinDocumentRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'PUT',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/twins/${validatePathParam('twinId', request.twinId)}/documents/${validatePathParam('documentName', request.documentName)}`
   }, unmarshalTwinDocument);
@@ -19586,7 +19802,7 @@ let API$e = class API extends API$q {
    */
   patchTwinDocument = request => this.client.fetch({
     body: JSON.stringify(marshalPatchTwinDocumentRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$c,
+    headers: jsonContentHeaders$e,
     method: 'PATCH',
     path: `/iot/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/twins/${validatePathParam('twinId', request.twinId)}/documents/${validatePathParam('documentName', request.documentName)}`
   }, unmarshalTwinDocument);
@@ -19626,15 +19842,329 @@ let API$e = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$c = /*#__PURE__*/Object.freeze({
+var index_gen$e = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$e,
+  API: API$g,
   HUB_TRANSIENT_STATUSES: HUB_TRANSIENT_STATUSES
+});
+
+var index$g = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  v1: index_gen$e
+});
+
+// This file was automatically generated. DO NOT EDIT.
+// If you have any remark or suggestion do not hesitate to open an issue.
+
+/** Lists transient statutes of the enum {@link PinStatus}. */
+const PIN_TRANSIENT_STATUSES = ['queued', 'pinning'];
+
+// This file was automatically generated. DO NOT EDIT.
+// If you have any remark or suggestion do not hesitate to open an issue.
+const unmarshalPinCIDMeta = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'PinCIDMeta' failed as data isn't a dictionary.`);
+  }
+  return {
+    id: data.id
+  };
+};
+const unmarshalPinCID = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'PinCID' failed as data isn't a dictionary.`);
+  }
+  return {
+    cid: data.cid,
+    meta: data.meta ? unmarshalPinCIDMeta(data.meta) : undefined,
+    name: data.name,
+    origins: data.origins
+  };
+};
+const unmarshalPinInfo = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'PinInfo' failed as data isn't a dictionary.`);
+  }
+  return {
+    id: data.id,
+    progress: data.progress,
+    size: data.size,
+    statusDetails: data.status_details,
+    url: data.url
+  };
+};
+const unmarshalPin = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'Pin' failed as data isn't a dictionary.`);
+  }
+  return {
+    cid: data.cid ? unmarshalPinCID(data.cid) : undefined,
+    createdAt: unmarshalDate(data.created_at),
+    delegates: data.delegates,
+    info: data.info ? unmarshalPinInfo(data.info) : undefined,
+    pinId: data.pin_id,
+    status: data.status
+  };
+};
+const unmarshalVolume$1 = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'Volume' failed as data isn't a dictionary.`);
+  }
+  return {
+    countPin: data.count_pin,
+    createdAt: unmarshalDate(data.created_at),
+    id: data.id,
+    name: data.name,
+    projectId: data.project_id,
+    region: data.region,
+    size: data.size,
+    tags: data.tags,
+    updatedAt: unmarshalDate(data.updated_at)
+  };
+};
+const unmarshalListPinsResponse = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'ListPinsResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    pins: unmarshalArrayOfObject(data.pins, unmarshalPin),
+    totalCount: data.total_count
+  };
+};
+const unmarshalListVolumesResponse = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'ListVolumesResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    totalCount: data.total_count,
+    volumes: unmarshalArrayOfObject(data.volumes, unmarshalVolume$1)
+  };
+};
+const unmarshalReplacePinResponse = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'ReplacePinResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    pin: data.pin ? unmarshalPin(data.pin) : undefined
+  };
+};
+const marshalPinOptions = (request, defaults) => ({
+  replication_count: request.replicationCount,
+  required_zones: request.requiredZones
+});
+const marshalCreatePinByCIDRequest = (request, defaults) => ({
+  cid: request.cid,
+  name: request.name,
+  origins: request.origins,
+  pin_options: request.pinOptions ? marshalPinOptions(request.pinOptions) : undefined,
+  volume_id: request.volumeId
+});
+const marshalCreatePinByURLRequest = (request, defaults) => ({
+  name: request.name,
+  pin_options: request.pinOptions ? marshalPinOptions(request.pinOptions) : undefined,
+  url: request.url,
+  volume_id: request.volumeId
+});
+const marshalCreateVolumeRequest = (request, defaults) => ({
+  name: request.name,
+  project_id: request.projectId ?? defaults.defaultProjectId
+});
+const marshalReplacePinRequest = (request, defaults) => ({
+  cid: request.cid,
+  name: request.name,
+  origins: request.origins,
+  pin_options: request.pinOptions ? marshalPinOptions(request.pinOptions) : undefined,
+  volume_id: request.volumeId
+});
+const marshalUpdateVolumeRequest = (request, defaults) => ({
+  name: request.name,
+  tags: request.tags
+});
+
+// This file was automatically generated. DO NOT EDIT.
+// If you have any remark or suggestion do not hesitate to open an issue.
+const jsonContentHeaders$d = {
+  'Content-Type': 'application/json; charset=utf-8'
+};
+
+/** IPFS Pinning service API. */
+let API$f = class API extends API$s {
+  /** Lists the available regions of the API. */
+  static LOCALITIES = ['fr-par', 'nl-ams', 'pl-waw'];
+
+  /**
+   * Create a new volume. Create a new volume from a Project ID. Volume is
+   * identified by an ID and used to host pin references. Volume is personal (at
+   * least to your organization) even if IPFS blocks and CID are available to
+   * anyone. Should be the first command you made because every pin must be
+   * attached to a volume.
+   *
+   * @param request - The request {@link CreateVolumeRequest}
+   * @returns A Promise of Volume
+   */
+  createVolume = request => this.client.fetch({
+    body: JSON.stringify(marshalCreateVolumeRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$d,
+    method: 'POST',
+    path: `/ipfs/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/volumes`
+  }, unmarshalVolume$1);
+
+  /**
+   * Get information about a volume. Retrieve information about a specific
+   * volume.
+   *
+   * @param request - The request {@link GetVolumeRequest}
+   * @returns A Promise of Volume
+   */
+  getVolume = request => this.client.fetch({
+    method: 'GET',
+    path: `/ipfs/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/volumes/${validatePathParam('volumeId', request.volumeId)}`
+  }, unmarshalVolume$1);
+  pageOfListVolumes = (request = {}) => this.client.fetch({
+    method: 'GET',
+    path: `/ipfs/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/volumes`,
+    urlParams: urlParams(['order_by', request.orderBy ?? 'created_at_asc'], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_id', request.projectId ?? this.client.settings.defaultProjectId])
+  }, unmarshalListVolumesResponse);
+
+  /**
+   * List all volumes by a Project ID. Retrieve information about all volumes
+   * from a Project ID.
+   *
+   * @param request - The request {@link ListVolumesRequest}
+   * @returns A Promise of ListVolumesResponse
+   */
+  listVolumes = (request = {}) => enrichForPagination('volumes', this.pageOfListVolumes, request);
+
+  /**
+   * Update volume information. Update volume information (tag, name...).
+   *
+   * @param request - The request {@link UpdateVolumeRequest}
+   * @returns A Promise of Volume
+   */
+  updateVolume = request => this.client.fetch({
+    body: JSON.stringify(marshalUpdateVolumeRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$d,
+    method: 'PATCH',
+    path: `/ipfs/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/volumes/${validatePathParam('volumeId', request.volumeId)}`
+  }, unmarshalVolume$1);
+
+  /**
+   * Delete an existing volume. Delete a volume by its ID and every pin attached
+   * to this volume. This process can take a while to conclude, depending on the
+   * size of your pinned content.
+   *
+   * @param request - The request {@link DeleteVolumeRequest}
+   */
+  deleteVolume = request => this.client.fetch({
+    method: 'DELETE',
+    path: `/ipfs/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/volumes/${validatePathParam('volumeId', request.volumeId)}`
+  });
+
+  /**
+   * Create a pin by URL. Will fetch and store the content pointed by the
+   * provided URL. The content must be available on the public IPFS network. The
+   * content (IPFS blocks) will be host by the pinning service until pin
+   * deletion. From that point, any other IPFS peer can fetch and host your
+   * content: Make sure to pin public or encrypted content. Many pin requests
+   * (from different users) can target the same CID. A pin is defined by its ID
+   * (UUID), its status (queued, pinning, pinned or failed) and target CID.
+   *
+   * @param request - The request {@link CreatePinByURLRequest}
+   * @returns A Promise of Pin
+   */
+  createPinByURL = request => this.client.fetch({
+    body: JSON.stringify(marshalCreatePinByURLRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$d,
+    method: 'POST',
+    path: `/ipfs/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/pins/create-by-url`
+  }, unmarshalPin);
+
+  /**
+   * Create a pin by CID. Will fetch and store the content pointed by the
+   * provided CID. The content must be available on the public IPFS network. The
+   * content (IPFS blocks) will be host by the pinning service until pin
+   * deletion. From that point, any other IPFS peer can fetch and host your
+   * content: Make sure to pin public or encrypted content. Many pin requests
+   * (from different users) can target the same CID. A pin is defined by its ID
+   * (UUID), its status (queued, pinning, pinned or failed) and target CID.
+   *
+   * @param request - The request {@link CreatePinByCIDRequest}
+   * @returns A Promise of Pin
+   */
+  createPinByCID = request => this.client.fetch({
+    body: JSON.stringify(marshalCreatePinByCIDRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$d,
+    method: 'POST',
+    path: `/ipfs/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/pins/create-by-cid`
+  }, unmarshalPin);
+  replacePin = request => this.client.fetch({
+    body: JSON.stringify(marshalReplacePinRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$d,
+    method: 'POST',
+    path: `/ipfs/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/pins/${validatePathParam('pinId', request.pinId)}/replace`
+  }, unmarshalReplacePinResponse);
+
+  /**
+   * Get pin information. Retrieve information about the provided **pin ID**,
+   * such as status, last modification, and CID.
+   *
+   * @param request - The request {@link GetPinRequest}
+   * @returns A Promise of Pin
+   */
+  getPin = request => this.client.fetch({
+    method: 'GET',
+    path: `/ipfs/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/pins/${validatePathParam('pinId', request.pinId)}`,
+    urlParams: urlParams(['volume_id', request.volumeId])
+  }, unmarshalPin);
+
+  /**
+   * Waits for {@link Pin} to be in a final state.
+   *
+   * @param request - The request {@link GetPinRequest}
+   * @param options - The waiting options
+   * @returns A Promise of Pin
+   */
+  waitForPin = (request, options) => waitForResource(options?.stop ?? (res => Promise.resolve(!PIN_TRANSIENT_STATUSES.includes(res.status))), this.getPin, request, options);
+  pageOfListPins = request => this.client.fetch({
+    method: 'GET',
+    path: `/ipfs/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/pins`,
+    urlParams: urlParams(['order_by', request.orderBy ?? 'created_at_asc'], ['organization_id', request.organizationId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_id', request.projectId], ['status', request.status ?? 'unknown_status'], ['volume_id', request.volumeId])
+  }, unmarshalListPinsResponse);
+
+  /**
+   * List all pins within a volume. Retrieve information about all pins into a
+   * volume.
+   *
+   * @param request - The request {@link ListPinsRequest}
+   * @returns A Promise of ListPinsResponse
+   */
+  listPins = request => enrichForPagination('pins', this.pageOfListPins, request);
+
+  /**
+   * Create an unpin request. An unpin request means that you no longer own the
+   * content. This content can therefore be removed and no longer provided on
+   * the IPFS network.
+   *
+   * @param request - The request {@link DeletePinRequest}
+   */
+  deletePin = request => this.client.fetch({
+    method: 'DELETE',
+    path: `/ipfs/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/pins/${validatePathParam('pinId', request.pinId)}`,
+    urlParams: urlParams(['volume_id', request.volumeId])
+  });
+};
+
+// This file was automatically generated. DO NOT EDIT.
+// If you have any remark or suggestion do not hesitate to open an issue.
+
+var index_gen$d = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  API: API$f,
+  PIN_TRANSIENT_STATUSES: PIN_TRANSIENT_STATUSES
 });
 
 var index$f = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1: index_gen$c
+  v1alpha1: index_gen$d
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -19720,6 +20250,7 @@ const unmarshalCluster$1 = data => {
     autoUpgrade: data.auto_upgrade ? unmarshalClusterAutoUpgrade(data.auto_upgrade) : undefined,
     clusterUrl: data.cluster_url,
     cni: data.cni,
+    commitmentEndsAt: unmarshalDate(data.commitment_ends_at),
     createdAt: unmarshalDate(data.created_at),
     dashboardEnabled: data.dashboard_enabled,
     description: data.description,
@@ -19739,6 +20270,17 @@ const unmarshalCluster$1 = data => {
     updatedAt: unmarshalDate(data.updated_at),
     upgradeAvailable: data.upgrade_available,
     version: data.version
+  };
+};
+const unmarshalClusterType = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'ClusterType' failed as data isn't a dictionary.`);
+  }
+  return {
+    availability: data.availability,
+    commitmentDelay: data.commitment_delay,
+    maxNodes: data.max_nodes,
+    name: data.name
   };
 };
 const unmarshalNode = data => {
@@ -19813,11 +20355,21 @@ const unmarshalExternalNode = data => {
   return {
     clusterCa: data.cluster_ca,
     clusterUrl: data.cluster_url,
-    clusterVersion: data.cluster_version,
+    externalIp: data.external_ip,
     id: data.id,
     kubeletConfig: data.kubelet_config,
     kubeToken: data.kube_token,
-    name: data.name
+    name: data.name,
+    poolVersion: data.pool_version
+  };
+};
+const unmarshalListClusterAvailableTypesResponse = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'ListClusterAvailableTypesResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    clusterTypes: unmarshalArrayOfObject(data.cluster_types, unmarshalClusterType),
+    totalCount: data.total_count
   };
 };
 const unmarshalListClusterAvailableVersionsResponse = data => {
@@ -19826,6 +20378,15 @@ const unmarshalListClusterAvailableVersionsResponse = data => {
   }
   return {
     versions: unmarshalArrayOfObject(data.versions, unmarshalVersion$2)
+  };
+};
+const unmarshalListClusterTypesResponse = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'ListClusterTypesResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    clusterTypes: unmarshalArrayOfObject(data.cluster_types, unmarshalClusterType),
+    totalCount: data.total_count
   };
 };
 const unmarshalListClustersResponse$1 = data => {
@@ -19990,6 +20551,9 @@ const marshalCreatePoolRequest = (request, defaults) => ({
   upgrade_policy: request.upgradePolicy ? marshalCreatePoolRequestUpgradePolicy(request.upgradePolicy) : undefined,
   zone: request.zone ?? defaults.defaultZone
 });
+const marshalMigrateToPrivateNetworkClusterRequest = (request, defaults) => ({
+  private_network_id: request.privateNetworkId
+});
 const marshalSetClusterTypeRequest = (request, defaults) => ({
   type: request.type
 });
@@ -20026,12 +20590,12 @@ const marshalUpgradePoolRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$b = {
+const jsonContentHeaders$c = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
 /** Kubernetes API. */
-let API$d = class API extends API$q {
+let API$e = class API extends API$s {
   /** Lists the available regions of the API. */
   static LOCALITIES = ['fr-par', 'nl-ams', 'pl-waw'];
   pageOfListClusters = (request = {}) => this.client.fetch({
@@ -20056,7 +20620,7 @@ let API$d = class API extends API$q {
    */
   createCluster = request => this.client.fetch({
     body: JSON.stringify(marshalCreateClusterRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$b,
+    headers: jsonContentHeaders$c,
     method: 'POST',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/clusters`
   }, unmarshalCluster$1);
@@ -20091,7 +20655,7 @@ let API$d = class API extends API$q {
    */
   updateCluster = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateClusterRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$b,
+    headers: jsonContentHeaders$c,
     method: 'PATCH',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/clusters/${validatePathParam('clusterId', request.clusterId)}`
   }, unmarshalCluster$1);
@@ -20119,7 +20683,7 @@ let API$d = class API extends API$q {
    */
   upgradeCluster = request => this.client.fetch({
     body: JSON.stringify(marshalUpgradeClusterRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$b,
+    headers: jsonContentHeaders$c,
     method: 'POST',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/clusters/${validatePathParam('clusterId', request.clusterId)}/upgrade`
   }, unmarshalCluster$1);
@@ -20132,7 +20696,7 @@ let API$d = class API extends API$q {
    */
   setClusterType = request => this.client.fetch({
     body: JSON.stringify(marshalSetClusterTypeRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$b,
+    headers: jsonContentHeaders$c,
     method: 'POST',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/clusters/${validatePathParam('clusterId', request.clusterId)}/set-type`
   }, unmarshalCluster$1);
@@ -20151,6 +20715,18 @@ let API$d = class API extends API$q {
     method: 'GET',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/clusters/${validatePathParam('clusterId', request.clusterId)}/available-versions`
   }, unmarshalListClusterAvailableVersionsResponse);
+
+  /**
+   * List available cluster types for a cluster. List the cluster types that a
+   * specific Kubernetes cluster is allowed to switch to.
+   *
+   * @param request - The request {@link ListClusterAvailableTypesRequest}
+   * @returns A Promise of ListClusterAvailableTypesResponse
+   */
+  listClusterAvailableTypes = request => this.client.fetch({
+    method: 'GET',
+    path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/clusters/${validatePathParam('clusterId', request.clusterId)}/available-types`
+  }, unmarshalListClusterAvailableTypesResponse);
   _getClusterKubeConfig = request => this.client.fetch({
     method: 'GET',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/clusters/${validatePathParam('clusterId', request.clusterId)}/kubeconfig`,
@@ -20168,10 +20744,25 @@ let API$d = class API extends API$q {
    */
   resetClusterAdminToken = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$b,
+    headers: jsonContentHeaders$c,
     method: 'POST',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/clusters/${validatePathParam('clusterId', request.clusterId)}/reset-admin-token`
   });
+
+  /**
+   * Migrate an existing cluster to a Private Network cluster. Migrate a cluster
+   * that was created before the release of Private Network clusters to a new
+   * one with a Private Network.
+   *
+   * @param request - The request {@link MigrateToPrivateNetworkClusterRequest}
+   * @returns A Promise of Cluster
+   */
+  migrateToPrivateNetworkCluster = request => this.client.fetch({
+    body: JSON.stringify(marshalMigrateToPrivateNetworkClusterRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$c,
+    method: 'POST',
+    path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/clusters/${validatePathParam('clusterId', request.clusterId)}/migrate-to-private-network`
+  }, unmarshalCluster$1);
   pageOfListPools = request => this.client.fetch({
     method: 'GET',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/clusters/${validatePathParam('clusterId', request.clusterId)}/pools`,
@@ -20196,7 +20787,7 @@ let API$d = class API extends API$q {
    */
   createPool = request => this.client.fetch({
     body: JSON.stringify(marshalCreatePoolRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$b,
+    headers: jsonContentHeaders$c,
     method: 'POST',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/clusters/${validatePathParam('clusterId', request.clusterId)}/pools`
   }, unmarshalPool);
@@ -20232,7 +20823,7 @@ let API$d = class API extends API$q {
    */
   upgradePool = request => this.client.fetch({
     body: JSON.stringify(marshalUpgradePoolRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$b,
+    headers: jsonContentHeaders$c,
     method: 'POST',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/pools/${validatePathParam('poolId', request.poolId)}/upgrade`
   }, unmarshalPool);
@@ -20246,7 +20837,7 @@ let API$d = class API extends API$q {
    */
   updatePool = request => this.client.fetch({
     body: JSON.stringify(marshalUpdatePoolRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$b,
+    headers: jsonContentHeaders$c,
     method: 'PATCH',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/pools/${validatePathParam('poolId', request.poolId)}`
   }, unmarshalPool);
@@ -20273,7 +20864,7 @@ let API$d = class API extends API$q {
    */
   createExternalNode = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$b,
+    headers: jsonContentHeaders$c,
     method: 'POST',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/pools/${validatePathParam('poolId', request.poolId)}/external-nodes`
   }, unmarshalExternalNode);
@@ -20326,7 +20917,7 @@ let API$d = class API extends API$q {
    */
   replaceNode = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$b,
+    headers: jsonContentHeaders$c,
     method: 'POST',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/nodes/${validatePathParam('nodeId', request.nodeId)}/replace`
   }, unmarshalNode);
@@ -20343,7 +20934,7 @@ let API$d = class API extends API$q {
    */
   rebootNode = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$b,
+    headers: jsonContentHeaders$c,
     method: 'POST',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/nodes/${validatePathParam('nodeId', request.nodeId)}/reboot`
   }, unmarshalNode);
@@ -20384,9 +20975,23 @@ let API$d = class API extends API$q {
     method: 'GET',
     path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/versions/${validatePathParam('versionName', request.versionName)}`
   }, unmarshalVersion$2);
+  pageOfListClusterTypes = (request = {}) => this.client.fetch({
+    method: 'GET',
+    path: `/k8s/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/cluster-types`,
+    urlParams: urlParams(['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize])
+  }, unmarshalListClusterTypesResponse);
+
+  /**
+   * List cluster types. List available cluster types and their technical
+   * details.
+   *
+   * @param request - The request {@link ListClusterTypesRequest}
+   * @returns A Promise of ListClusterTypesResponse
+   */
+  listClusterTypes = (request = {}) => enrichForPagination('clusterTypes', this.pageOfListClusterTypes, request);
 };
 
-class K8SUtilsAPI extends API$d {
+class K8SUtilsAPI extends API$e {
   /**
    * Get configuration of a kube cluster.
    *
@@ -20432,6 +21037,15 @@ const CreateClusterRequestPoolConfig = {
 const CreatePoolRequest = {
   name: {
     minLength: 1
+  }
+};
+const ListClusterTypesRequest = {
+  page: {
+    greaterThan: 0
+  },
+  pageSize: {
+    greaterThan: 0,
+    lessThanOrEqual: 100
   }
 };
 const ListClustersRequest = {
@@ -20487,13 +21101,14 @@ const UpdateClusterRequestAutoscalerConfig = {
   }
 };
 
-var validationRules_gen$1 = /*#__PURE__*/Object.freeze({
+var validationRules_gen$2 = /*#__PURE__*/Object.freeze({
   __proto__: null,
   CreateClusterRequest: CreateClusterRequest,
   CreateClusterRequestAutoscalerConfig: CreateClusterRequestAutoscalerConfig,
   CreateClusterRequestOpenIDConnectConfig: CreateClusterRequestOpenIDConnectConfig,
   CreateClusterRequestPoolConfig: CreateClusterRequestPoolConfig,
   CreatePoolRequest: CreatePoolRequest,
+  ListClusterTypesRequest: ListClusterTypesRequest,
   ListClustersRequest: ListClustersRequest,
   ListNodesRequest: ListNodesRequest,
   ListPoolsRequest: ListPoolsRequest,
@@ -20508,7 +21123,7 @@ var index$e = /*#__PURE__*/Object.freeze({
   CLUSTER_TRANSIENT_STATUSES: CLUSTER_TRANSIENT_STATUSES$1,
   NODE_TRANSIENT_STATUSES: NODE_TRANSIENT_STATUSES,
   POOL_TRANSIENT_STATUSES: POOL_TRANSIENT_STATUSES,
-  ValidationRules: validationRules_gen$1
+  ValidationRules: validationRules_gen$2
 });
 
 var index$d = /*#__PURE__*/Object.freeze({
@@ -20864,7 +21479,7 @@ const unmarshalLbType = data => {
     zone: data.zone
   };
 };
-const unmarshalPrivateNetwork$2 = data => {
+const unmarshalPrivateNetwork$3 = data => {
   if (!isJSONObject(data)) {
     throw new TypeError(`Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary.`);
   }
@@ -20959,7 +21574,7 @@ const unmarshalListLbPrivateNetworksResponse = data => {
     throw new TypeError(`Unmarshalling the type 'ListLbPrivateNetworksResponse' failed as data isn't a dictionary.`);
   }
   return {
-    privateNetwork: unmarshalArrayOfObject(data.private_network, unmarshalPrivateNetwork$2),
+    privateNetwork: unmarshalArrayOfObject(data.private_network, unmarshalPrivateNetwork$3),
     totalCount: data.total_count
   };
 };
@@ -21187,6 +21802,7 @@ const marshalCreateIpRequest = (request, defaults) => ({
   }])
 });
 const marshalCreateLbRequest = (request, defaults) => ({
+  assign_flexible_ip: request.assignFlexibleIp,
   description: request.description,
   ip_id: request.ipId,
   name: request.name || randomName('lb'),
@@ -21409,6 +22025,7 @@ const marshalZonedApiCreateIpRequest = (request, defaults) => ({
   }])
 });
 const marshalZonedApiCreateLbRequest = (request, defaults) => ({
+  assign_flexible_ip: request.assignFlexibleIp,
   description: request.description,
   ip_id: request.ipId,
   name: request.name || randomName('lb'),
@@ -21560,7 +22177,7 @@ const marshalZonedApiUpdateSubscriberRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$a = {
+const jsonContentHeaders$b = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
@@ -21569,7 +22186,7 @@ const jsonContentHeaders$a = {
  *
  * This API allows you to manage your load balancer service. Load balancer API.
  */
-let API$c = class API extends API$q {
+let API$d = class API extends API$s {
   /** Lists the available regions of the API. */
   static LOCALITIES = ['fr-par', 'nl-ams', 'pl-waw'];
   pageOfListLbs = (request = {}) => this.client.fetch({
@@ -21594,7 +22211,7 @@ let API$c = class API extends API$q {
    */
   createLb = request => this.client.fetch({
     body: JSON.stringify(marshalCreateLbRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/lbs`
   }, unmarshalLb);
@@ -21627,7 +22244,7 @@ let API$c = class API extends API$q {
    */
   updateLb = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateLbRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/lbs/${validatePathParam('lbId', request.lbId)}`
   }, unmarshalLb);
@@ -21651,7 +22268,7 @@ let API$c = class API extends API$q {
    */
   migrateLb = request => this.client.fetch({
     body: JSON.stringify(marshalMigrateLbRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/lbs/${validatePathParam('lbId', request.lbId)}/migrate`
   }, unmarshalLb);
@@ -21677,7 +22294,7 @@ let API$c = class API extends API$q {
    */
   createIp = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalCreateIpRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/ips`
   }, unmarshalIp);
@@ -21711,7 +22328,7 @@ let API$c = class API extends API$q {
    */
   updateIp = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateIpRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PATCH',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/ips/${validatePathParam('ipId', request.ipId)}`
   }, unmarshalIp);
@@ -21737,7 +22354,7 @@ let API$c = class API extends API$q {
    */
   createBackend = request => this.client.fetch({
     body: JSON.stringify(marshalCreateBackendRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/lbs/${validatePathParam('lbId', request.lbId)}/backends`
   }, unmarshalBackend);
@@ -21761,7 +22378,7 @@ let API$c = class API extends API$q {
    */
   updateBackend = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateBackendRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/backends/${validatePathParam('backendId', request.backendId)}`
   }, unmarshalBackend);
@@ -21784,7 +22401,7 @@ let API$c = class API extends API$q {
    */
   addBackendServers = request => this.client.fetch({
     body: JSON.stringify(marshalAddBackendServersRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/backends/${validatePathParam('backendId', request.backendId)}/servers`
   }, unmarshalBackend);
@@ -21797,7 +22414,7 @@ let API$c = class API extends API$q {
    */
   removeBackendServers = request => this.client.fetch({
     body: JSON.stringify(marshalRemoveBackendServersRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'DELETE',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/backends/${validatePathParam('backendId', request.backendId)}/servers`
   }, unmarshalBackend);
@@ -21810,7 +22427,7 @@ let API$c = class API extends API$q {
    */
   setBackendServers = request => this.client.fetch({
     body: JSON.stringify(marshalSetBackendServersRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/backends/${validatePathParam('backendId', request.backendId)}/servers`
   }, unmarshalBackend);
@@ -21823,7 +22440,7 @@ let API$c = class API extends API$q {
    */
   updateHealthCheck = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateHealthCheckRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/backends/${validatePathParam('backendId', request.backendId)}/healthcheck`
   }, unmarshalHealthCheck);
@@ -21849,7 +22466,7 @@ let API$c = class API extends API$q {
    */
   createFrontend = request => this.client.fetch({
     body: JSON.stringify(marshalCreateFrontendRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/lbs/${validatePathParam('lbId', request.lbId)}/frontends`
   }, unmarshalFrontend);
@@ -21873,7 +22490,7 @@ let API$c = class API extends API$q {
    */
   updateFrontend = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateFrontendRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/frontends/${validatePathParam('frontendId', request.frontendId)}`
   }, unmarshalFrontend);
@@ -21909,7 +22526,7 @@ let API$c = class API extends API$q {
    */
   createRoute = request => this.client.fetch({
     body: JSON.stringify(marshalCreateRouteRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/routes`
   }, unmarshalRoute);
@@ -21933,7 +22550,7 @@ let API$c = class API extends API$q {
    */
   updateRoute = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateRouteRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/routes/${validatePathParam('routeId', request.routeId)}`
   }, unmarshalRoute);
@@ -21957,13 +22574,21 @@ let API$c = class API extends API$q {
    */
   getLbStats = request => this.client.fetch({
     method: 'GET',
-    path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/lbs/${validatePathParam('lbId', request.lbId)}/stats`
+    path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/lbs/${validatePathParam('lbId', request.lbId)}/stats`,
+    urlParams: urlParams(['backend_id', request.backendId])
   }, unmarshalLbStats);
   pageOfListBackendStats = request => this.client.fetch({
     method: 'GET',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/lbs/${validatePathParam('lbId', request.lbId)}/backend-stats`,
-    urlParams: urlParams(['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize])
+    urlParams: urlParams(['backend_id', request.backendId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize])
   }, unmarshalListBackendStatsResponse);
+
+  /**
+   * List backend server statistics.
+   *
+   * @param request - The request {@link ListBackendStatsRequest}
+   * @returns A Promise of ListBackendStatsResponse
+   */
   listBackendStats = request => enrichForPagination('backendServersStats', this.pageOfListBackendStats, request);
   pageOfListAcls = request => this.client.fetch({
     method: 'GET',
@@ -21987,7 +22612,7 @@ let API$c = class API extends API$q {
    */
   createAcl = request => this.client.fetch({
     body: JSON.stringify(marshalCreateAclRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/frontends/${validatePathParam('frontendId', request.frontendId)}/acls`
   }, unmarshalAcl);
@@ -22011,7 +22636,7 @@ let API$c = class API extends API$q {
    */
   updateAcl = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateAclRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/acls/${validatePathParam('aclId', request.aclId)}`
   }, unmarshalAcl);
@@ -22035,7 +22660,7 @@ let API$c = class API extends API$q {
    */
   createCertificate = request => this.client.fetch({
     body: JSON.stringify(marshalCreateCertificateRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/lbs/${validatePathParam('lbId', request.lbId)}/certificates`
   }, unmarshalCertificate);
@@ -22081,7 +22706,7 @@ let API$c = class API extends API$q {
    */
   updateCertificate = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateCertificateRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/certificates/${validatePathParam('certificateId', request.certificateId)}`
   }, unmarshalCertificate);
@@ -22117,7 +22742,7 @@ let API$c = class API extends API$q {
    */
   createSubscriber = request => this.client.fetch({
     body: JSON.stringify(marshalCreateSubscriberRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/subscribers`
   }, unmarshalSubscriber);
@@ -22154,7 +22779,7 @@ let API$c = class API extends API$q {
    */
   updateSubscriber = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateSubscriberRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/subscribers/${validatePathParam('subscriberId', request.subscriberId)}`
   }, unmarshalSubscriber);
@@ -22177,7 +22802,7 @@ let API$c = class API extends API$q {
    */
   subscribeToLb = request => this.client.fetch({
     body: JSON.stringify(marshalSubscribeToLbRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/lb/${validatePathParam('lbId', request.lbId)}/subscribe`
   }, unmarshalLb);
@@ -22214,10 +22839,10 @@ let API$c = class API extends API$q {
    */
   attachPrivateNetwork = request => this.client.fetch({
     body: JSON.stringify(marshalAttachPrivateNetworkRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/lbs/${validatePathParam('lbId', request.lbId)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}/attach`
-  }, unmarshalPrivateNetwork$2);
+  }, unmarshalPrivateNetwork$3);
 
   /**
    * Remove load balancer of private network.
@@ -22226,7 +22851,7 @@ let API$c = class API extends API$q {
    */
   detachPrivateNetwork = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/lbs/${validatePathParam('lbId', request.lbId)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}/detach`
   });
@@ -22238,9 +22863,9 @@ let API$c = class API extends API$q {
  * This API allows you to manage your Scaleway Load Balancer services. Load
  * Balancer API.
  */
-class ZonedAPI extends API$q {
+class ZonedAPI extends API$s {
   /** Lists the available zones of the API. */
-  static LOCALITIES = ['fr-par-1', 'fr-par-2', 'nl-ams-1', 'nl-ams-2', 'pl-waw-1', 'pl-waw-2'];
+  static LOCALITIES = ['fr-par-1', 'fr-par-2', 'nl-ams-1', 'nl-ams-2', 'nl-ams-3', 'pl-waw-1', 'pl-waw-2'];
   pageOfListLbs = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lbs`,
@@ -22268,7 +22893,7 @@ class ZonedAPI extends API$q {
    */
   createLb = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiCreateLbRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lbs`
   }, unmarshalLb);
@@ -22305,7 +22930,7 @@ class ZonedAPI extends API$q {
    */
   updateLb = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiUpdateLbRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lbs/${validatePathParam('lbId', request.lbId)}`
   }, unmarshalLb);
@@ -22334,7 +22959,7 @@ class ZonedAPI extends API$q {
    */
   migrateLb = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiMigrateLbRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lbs/${validatePathParam('lbId', request.lbId)}/migrate`
   }, unmarshalLb);
@@ -22364,7 +22989,7 @@ class ZonedAPI extends API$q {
    */
   createIp = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalZonedApiCreateIpRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/ips`
   }, unmarshalIp);
@@ -22401,7 +23026,7 @@ class ZonedAPI extends API$q {
    */
   updateIp = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiUpdateIpRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PATCH',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/ips/${validatePathParam('ipId', request.ipId)}`
   }, unmarshalIp);
@@ -22434,7 +23059,7 @@ class ZonedAPI extends API$q {
    */
   createBackend = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiCreateBackendRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lbs/${validatePathParam('lbId', request.lbId)}/backends`
   }, unmarshalBackend);
@@ -22463,7 +23088,7 @@ class ZonedAPI extends API$q {
    */
   updateBackend = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiUpdateBackendRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/backends/${validatePathParam('backendId', request.backendId)}`
   }, unmarshalBackend);
@@ -22491,7 +23116,7 @@ class ZonedAPI extends API$q {
    */
   addBackendServers = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiAddBackendServersRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/backends/${validatePathParam('backendId', request.backendId)}/servers`
   }, unmarshalBackend);
@@ -22506,7 +23131,7 @@ class ZonedAPI extends API$q {
    */
   removeBackendServers = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiRemoveBackendServersRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'DELETE',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/backends/${validatePathParam('backendId', request.backendId)}/servers`
   }, unmarshalBackend);
@@ -22522,7 +23147,7 @@ class ZonedAPI extends API$q {
    */
   setBackendServers = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiSetBackendServersRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/backends/${validatePathParam('backendId', request.backendId)}/servers`
   }, unmarshalBackend);
@@ -22538,7 +23163,7 @@ class ZonedAPI extends API$q {
    */
   updateHealthCheck = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiUpdateHealthCheckRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/backends/${validatePathParam('backendId', request.backendId)}/healthcheck`
   }, unmarshalHealthCheck);
@@ -22571,7 +23196,7 @@ class ZonedAPI extends API$q {
    */
   createFrontend = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiCreateFrontendRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lbs/${validatePathParam('lbId', request.lbId)}/frontends`
   }, unmarshalFrontend);
@@ -22601,7 +23226,7 @@ class ZonedAPI extends API$q {
    */
   updateFrontend = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiUpdateFrontendRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/frontends/${validatePathParam('frontendId', request.frontendId)}`
   }, unmarshalFrontend);
@@ -22643,7 +23268,7 @@ class ZonedAPI extends API$q {
    */
   createRoute = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiCreateRouteRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/routes`
   }, unmarshalRoute);
@@ -22670,7 +23295,7 @@ class ZonedAPI extends API$q {
    */
   updateRoute = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiUpdateRouteRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/routes/${validatePathParam('routeId', request.routeId)}`
   }, unmarshalRoute);
@@ -22695,12 +23320,13 @@ class ZonedAPI extends API$q {
    */
   getLbStats = request => this.client.fetch({
     method: 'GET',
-    path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lbs/${validatePathParam('lbId', request.lbId)}/stats`
+    path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lbs/${validatePathParam('lbId', request.lbId)}/stats`,
+    urlParams: urlParams(['backend_id', request.backendId])
   }, unmarshalLbStats);
   pageOfListBackendStats = request => this.client.fetch({
     method: 'GET',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lbs/${validatePathParam('lbId', request.lbId)}/backend-stats`,
-    urlParams: urlParams(['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize])
+    urlParams: urlParams(['backend_id', request.backendId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize])
   }, unmarshalListBackendStatsResponse);
 
   /**
@@ -22739,7 +23365,7 @@ class ZonedAPI extends API$q {
    */
   createAcl = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiCreateAclRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/frontends/${validatePathParam('frontendId', request.frontendId)}/acls`
   }, unmarshalAcl);
@@ -22766,7 +23392,7 @@ class ZonedAPI extends API$q {
    */
   updateAcl = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiUpdateAclRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/acls/${validatePathParam('aclId', request.aclId)}`
   }, unmarshalAcl);
@@ -22792,7 +23418,7 @@ class ZonedAPI extends API$q {
    */
   setAcls = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiSetAclsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/frontends/${validatePathParam('frontendId', request.frontendId)}/acls`
   }, unmarshalSetAclsResponse);
@@ -22807,7 +23433,7 @@ class ZonedAPI extends API$q {
    */
   createCertificate = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiCreateCertificateRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lbs/${validatePathParam('lbId', request.lbId)}/certificates`
   }, unmarshalCertificate);
@@ -22860,7 +23486,7 @@ class ZonedAPI extends API$q {
    */
   updateCertificate = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiUpdateCertificateRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/certificates/${validatePathParam('certificateId', request.certificateId)}`
   }, unmarshalCertificate);
@@ -22902,7 +23528,7 @@ class ZonedAPI extends API$q {
    */
   createSubscriber = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiCreateSubscriberRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/subscribers`
   }, unmarshalSubscriber);
@@ -22946,7 +23572,7 @@ class ZonedAPI extends API$q {
    */
   updateSubscriber = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiUpdateSubscriberRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'PUT',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/subscribers/${validatePathParam('subscriberId', request.subscriberId)}`
   }, unmarshalSubscriber);
@@ -22971,7 +23597,7 @@ class ZonedAPI extends API$q {
    */
   subscribeToLb = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiSubscribeToLbRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lb/${validatePathParam('lbId', request.lbId)}/subscribe`
   }, unmarshalLb);
@@ -23016,10 +23642,10 @@ class ZonedAPI extends API$q {
    */
   attachPrivateNetwork = request => this.client.fetch({
     body: JSON.stringify(marshalZonedApiAttachPrivateNetworkRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lbs/${validatePathParam('lbId', request.lbId)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}/attach`
-  }, unmarshalPrivateNetwork$2);
+  }, unmarshalPrivateNetwork$3);
 
   /**
    * Detach Load Balancer from Private Network. Detach a specified Load Balancer
@@ -23029,13 +23655,13 @@ class ZonedAPI extends API$q {
    */
   detachPrivateNetwork = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$a,
+    headers: jsonContentHeaders$b,
     method: 'POST',
     path: `/lb/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/lbs/${validatePathParam('lbId', request.lbId)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}/detach`
   });
 }
 
-class LbV1UtilsAPI extends API$c {
+class LbV1UtilsAPI extends API$d {
   /**
    * Waits for all private networks of a load balancer to be in a final state.
    *
@@ -23217,7 +23843,7 @@ const unmarshalListVersionsResponse$1 = data => {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 /** Marketplace API. */
-let API$b = class API extends API$q {
+let API$c = class API extends API$s {
   pageOfListImages = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/marketplace/v1/images`,
@@ -23255,9 +23881,9 @@ let API$b = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$b = /*#__PURE__*/Object.freeze({
+var index_gen$c = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$b
+  API: API$c
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -23297,6 +23923,7 @@ const unmarshalLocalImage = data => {
     compatibleCommercialTypes: data.compatible_commercial_types,
     id: data.id,
     label: data.label,
+    type: data.type,
     zone: data.zone
   };
 };
@@ -23352,7 +23979,7 @@ const unmarshalListVersionsResponse = data => {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 /** Marketplace API. */
-let API$a = class API extends API$q {
+let API$b = class API extends API$s {
   pageOfListImages = request => this.client.fetch({
     method: 'GET',
     path: `/marketplace/v2/images`,
@@ -23409,7 +24036,7 @@ let API$a = class API extends API$q {
   pageOfListLocalImages = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/marketplace/v2/local-images`,
-    urlParams: urlParams(['order_by', request.orderBy ?? 'created_at_asc'], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['zone', request.zone ?? this.client.settings.defaultZone], ...Object.entries(resolveOneOf([{
+    urlParams: urlParams(['order_by', request.orderBy ?? 'created_at_asc'], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['type', request.type ?? 'unknown_type'], ['zone', request.zone ?? this.client.settings.defaultZone], ...Object.entries(resolveOneOf([{
       param: 'image_id',
       value: request.imageId
     }, {
@@ -23476,15 +24103,15 @@ let API$a = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$a = /*#__PURE__*/Object.freeze({
+var index_gen$b = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$a
+  API: API$b
 });
 
 var index$a = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1: index_gen$b,
-  v2: index_gen$a
+  v1: index_gen$c,
+  v2: index_gen$b
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -23610,7 +24237,7 @@ const marshalUpdateNamespaceRequest$1 = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$9 = {
+const jsonContentHeaders$a = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
@@ -23620,7 +24247,7 @@ const jsonContentHeaders$9 = {
  * This API allows you to manage Scaleway Messaging and Queueing brokers.
  * Messaging and Queuing API.
  */
-let API$9 = class API extends API$q {
+let API$a = class API extends API$s {
   /** Lists the available regions of the API. */
   static LOCALITIES = ['fr-par'];
   pageOfListNamespaces = (request = {}) => this.client.fetch({
@@ -23649,7 +24276,7 @@ let API$9 = class API extends API$q {
    */
   createNamespace = request => this.client.fetch({
     body: JSON.stringify(marshalCreateNamespaceRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$9,
+    headers: jsonContentHeaders$a,
     method: 'POST',
     path: `/mnq/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/namespaces`
   }, unmarshalNamespace$1);
@@ -23663,7 +24290,7 @@ let API$9 = class API extends API$q {
    */
   updateNamespace = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateNamespaceRequest$1(request, this.client.settings)),
-    headers: jsonContentHeaders$9,
+    headers: jsonContentHeaders$a,
     method: 'PATCH',
     path: `/mnq/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/namespaces`
   }, unmarshalNamespace$1);
@@ -23706,7 +24333,7 @@ let API$9 = class API extends API$q {
    */
   createCredential = request => this.client.fetch({
     body: JSON.stringify(marshalCreateCredentialRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$9,
+    headers: jsonContentHeaders$a,
     method: 'POST',
     path: `/mnq/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/credentials`
   }, unmarshalCredential);
@@ -23749,7 +24376,7 @@ let API$9 = class API extends API$q {
    */
   updateCredential = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateCredentialRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$9,
+    headers: jsonContentHeaders$a,
     method: 'PATCH',
     path: `/mnq/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/credentials/${validatePathParam('credentialId', request.credentialId)}`
   }, unmarshalCredential);
@@ -23771,14 +24398,14 @@ let API$9 = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$9 = /*#__PURE__*/Object.freeze({
+var index_gen$a = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$9
+  API: API$a
 });
 
 var index$9 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1alpha1: index_gen$9
+  v1alpha1: index_gen$a
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -23866,6 +24493,7 @@ const unmarshalBackupSchedule = data => {
   return {
     disabled: data.disabled,
     frequency: data.frequency,
+    nextRunAt: unmarshalDate(data.next_run_at),
     retention: data.retention
   };
 };
@@ -23942,6 +24570,7 @@ const unmarshalReadReplica = data => {
     endpoints: unmarshalArrayOfObject(data.endpoints, unmarshalEndpoint$1),
     id: data.id,
     region: data.region,
+    sameZone: data.same_zone,
     status: data.status
   };
 };
@@ -24401,7 +25030,8 @@ const marshalCreateReadReplicaEndpointRequest = (request, defaults) => ({
 });
 const marshalCreateReadReplicaRequest = (request, defaults) => ({
   endpoint_spec: request.endpointSpec ? request.endpointSpec.map(elt => marshalReadReplicaEndpointSpec(elt)) : undefined,
-  instance_id: request.instanceId
+  instance_id: request.instanceId,
+  same_zone: request.sameZone
 });
 const marshalCreateSnapshotRequest = (request, defaults) => ({
   expires_at: request.expiresAt,
@@ -24451,6 +25081,7 @@ const marshalUpdateInstanceRequest = (request, defaults) => ({
   backup_same_region: request.backupSameRegion,
   backup_schedule_frequency: request.backupScheduleFrequency,
   backup_schedule_retention: request.backupScheduleRetention,
+  backup_schedule_start_hour: request.backupScheduleStartHour,
   is_backup_schedule_disabled: request.isBackupScheduleDisabled,
   logs_policy: request.logsPolicy ? marshalLogsPolicy(request.logsPolicy) : undefined,
   name: request.name,
@@ -24485,12 +25116,12 @@ const marshalUpgradeInstanceRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$8 = {
+const jsonContentHeaders$9 = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
 /** Managed Database for PostgreSQL and MySQL API. */
-let API$8 = class API extends API$q {
+let API$9 = class API extends API$s {
   /** Lists the available regions of the API. */
   static LOCALITIES = ['fr-par', 'nl-ams', 'pl-waw'];
   pageOfListDatabaseEngines = (request = {}) => this.client.fetch({
@@ -24548,7 +25179,7 @@ let API$8 = class API extends API$q {
    */
   createDatabaseBackup = request => this.client.fetch({
     body: JSON.stringify(marshalCreateDatabaseBackupRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/backups`
   }, unmarshalDatabaseBackup);
@@ -24584,7 +25215,7 @@ let API$8 = class API extends API$q {
    */
   updateDatabaseBackup = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateDatabaseBackupRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'PATCH',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/backups/${validatePathParam('databaseBackupId', request.databaseBackupId)}`
   }, unmarshalDatabaseBackup);
@@ -24612,7 +25243,7 @@ let API$8 = class API extends API$q {
    */
   restoreDatabaseBackup = request => this.client.fetch({
     body: JSON.stringify(marshalRestoreDatabaseBackupRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/backups/${validatePathParam('databaseBackupId', request.databaseBackupId)}/restore`
   }, unmarshalDatabaseBackup);
@@ -24627,7 +25258,7 @@ let API$8 = class API extends API$q {
    */
   exportDatabaseBackup = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/backups/${validatePathParam('databaseBackupId', request.databaseBackupId)}/export`
   }, unmarshalDatabaseBackup);
@@ -24643,7 +25274,7 @@ let API$8 = class API extends API$q {
    */
   upgradeInstance = request => this.client.fetch({
     body: JSON.stringify(marshalUpgradeInstanceRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/upgrade`
   }, unmarshalInstance);
@@ -24701,7 +25332,7 @@ let API$8 = class API extends API$q {
    */
   createInstance = request => this.client.fetch({
     body: JSON.stringify(marshalCreateInstanceRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances`
   }, unmarshalInstance);
@@ -24715,7 +25346,7 @@ let API$8 = class API extends API$q {
    */
   updateInstance = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateInstanceRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'PATCH',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}`
   }, unmarshalInstance);
@@ -24746,7 +25377,7 @@ let API$8 = class API extends API$q {
    */
   cloneInstance = request => this.client.fetch({
     body: JSON.stringify(marshalCloneInstanceRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/clone`
   }, unmarshalInstance);
@@ -24761,7 +25392,7 @@ let API$8 = class API extends API$q {
    */
   restartInstance = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/restart`
   }, unmarshalInstance);
@@ -24792,7 +25423,7 @@ let API$8 = class API extends API$q {
    */
   renewInstanceCertificate = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/renew-certificate`
   });
@@ -24821,7 +25452,7 @@ let API$8 = class API extends API$q {
    */
   createReadReplica = request => this.client.fetch({
     body: JSON.stringify(marshalCreateReadReplicaRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/read-replicas`
   }, unmarshalReadReplica);
@@ -24873,7 +25504,7 @@ let API$8 = class API extends API$q {
    */
   resetReadReplica = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/read-replicas/${validatePathParam('readReplicaId', request.readReplicaId)}/reset`
   }, unmarshalReadReplica);
@@ -24888,7 +25519,7 @@ let API$8 = class API extends API$q {
    */
   createReadReplicaEndpoint = request => this.client.fetch({
     body: JSON.stringify(marshalCreateReadReplicaEndpointRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/read-replicas/${validatePathParam('readReplicaId', request.readReplicaId)}/endpoints`
   }, unmarshalReadReplica);
@@ -24906,7 +25537,7 @@ let API$8 = class API extends API$q {
    */
   prepareInstanceLogs = request => this.client.fetch({
     body: JSON.stringify(marshalPrepareInstanceLogsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/prepare-logs`
   }, unmarshalPrepareInstanceLogsResponse);
@@ -24958,7 +25589,7 @@ let API$8 = class API extends API$q {
    */
   purgeInstanceLogs = request => this.client.fetch({
     body: JSON.stringify(marshalPurgeInstanceLogsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/purge-logs`
   });
@@ -24986,7 +25617,7 @@ let API$8 = class API extends API$q {
    */
   addInstanceSettings = request => this.client.fetch({
     body: JSON.stringify(marshalAddInstanceSettingsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/settings`
   }, unmarshalAddInstanceSettingsResponse);
@@ -25001,7 +25632,7 @@ let API$8 = class API extends API$q {
    */
   deleteInstanceSettings = request => this.client.fetch({
     body: JSON.stringify(marshalDeleteInstanceSettingsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'DELETE',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/settings`
   }, unmarshalDeleteInstanceSettingsResponse);
@@ -25016,7 +25647,7 @@ let API$8 = class API extends API$q {
    */
   setInstanceSettings = request => this.client.fetch({
     body: JSON.stringify(marshalSetInstanceSettingsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'PUT',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/settings`
   }, unmarshalSetInstanceSettingsResponse);
@@ -25046,7 +25677,7 @@ let API$8 = class API extends API$q {
    */
   addInstanceACLRules = request => this.client.fetch({
     body: JSON.stringify(marshalAddInstanceACLRulesRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/acls`
   }, unmarshalAddInstanceACLRulesResponse);
@@ -25060,7 +25691,7 @@ let API$8 = class API extends API$q {
    */
   setInstanceACLRules = request => this.client.fetch({
     body: JSON.stringify(marshalSetInstanceACLRulesRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'PUT',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/acls`
   }, unmarshalSetInstanceACLRulesResponse);
@@ -25074,7 +25705,7 @@ let API$8 = class API extends API$q {
    */
   deleteInstanceACLRules = request => this.client.fetch({
     body: JSON.stringify(marshalDeleteInstanceACLRulesRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'DELETE',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/acls`
   }, unmarshalDeleteInstanceACLRulesResponse);
@@ -25105,7 +25736,7 @@ let API$8 = class API extends API$q {
    */
   createUser = request => this.client.fetch({
     body: JSON.stringify(marshalCreateUserRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/users`
   }, unmarshalUser);
@@ -25120,7 +25751,7 @@ let API$8 = class API extends API$q {
    */
   updateUser = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateUserRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'PATCH',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/users/${validatePathParam('name', request.name)}`
   }, unmarshalUser);
@@ -25163,7 +25794,7 @@ let API$8 = class API extends API$q {
    */
   createDatabase = request => this.client.fetch({
     body: JSON.stringify(marshalCreateDatabaseRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/databases`
   }, unmarshalDatabase);
@@ -25207,7 +25838,7 @@ let API$8 = class API extends API$q {
    */
   setPrivilege = request => this.client.fetch({
     body: JSON.stringify(marshalSetPrivilegeRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'PUT',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/privileges`
   }, unmarshalPrivilege);
@@ -25260,7 +25891,7 @@ let API$8 = class API extends API$q {
    */
   createSnapshot = request => this.client.fetch({
     body: JSON.stringify(marshalCreateSnapshotRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/snapshots`
   }, unmarshalSnapshot);
@@ -25275,7 +25906,7 @@ let API$8 = class API extends API$q {
    */
   updateSnapshot = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateSnapshotRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'PATCH',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/snapshots/${validatePathParam('snapshotId', request.snapshotId)}`
   }, unmarshalSnapshot);
@@ -25308,7 +25939,7 @@ let API$8 = class API extends API$q {
    */
   createInstanceFromSnapshot = request => this.client.fetch({
     body: JSON.stringify(marshalCreateInstanceFromSnapshotRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/snapshots/${validatePathParam('snapshotId', request.snapshotId)}/create-instance`
   }, unmarshalInstance);
@@ -25316,16 +25947,14 @@ let API$8 = class API extends API$q {
   /**
    * Create a new Database Instance endpoint. Create a new endpoint for a
    * Database Instance. You can add `load_balancer` and `private_network`
-   * specifications to the body of the request. Note that this action replaces
-   * your current endpoint, which means you might need to update any environment
-   * configurations that point to the old endpoint.
+   * specifications to the body of the request.
    *
    * @param request - The request {@link CreateEndpointRequest}
    * @returns A Promise of Endpoint
    */
   createEndpoint = request => this.client.fetch({
     body: JSON.stringify(marshalCreateEndpointRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/instances/${validatePathParam('instanceId', request.instanceId)}/endpoints`
   }, unmarshalEndpoint$1);
@@ -25365,7 +25994,7 @@ let API$8 = class API extends API$q {
    */
   migrateEndpoint = request => this.client.fetch({
     body: JSON.stringify(marshalMigrateEndpointRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$8,
+    headers: jsonContentHeaders$9,
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/endpoints/${validatePathParam('endpointId', request.endpointId)}/migrate`
   }, unmarshalEndpoint$1);
@@ -25374,20 +26003,35 @@ let API$8 = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$8 = /*#__PURE__*/Object.freeze({
+const UpdateInstanceRequest = {
+  backupScheduleStartHour: {
+    lessThanOrEqual: 23
+  }
+};
+
+var validationRules_gen$1 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$8,
+  UpdateInstanceRequest: UpdateInstanceRequest
+});
+
+// This file was automatically generated. DO NOT EDIT.
+// If you have any remark or suggestion do not hesitate to open an issue.
+
+var index_gen$9 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  API: API$9,
   DATABASE_BACKUP_TRANSIENT_STATUSES: DATABASE_BACKUP_TRANSIENT_STATUSES,
   INSTANCE_LOG_TRANSIENT_STATUSES: INSTANCE_LOG_TRANSIENT_STATUSES,
   INSTANCE_TRANSIENT_STATUSES: INSTANCE_TRANSIENT_STATUSES,
   MAINTENANCE_TRANSIENT_STATUSES: MAINTENANCE_TRANSIENT_STATUSES,
   READ_REPLICA_TRANSIENT_STATUSES: READ_REPLICA_TRANSIENT_STATUSES,
-  SNAPSHOT_TRANSIENT_STATUSES: SNAPSHOT_TRANSIENT_STATUSES
+  SNAPSHOT_TRANSIENT_STATUSES: SNAPSHOT_TRANSIENT_STATUSES,
+  ValidationRules: validationRules_gen$1
 });
 
 var index$8 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1: index_gen$8
+  v1: index_gen$9
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -25398,12 +26042,13 @@ const CLUSTER_TRANSIENT_STATUSES = ['provisioning', 'configuring', 'deleting', '
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const unmarshalPrivateNetwork$1 = data => {
+const unmarshalPrivateNetwork$2 = data => {
   if (!isJSONObject(data)) {
     throw new TypeError(`Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary.`);
   }
   return {
     id: data.id,
+    provisioningMode: data.provisioning_mode,
     serviceIps: data.service_ips,
     zone: data.zone
   };
@@ -25456,7 +26101,7 @@ const unmarshalEndpoint = data => {
     id: data.id,
     ips: data.ips,
     port: data.port,
-    privateNetwork: data.private_network ? unmarshalPrivateNetwork$1(data.private_network) : undefined,
+    privateNetwork: data.private_network ? unmarshalPrivateNetwork$2(data.private_network) : undefined,
     publicNetwork: data.public_network ? unmarshalPublicNetwork(data.public_network) : undefined
   };
 };
@@ -25674,12 +26319,12 @@ const marshalUpdateEndpointRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$7 = {
+const jsonContentHeaders$8 = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
 /** Managed Database for Redis™ API. */
-let API$7 = class API extends API$q {
+let API$8 = class API extends API$s {
   /** Lists the available zones of the API. */
   static LOCALITIES = ['fr-par-1', 'fr-par-2', 'nl-ams-1', 'nl-ams-2', 'pl-waw-1', 'pl-waw-2'];
 
@@ -25694,7 +26339,7 @@ let API$7 = class API extends API$q {
    */
   createCluster = request => this.client.fetch({
     body: JSON.stringify(marshalCreateClusterRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$7,
+    headers: jsonContentHeaders$8,
     method: 'POST',
     path: `/redis/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/clusters`
   }, unmarshalCluster);
@@ -25709,7 +26354,7 @@ let API$7 = class API extends API$q {
    */
   updateCluster = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateClusterRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$7,
+    headers: jsonContentHeaders$8,
     method: 'PATCH',
     path: `/redis/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/clusters/${validatePathParam('clusterId', request.clusterId)}`
   }, unmarshalCluster);
@@ -25770,7 +26415,7 @@ let API$7 = class API extends API$q {
    */
   migrateCluster = request => this.client.fetch({
     body: JSON.stringify(marshalMigrateClusterRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$7,
+    headers: jsonContentHeaders$8,
     method: 'POST',
     path: `/redis/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/clusters/${validatePathParam('clusterId', request.clusterId)}/migrate`
   }, unmarshalCluster);
@@ -25860,7 +26505,7 @@ let API$7 = class API extends API$q {
    */
   renewClusterCertificate = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$7,
+    headers: jsonContentHeaders$8,
     method: 'POST',
     path: `/redis/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/clusters/${validatePathParam('clusterId', request.clusterId)}/renew-certificate`
   }, unmarshalCluster);
@@ -25875,7 +26520,7 @@ let API$7 = class API extends API$q {
    */
   addClusterSettings = request => this.client.fetch({
     body: JSON.stringify(marshalAddClusterSettingsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$7,
+    headers: jsonContentHeaders$8,
     method: 'POST',
     path: `/redis/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/clusters/${validatePathParam('clusterId', request.clusterId)}/settings`
   }, unmarshalClusterSettingsResponse);
@@ -25903,7 +26548,7 @@ let API$7 = class API extends API$q {
    */
   setClusterSettings = request => this.client.fetch({
     body: JSON.stringify(marshalSetClusterSettingsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$7,
+    headers: jsonContentHeaders$8,
     method: 'PUT',
     path: `/redis/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/clusters/${validatePathParam('clusterId', request.clusterId)}/settings`
   }, unmarshalClusterSettingsResponse);
@@ -25917,7 +26562,7 @@ let API$7 = class API extends API$q {
    */
   setAclRules = request => this.client.fetch({
     body: JSON.stringify(marshalSetAclRulesRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$7,
+    headers: jsonContentHeaders$8,
     method: 'PUT',
     path: `/redis/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/clusters/${validatePathParam('clusterId', request.clusterId)}/acls`
   }, unmarshalSetAclRulesResponse);
@@ -25931,7 +26576,7 @@ let API$7 = class API extends API$q {
    */
   addAclRules = request => this.client.fetch({
     body: JSON.stringify(marshalAddAclRulesRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$7,
+    headers: jsonContentHeaders$8,
     method: 'POST',
     path: `/redis/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/clusters/${validatePathParam('clusterId', request.clusterId)}/acls`
   }, unmarshalAddAclRulesResponse);
@@ -25972,7 +26617,7 @@ let API$7 = class API extends API$q {
    */
   setEndpoints = request => this.client.fetch({
     body: JSON.stringify(marshalSetEndpointsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$7,
+    headers: jsonContentHeaders$8,
     method: 'PUT',
     path: `/redis/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/clusters/${validatePathParam('clusterId', request.clusterId)}/endpoints`
   }, unmarshalSetEndpointsResponse);
@@ -25987,7 +26632,7 @@ let API$7 = class API extends API$q {
    */
   addEndpoints = request => this.client.fetch({
     body: JSON.stringify(marshalAddEndpointsRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$7,
+    headers: jsonContentHeaders$8,
     method: 'POST',
     path: `/redis/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/clusters/${validatePathParam('clusterId', request.clusterId)}/endpoints`
   }, unmarshalAddEndpointsResponse);
@@ -26031,7 +26676,7 @@ let API$7 = class API extends API$q {
    */
   updateEndpoint = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateEndpointRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$7,
+    headers: jsonContentHeaders$8,
     method: 'PATCH',
     path: `/redis/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/endpoints/${validatePathParam('endpointId', request.endpointId)}`
   }, unmarshalEndpoint);
@@ -26040,15 +26685,15 @@ let API$7 = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$7 = /*#__PURE__*/Object.freeze({
+var index_gen$8 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$7,
+  API: API$8,
   CLUSTER_TRANSIENT_STATUSES: CLUSTER_TRANSIENT_STATUSES
 });
 
 var index$7 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1: index_gen$7
+  v1: index_gen$8
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -26135,7 +26780,7 @@ const unmarshalListNamespacesResponse = data => {
     totalCount: data.total_count
   };
 };
-const unmarshalListTagsResponse = data => {
+const unmarshalListTagsResponse$1 = data => {
   if (!isJSONObject(data)) {
     throw new TypeError(`Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary.`);
   }
@@ -26168,12 +26813,12 @@ const marshalUpdateNamespaceRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$6 = {
+const jsonContentHeaders$7 = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
 /** Container Registry API. */
-let API$6 = class API extends API$q {
+let API$7 = class API extends API$s {
   /** Lists the available regions of the API. */
   static LOCALITIES = ['fr-par', 'nl-ams', 'pl-waw'];
   pageOfListNamespaces = (request = {}) => this.client.fetch({
@@ -26228,7 +26873,7 @@ let API$6 = class API extends API$q {
    */
   createNamespace = request => this.client.fetch({
     body: JSON.stringify(marshalCreateNamespaceRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$6,
+    headers: jsonContentHeaders$7,
     method: 'POST',
     path: `/registry/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/namespaces`
   }, unmarshalNamespace);
@@ -26243,7 +26888,7 @@ let API$6 = class API extends API$q {
    */
   updateNamespace = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateNamespaceRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$6,
+    headers: jsonContentHeaders$7,
     method: 'PATCH',
     path: `/registry/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/namespaces/${validatePathParam('namespaceId', request.namespaceId)}`
   }, unmarshalNamespace);
@@ -26309,7 +26954,7 @@ let API$6 = class API extends API$q {
    */
   updateImage = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateImageRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$6,
+    headers: jsonContentHeaders$7,
     method: 'PATCH',
     path: `/registry/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/images/${validatePathParam('imageId', request.imageId)}`
   }, unmarshalImage);
@@ -26329,7 +26974,7 @@ let API$6 = class API extends API$q {
     method: 'GET',
     path: `/registry/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/images/${validatePathParam('imageId', request.imageId)}/tags`,
     urlParams: urlParams(['name', request.name], ['order_by', request.orderBy ?? 'created_at_asc'], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize])
-  }, unmarshalListTagsResponse);
+  }, unmarshalListTagsResponse$1);
 
   /**
    * List tags. List all tags for a given image, specified by region. By
@@ -26381,9 +27026,9 @@ let API$6 = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$6 = /*#__PURE__*/Object.freeze({
+var index_gen$7 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$6,
+  API: API$7,
   IMAGE_TRANSIENT_STATUSES: IMAGE_TRANSIENT_STATUSES,
   NAMESPACE_TRANSIENT_STATUSES: NAMESPACE_TRANSIENT_STATUSES,
   TAG_TRANSIENT_STATUSES: TAG_TRANSIENT_STATUSES
@@ -26391,7 +27036,7 @@ var index_gen$6 = /*#__PURE__*/Object.freeze({
 
 var index$6 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1: index_gen$6
+  v1: index_gen$7
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -26405,11 +27050,13 @@ const unmarshalSecret = data => {
     description: data.description,
     id: data.id,
     isManaged: data.is_managed,
+    isProtected: data.is_protected,
     name: data.name,
     projectId: data.project_id,
     region: data.region,
     status: data.status,
     tags: data.tags,
+    type: data.type,
     updatedAt: unmarshalDate(data.updated_at),
     versionCount: data.version_count
   };
@@ -26457,6 +27104,15 @@ const unmarshalListSecretsResponse = data => {
     totalCount: data.total_count
   };
 };
+const unmarshalListTagsResponse = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    tags: data.tags,
+    totalCount: data.total_count
+  };
+};
 const marshalPasswordGenerationParams = (request, defaults) => ({
   additional_chars: request.additionalChars,
   length: request.length,
@@ -26465,13 +27121,15 @@ const marshalPasswordGenerationParams = (request, defaults) => ({
   no_uppercase_letters: request.noUppercaseLetters
 });
 const marshalAddSecretOwnerRequest = (request, defaults) => ({
+  product: request.product ?? 'unknown',
   product_name: request.productName
 });
 const marshalCreateSecretRequest = (request, defaults) => ({
   description: request.description,
   name: request.name,
   project_id: request.projectId ?? defaults.defaultProjectId,
-  tags: request.tags
+  tags: request.tags,
+  type: request.type ?? 'unknown_secret_type'
 });
 const marshalCreateSecretVersionRequest = (request, defaults) => ({
   data: request.data,
@@ -26482,6 +27140,15 @@ const marshalCreateSecretVersionRequest = (request, defaults) => ({
     param: 'password_generation',
     value: request.passwordGeneration ? marshalPasswordGenerationParams(request.passwordGeneration) : undefined
   }])
+});
+const marshalGeneratePasswordRequest = (request, defaults) => ({
+  additional_chars: request.additionalChars,
+  description: request.description,
+  disable_previous: request.disablePrevious,
+  length: request.length,
+  no_digits: request.noDigits,
+  no_lowercase_letters: request.noLowercaseLetters,
+  no_uppercase_letters: request.noUppercaseLetters
 });
 const marshalUpdateSecretRequest = (request, defaults) => ({
   description: request.description,
@@ -26494,7 +27161,7 @@ const marshalUpdateSecretVersionRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$5 = {
+const jsonContentHeaders$6 = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
@@ -26504,7 +27171,7 @@ const jsonContentHeaders$5 = {
  * Secret Manager API. This API allows you to conveniently store, access and
  * share sensitive data.
  */
-let API$5 = class API extends API$q {
+let API$6 = class API extends API$s {
   /** Lists the available regions of the API. */
   static LOCALITIES = ['fr-par'];
 
@@ -26516,14 +27183,14 @@ let API$5 = class API extends API$q {
    */
   createSecret = request => this.client.fetch({
     body: JSON.stringify(marshalCreateSecretRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$5,
+    headers: jsonContentHeaders$6,
     method: 'POST',
     path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets`
   }, unmarshalSecret);
 
   /**
-   * Get metadata using the secret's name. Retrieve the metadata of a secret
-   * specified by the `region` and the `secret_name` parameters.
+   * Get metadata using the secret's ID. Retrieve the metadata of a secret
+   * specified by the `region` and `secret_id` parameters.
    *
    * @param request - The request {@link GetSecretRequest}
    * @returns A Promise of Secret
@@ -26534,15 +27201,16 @@ let API$5 = class API extends API$q {
   }, unmarshalSecret);
 
   /**
-   * Get metadata using the secret's ID. Retrieve the metadata of a secret
-   * specified by the `region` and the `secret_id` parameters.
+   * Get metadata using the secret's name. Retrieve the metadata of a secret
+   * specified by the `region` and `secret_name` parameters.
    *
    * @param request - The request {@link GetSecretByNameRequest}
    * @returns A Promise of Secret
    */
   getSecretByName = request => this.client.fetch({
     method: 'GET',
-    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets-by-name/${validatePathParam('secretName', request.secretName)}`
+    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets-by-name/${validatePathParam('secretName', request.secretName)}`,
+    urlParams: urlParams(['project_id', request.projectId])
   }, unmarshalSecret);
 
   /**
@@ -26555,7 +27223,7 @@ let API$5 = class API extends API$q {
    */
   updateSecret = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateSecretRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$5,
+    headers: jsonContentHeaders$6,
     method: 'PATCH',
     path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets/${validatePathParam('secretId', request.secretId)}`
   }, unmarshalSecret);
@@ -26587,13 +27255,42 @@ let API$5 = class API extends API$q {
   });
 
   /**
+   * Protect a secret. Protect a given secret specified by the `secret_id`
+   * parameter. A protected secret can be read and modified but cannot be
+   * deleted.
+   *
+   * @param request - The request {@link ProtectSecretRequest}
+   * @returns A Promise of Secret
+   */
+  protectSecret = request => this.client.fetch({
+    body: '{}',
+    headers: jsonContentHeaders$6,
+    method: 'POST',
+    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets/${validatePathParam('secretId', request.secretId)}/protect`
+  }, unmarshalSecret);
+
+  /**
+   * Unprotect a secret. Unprotect a given secret specified by the `secret_id`
+   * parameter. An unprotected secret can be read, modified and deleted.
+   *
+   * @param request - The request {@link UnprotectSecretRequest}
+   * @returns A Promise of Secret
+   */
+  unprotectSecret = request => this.client.fetch({
+    body: '{}',
+    headers: jsonContentHeaders$6,
+    method: 'POST',
+    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets/${validatePathParam('secretId', request.secretId)}/unprotect`
+  }, unmarshalSecret);
+
+  /**
    * Allow a product to use the secret.
    *
    * @param request - The request {@link AddSecretOwnerRequest}
    */
   addSecretOwner = request => this.client.fetch({
     body: JSON.stringify(marshalAddSecretOwnerRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$5,
+    headers: jsonContentHeaders$6,
     method: 'POST',
     path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets/${validatePathParam('secretId', request.secretId)}/add-owner`
   });
@@ -26607,9 +27304,24 @@ let API$5 = class API extends API$q {
    */
   createSecretVersion = request => this.client.fetch({
     body: JSON.stringify(marshalCreateSecretVersionRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$5,
+    headers: jsonContentHeaders$6,
     method: 'POST',
     path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets/${validatePathParam('secretId', request.secretId)}/versions`
+  }, unmarshalSecretVersion);
+
+  /**
+   * Generate a password in a new version. Generate a password for the given
+   * secret specified by the `region` and `secret_id` parameters. This will also
+   * create a new version of the secret that will store the password.
+   *
+   * @param request - The request {@link GeneratePasswordRequest}
+   * @returns A Promise of SecretVersion
+   */
+  generatePassword = request => this.client.fetch({
+    body: JSON.stringify(marshalGeneratePasswordRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$6,
+    method: 'POST',
+    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets/${validatePathParam('secretId', request.secretId)}/generate-password`
   }, unmarshalSecretVersion);
 
   /**
@@ -26628,14 +27340,15 @@ let API$5 = class API extends API$q {
   /**
    * Get metadata of a secret's version using the secret's name. Retrieve the
    * metadata of a secret's given version specified by the `region`,
-   * `secret_name` and `revision` parameters.
+   * `secret_name`, `revision` and `project_id` parameters.
    *
    * @param request - The request {@link GetSecretVersionByNameRequest}
    * @returns A Promise of SecretVersion
    */
   getSecretVersionByName = request => this.client.fetch({
     method: 'GET',
-    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets-by-name/${validatePathParam('secretName', request.secretName)}/versions/${validatePathParam('revision', request.revision)}`
+    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets-by-name/${validatePathParam('secretName', request.secretName)}/versions/${validatePathParam('revision', request.revision)}`,
+    urlParams: urlParams(['project_id', request.projectId])
   }, unmarshalSecretVersion);
 
   /**
@@ -26647,7 +27360,7 @@ let API$5 = class API extends API$q {
    */
   updateSecretVersion = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateSecretVersionRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$5,
+    headers: jsonContentHeaders$6,
     method: 'PATCH',
     path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets/${validatePathParam('secretId', request.secretId)}/versions/${validatePathParam('revision', request.revision)}`
   }, unmarshalSecretVersion);
@@ -26669,13 +27382,13 @@ let API$5 = class API extends API$q {
   pageOfListSecretVersionsByName = request => this.client.fetch({
     method: 'GET',
     path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets-by-name/${validatePathParam('secretName', request.secretName)}/versions`,
-    urlParams: urlParams(['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['status', request.status])
+    urlParams: urlParams(['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_id', request.projectId], ['status', request.status])
   }, unmarshalListSecretVersionsResponse);
 
   /**
    * List versions of a secret using the secret's name. Retrieve the list of a
-   * given secret's versions specified by the `secret_name` and `region`
-   * parameters.
+   * given secret's versions specified by the `secret_name`,`region` and
+   * `project_id` parameters.
    *
    * @param request - The request {@link ListSecretVersionsByNameRequest}
    * @returns A Promise of ListSecretVersionsResponse
@@ -26691,7 +27404,7 @@ let API$5 = class API extends API$q {
    */
   enableSecretVersion = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$5,
+    headers: jsonContentHeaders$6,
     method: 'POST',
     path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets/${validatePathParam('secretId', request.secretId)}/versions/${validatePathParam('revision', request.revision)}/enable`
   }, unmarshalSecretVersion);
@@ -26705,7 +27418,7 @@ let API$5 = class API extends API$q {
    */
   disableSecretVersion = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$5,
+    headers: jsonContentHeaders$6,
     method: 'POST',
     path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets/${validatePathParam('secretId', request.secretId)}/versions/${validatePathParam('revision', request.revision)}/disable`
   }, unmarshalSecretVersion);
@@ -26725,15 +27438,16 @@ let API$5 = class API extends API$q {
 
   /**
    * Access a secret's version using the secret's name. Access sensitive data in
-   * a secret's version specified by the `region`, `secret_name` and `revision`
-   * parameters.
+   * a secret's version specified by the `region`, `secret_name`, `revision` and
+   * `project_id` parameters.
    *
    * @param request - The request {@link AccessSecretVersionByNameRequest}
    * @returns A Promise of AccessSecretVersionResponse
    */
   accessSecretVersionByName = request => this.client.fetch({
     method: 'GET',
-    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets-by-name/${validatePathParam('secretName', request.secretName)}/versions/${validatePathParam('revision', request.revision)}/access`
+    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets-by-name/${validatePathParam('secretName', request.secretName)}/versions/${validatePathParam('revision', request.revision)}/access`,
+    urlParams: urlParams(['project_id', request.projectId])
   }, unmarshalAccessSecretVersionResponse);
 
   /**
@@ -26745,23 +27459,36 @@ let API$5 = class API extends API$q {
    */
   destroySecretVersion = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$5,
+    headers: jsonContentHeaders$6,
     method: 'POST',
     path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets/${validatePathParam('secretId', request.secretId)}/versions/${validatePathParam('revision', request.revision)}/destroy`
   }, unmarshalSecretVersion);
+  pageOfListTags = (request = {}) => this.client.fetch({
+    method: 'GET',
+    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/tags`,
+    urlParams: urlParams(['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_id', request.projectId])
+  }, unmarshalListTagsResponse);
+
+  /**
+   * List tags. List all tags associated with secrets within a given Project.
+   *
+   * @param request - The request {@link ListTagsRequest}
+   * @returns A Promise of ListTagsResponse
+   */
+  listTags = (request = {}) => enrichForPagination('tags', this.pageOfListTags, request);
 };
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$5 = /*#__PURE__*/Object.freeze({
+var index_gen$6 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$5
+  API: API$6
 });
 
 var index$5 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1alpha1: index_gen$5
+  v1alpha1: index_gen$6
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -26849,7 +27576,7 @@ const marshalUpdateHumanRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$4 = {
+const jsonContentHeaders$5 = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
@@ -26867,7 +27594,7 @@ const jsonContentHeaders$4 = {
  * access-key. Then, you can use other test commands by setting the
  * SCW_SECRET_KEY env variable.
  */
-let API$4 = class API extends API$q {
+let API$5 = class API extends API$s {
   /**
    * Register a user. Register a human and return a access-key and a secret-key
    * that must be used in all other commands.
@@ -26880,7 +27607,7 @@ let API$4 = class API extends API$q {
    */
   register = request => this.client.fetch({
     body: JSON.stringify(marshalRegisterRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$4,
+    headers: jsonContentHeaders$5,
     method: 'POST',
     path: `/test/v1/register`
   }, unmarshalRegisterResponse);
@@ -26926,7 +27653,7 @@ let API$4 = class API extends API$q {
    */
   createHuman = request => this.client.fetch({
     body: JSON.stringify(marshalCreateHumanRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$4,
+    headers: jsonContentHeaders$5,
     method: 'POST',
     path: `/test/v1/humans`
   }, unmarshalHuman);
@@ -26939,7 +27666,7 @@ let API$4 = class API extends API$q {
    */
   updateHuman = request => this.client.fetch({
     body: JSON.stringify(marshalUpdateHumanRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$4,
+    headers: jsonContentHeaders$5,
     method: 'PATCH',
     path: `/test/v1/humans/${validatePathParam('humanId', request.humanId)}`
   }, unmarshalHuman);
@@ -26964,7 +27691,7 @@ let API$4 = class API extends API$q {
    */
   runHuman = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$4,
+    headers: jsonContentHeaders$5,
     method: 'POST',
     path: `/test/v1/humans/${validatePathParam('humanId', request.humanId)}/run`
   }, unmarshalHuman);
@@ -26978,7 +27705,7 @@ let API$4 = class API extends API$q {
    */
   smokeHuman = (request = {}) => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$4,
+    headers: jsonContentHeaders$5,
     method: 'POST',
     path: `/test/v1/humans/${validatePathParam('humanId', request.humanId)}/smoke`
   }, unmarshalHuman);
@@ -26987,15 +27714,15 @@ let API$4 = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$4 = /*#__PURE__*/Object.freeze({
+var index_gen$5 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$4,
+  API: API$5,
   HUMAN_TRANSIENT_STATUSES: HUMAN_TRANSIENT_STATUSES
 });
 
 var index$4 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1: index_gen$4
+  v1: index_gen$5
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -27052,6 +27779,26 @@ const unmarshalDomain = data => {
     status: data.status
   };
 };
+const unmarshalDomainLastStatusDkimRecord = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'DomainLastStatusDkimRecord' failed as data isn't a dictionary.`);
+  }
+  return {
+    error: data.error,
+    lastValidAt: unmarshalDate(data.last_valid_at),
+    status: data.status
+  };
+};
+const unmarshalDomainLastStatusSpfRecord = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'DomainLastStatusSpfRecord' failed as data isn't a dictionary.`);
+  }
+  return {
+    error: data.error,
+    lastValidAt: unmarshalDate(data.last_valid_at),
+    status: data.status
+  };
+};
 const unmarshalEmail = data => {
   if (!isJSONObject(data)) {
     throw new TypeError(`Unmarshalling the type 'Email' failed as data isn't a dictionary.`);
@@ -27061,6 +27808,7 @@ const unmarshalEmail = data => {
     id: data.id,
     lastTries: unmarshalArrayOfObject(data.last_tries, unmarshalEmailTry),
     mailFrom: data.mail_from,
+    mailRcpt: data.mail_rcpt,
     messageId: data.message_id,
     projectId: data.project_id,
     rcptTo: data.rcpt_to,
@@ -27078,6 +27826,17 @@ const unmarshalCreateEmailResponse = data => {
   }
   return {
     emails: unmarshalArrayOfObject(data.emails, unmarshalEmail)
+  };
+};
+const unmarshalDomainLastStatus = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'DomainLastStatus' failed as data isn't a dictionary.`);
+  }
+  return {
+    dkimRecord: data.dkim_record ? unmarshalDomainLastStatusDkimRecord(data.dkim_record) : undefined,
+    domainId: data.domain_id,
+    domainName: data.domain_name,
+    spfRecord: data.spf_record ? unmarshalDomainLastStatusSpfRecord(data.spf_record) : undefined
   };
 };
 const unmarshalListDomainsResponse = data => {
@@ -27140,12 +27899,12 @@ const marshalCreateEmailRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$3 = {
+const jsonContentHeaders$4 = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
 /** Transactional Email API. */
-let API$3 = class API extends API$q {
+let API$4 = class API extends API$s {
   /** Lists the available regions of the API. */
   static LOCALITIES = ['fr-par'];
 
@@ -27160,7 +27919,7 @@ let API$3 = class API extends API$q {
    */
   createEmail = request => this.client.fetch({
     body: JSON.stringify(marshalCreateEmailRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$3,
+    headers: jsonContentHeaders$4,
     method: 'POST',
     path: `/transactional-email/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/emails`
   }, unmarshalCreateEmailResponse);
@@ -27188,7 +27947,7 @@ let API$3 = class API extends API$q {
   pageOfListEmails = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/transactional-email/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/emails`,
-    urlParams: urlParams(['domain_id', request.domainId], ['mail_from', request.mailFrom], ['mail_to', request.mailTo], ['message_id', request.messageId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_id', request.projectId], ['since', request.since], ['statuses', request.statuses], ['subject', request.subject], ['until', request.until])
+    urlParams: urlParams(['domain_id', request.domainId], ['mail_from', request.mailFrom], ['mail_rcpt', request.mailRcpt], ['mail_to', request.mailTo], ['message_id', request.messageId], ['order_by', request.orderBy ?? 'created_at_desc'], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_id', request.projectId], ['search', request.search], ['since', request.since], ['statuses', request.statuses], ['subject', request.subject], ['until', request.until])
   }, unmarshalListEmailsResponse);
 
   /**
@@ -27222,7 +27981,7 @@ let API$3 = class API extends API$q {
    */
   cancelEmail = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$3,
+    headers: jsonContentHeaders$4,
     method: 'POST',
     path: `/transactional-email/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/emails/${validatePathParam('emailId', request.emailId)}/cancel`
   }, unmarshalEmail);
@@ -27236,7 +27995,7 @@ let API$3 = class API extends API$q {
    */
   createDomain = request => this.client.fetch({
     body: JSON.stringify(marshalCreateDomainRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$3,
+    headers: jsonContentHeaders$4,
     method: 'POST',
     path: `/transactional-email/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/domains`
   }, unmarshalDomain);
@@ -27286,7 +28045,7 @@ let API$3 = class API extends API$q {
    */
   revokeDomain = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$3,
+    headers: jsonContentHeaders$4,
     method: 'POST',
     path: `/transactional-email/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/domains/${validatePathParam('domainId', request.domainId)}/revoke`
   }, unmarshalDomain);
@@ -27300,30 +28059,43 @@ let API$3 = class API extends API$q {
    */
   checkDomain = request => this.client.fetch({
     body: '{}',
-    headers: jsonContentHeaders$3,
+    headers: jsonContentHeaders$4,
     method: 'POST',
     path: `/transactional-email/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/domains/${validatePathParam('domainId', request.domainId)}/check`
   }, unmarshalDomain);
+
+  /**
+   * Display SPF and DKIM records status and potential errors. Display SPF and
+   * DKIM records status and potential errors, including the found records to
+   * make debugging easier.
+   *
+   * @param request - The request {@link GetDomainLastStatusRequest}
+   * @returns A Promise of DomainLastStatus
+   */
+  getDomainLastStatus = request => this.client.fetch({
+    method: 'GET',
+    path: `/transactional-email/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/domains/${validatePathParam('domainId', request.domainId)}/verification`
+  }, unmarshalDomainLastStatus);
 };
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
-var index_gen$3 = /*#__PURE__*/Object.freeze({
+var index_gen$4 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$3,
+  API: API$4,
   DOMAIN_TRANSIENT_STATUSES: DOMAIN_TRANSIENT_STATUSES,
   EMAIL_TRANSIENT_STATUSES: EMAIL_TRANSIENT_STATUSES
 });
 
 var index$3 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1alpha1: index_gen$3
+  v1alpha1: index_gen$4
 });
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const unmarshalPrivateNetwork = data => {
+const unmarshalPrivateNetwork$1 = data => {
   if (!isJSONObject(data)) {
     throw new TypeError(`Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary.`);
   }
@@ -27339,22 +28111,22 @@ const unmarshalPrivateNetwork = data => {
     zone: data.zone
   };
 };
-const unmarshalListPrivateNetworksResponse = data => {
+const unmarshalListPrivateNetworksResponse$1 = data => {
   if (!isJSONObject(data)) {
     throw new TypeError(`Unmarshalling the type 'ListPrivateNetworksResponse' failed as data isn't a dictionary.`);
   }
   return {
-    privateNetworks: unmarshalArrayOfObject(data.private_networks, unmarshalPrivateNetwork),
+    privateNetworks: unmarshalArrayOfObject(data.private_networks, unmarshalPrivateNetwork$1),
     totalCount: data.total_count
   };
 };
-const marshalCreatePrivateNetworkRequest = (request, defaults) => ({
+const marshalCreatePrivateNetworkRequest$1 = (request, defaults) => ({
   name: request.name || randomName('pn'),
   project_id: request.projectId ?? defaults.defaultProjectId,
   subnets: request.subnets,
   tags: request.tags
 });
-const marshalUpdatePrivateNetworkRequest = (request, defaults) => ({
+const marshalUpdatePrivateNetworkRequest$1 = (request, defaults) => ({
   name: request.name,
   subnets: request.subnets,
   tags: request.tags
@@ -27362,19 +28134,19 @@ const marshalUpdatePrivateNetworkRequest = (request, defaults) => ({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
-const jsonContentHeaders$2 = {
+const jsonContentHeaders$3 = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
 /** VPC API. */
-let API$2 = class API extends API$q {
+let API$3 = class API extends API$s {
   /** Lists the available zones of the API. */
-  static LOCALITIES = ['fr-par-1', 'fr-par-2', 'fr-par-3', 'nl-ams-1', 'nl-ams-2', 'pl-waw-1', 'pl-waw-2'];
+  static LOCALITIES = ['fr-par-1', 'fr-par-2', 'fr-par-3', 'nl-ams-1', 'nl-ams-2', 'nl-ams-3', 'pl-waw-1', 'pl-waw-2'];
   pageOfListPrivateNetworks = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/vpc/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/private-networks`,
     urlParams: urlParams(['include_regional', request.includeRegional], ['name', request.name], ['order_by', request.orderBy ?? 'created_at_asc'], ['organization_id', request.organizationId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['private_network_ids', request.privateNetworkIds], ['project_id', request.projectId], ['tags', request.tags])
-  }, unmarshalListPrivateNetworksResponse);
+  }, unmarshalListPrivateNetworksResponse$1);
 
   /**
    * List Private Networks. List existing Private Networks in a specified
@@ -27395,11 +28167,11 @@ let API$2 = class API extends API$q {
    * @returns A Promise of PrivateNetwork
    */
   createPrivateNetwork = (request = {}) => this.client.fetch({
-    body: JSON.stringify(marshalCreatePrivateNetworkRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$2,
+    body: JSON.stringify(marshalCreatePrivateNetworkRequest$1(request, this.client.settings)),
+    headers: jsonContentHeaders$3,
     method: 'POST',
     path: `/vpc/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/private-networks`
-  }, unmarshalPrivateNetwork);
+  }, unmarshalPrivateNetwork$1);
 
   /**
    * Get a Private Network. Retrieve information about an existing Private
@@ -27412,7 +28184,7 @@ let API$2 = class API extends API$q {
   getPrivateNetwork = request => this.client.fetch({
     method: 'GET',
     path: `/vpc/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}`
-  }, unmarshalPrivateNetwork);
+  }, unmarshalPrivateNetwork$1);
 
   /**
    * Update Private Network. Update parameters (such as name or tags) of an
@@ -27422,11 +28194,11 @@ let API$2 = class API extends API$q {
    * @returns A Promise of PrivateNetwork
    */
   updatePrivateNetwork = request => this.client.fetch({
-    body: JSON.stringify(marshalUpdatePrivateNetworkRequest(request, this.client.settings)),
-    headers: jsonContentHeaders$2,
+    body: JSON.stringify(marshalUpdatePrivateNetworkRequest$1(request, this.client.settings)),
+    headers: jsonContentHeaders$3,
     method: 'PATCH',
     path: `/vpc/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}`
-  }, unmarshalPrivateNetwork);
+  }, unmarshalPrivateNetwork$1);
 
   /**
    * Delete a Private Network. Delete an existing Private Network. Note that you
@@ -27443,6 +28215,361 @@ let API$2 = class API extends API$q {
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
+var index_gen$3 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  API: API$3
+});
+
+// This file was automatically generated. DO NOT EDIT.
+// If you have any remark or suggestion do not hesitate to open an issue.
+const unmarshalSubnet = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'Subnet' failed as data isn't a dictionary.`);
+  }
+  return {
+    createdAt: unmarshalDate(data.created_at),
+    id: data.id,
+    subnet: data.subnet,
+    updatedAt: unmarshalDate(data.updated_at)
+  };
+};
+const unmarshalPrivateNetwork = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary.`);
+  }
+  return {
+    createdAt: unmarshalDate(data.created_at),
+    dhcpEnabled: data.dhcp_enabled,
+    id: data.id,
+    name: data.name,
+    organizationId: data.organization_id,
+    projectId: data.project_id,
+    region: data.region,
+    subnets: unmarshalArrayOfObject(data.subnets, unmarshalSubnet),
+    tags: data.tags,
+    updatedAt: unmarshalDate(data.updated_at),
+    vpcId: data.vpc_id
+  };
+};
+const unmarshalVPC = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'VPC' failed as data isn't a dictionary.`);
+  }
+  return {
+    createdAt: unmarshalDate(data.created_at),
+    id: data.id,
+    isDefault: data.is_default,
+    name: data.name,
+    organizationId: data.organization_id,
+    privateNetworkCount: data.private_network_count,
+    projectId: data.project_id,
+    region: data.region,
+    tags: data.tags,
+    updatedAt: unmarshalDate(data.updated_at)
+  };
+};
+const unmarshalAddSubnetsResponse = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'AddSubnetsResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    subnets: data.subnets
+  };
+};
+const unmarshalDeleteSubnetsResponse = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'DeleteSubnetsResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    subnets: data.subnets
+  };
+};
+const unmarshalListPrivateNetworksResponse = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'ListPrivateNetworksResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    privateNetworks: unmarshalArrayOfObject(data.private_networks, unmarshalPrivateNetwork),
+    totalCount: data.total_count
+  };
+};
+const unmarshalListVPCsResponse = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'ListVPCsResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    totalCount: data.total_count,
+    vpcs: unmarshalArrayOfObject(data.vpcs, unmarshalVPC)
+  };
+};
+const unmarshalSetSubnetsResponse = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'SetSubnetsResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    subnets: data.subnets
+  };
+};
+const marshalAddSubnetsRequest = (request, defaults) => ({
+  subnets: request.subnets
+});
+const marshalCreatePrivateNetworkRequest = (request, defaults) => ({
+  name: request.name || randomName('pn'),
+  project_id: request.projectId ?? defaults.defaultProjectId,
+  subnets: request.subnets,
+  tags: request.tags,
+  vpc_id: request.vpcId
+});
+const marshalCreateVPCRequest = (request, defaults) => ({
+  default_private_network_name: request.defaultPrivateNetworkName,
+  name: request.name || randomName('vpc'),
+  project_id: request.projectId ?? defaults.defaultProjectId,
+  tags: request.tags
+});
+const marshalDeleteSubnetsRequest = (request, defaults) => ({
+  subnets: request.subnets
+});
+const marshalMigrateZonalPrivateNetworksRequest = (request, defaults) => ({
+  private_network_ids: request.privateNetworkIds,
+  ...resolveOneOf([{
+    default: defaults.defaultProjectId,
+    param: 'project_id',
+    value: request.projectId
+  }, {
+    default: defaults.defaultOrganizationId,
+    param: 'organization_id',
+    value: request.organizationId
+  }])
+});
+const marshalSetSubnetsRequest = (request, defaults) => ({
+  subnets: request.subnets
+});
+const marshalUpdatePrivateNetworkRequest = (request, defaults) => ({
+  name: request.name,
+  tags: request.tags
+});
+const marshalUpdateVPCRequest = (request, defaults) => ({
+  name: request.name,
+  tags: request.tags
+});
+
+// This file was automatically generated. DO NOT EDIT.
+// If you have any remark or suggestion do not hesitate to open an issue.
+const jsonContentHeaders$2 = {
+  'Content-Type': 'application/json; charset=utf-8'
+};
+
+/** VPC API. */
+let API$2 = class API extends API$s {
+  /** Lists the available regions of the API. */
+  static LOCALITIES = ['fr-par', 'nl-ams', 'pl-waw'];
+  pageOfListVPCs = (request = {}) => this.client.fetch({
+    method: 'GET',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/vpcs`,
+    urlParams: urlParams(['is_default', request.isDefault], ['name', request.name], ['order_by', request.orderBy ?? 'created_at_asc'], ['organization_id', request.organizationId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_id', request.projectId], ['tags', request.tags])
+  }, unmarshalListVPCsResponse);
+
+  /**
+   * List VPCs. List existing VPCs in the specified region.
+   *
+   * @param request - The request {@link ListVPCsRequest}
+   * @returns A Promise of ListVPCsResponse
+   */
+  listVPCs = (request = {}) => enrichForPagination('vpcs', this.pageOfListVPCs, request);
+
+  /**
+   * Create a VPC. Create a new VPC in the specified region.
+   *
+   * @param request - The request {@link CreateVPCRequest}
+   * @returns A Promise of VPC
+   */
+  createVPC = request => this.client.fetch({
+    body: JSON.stringify(marshalCreateVPCRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$2,
+    method: 'POST',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/vpcs`
+  }, unmarshalVPC);
+
+  /**
+   * Get a VPC. Retrieve details of an existing VPC, specified by its VPC ID.
+   *
+   * @param request - The request {@link GetVPCRequest}
+   * @returns A Promise of VPC
+   */
+  getVPC = request => this.client.fetch({
+    method: 'GET',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/vpcs/${validatePathParam('vpcId', request.vpcId)}`
+  }, unmarshalVPC);
+
+  /**
+   * Update VPC. Update parameters including name and tags of the specified VPC.
+   *
+   * @param request - The request {@link UpdateVPCRequest}
+   * @returns A Promise of VPC
+   */
+  updateVPC = request => this.client.fetch({
+    body: JSON.stringify(marshalUpdateVPCRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$2,
+    method: 'PATCH',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/vpcs/${validatePathParam('vpcId', request.vpcId)}`
+  }, unmarshalVPC);
+
+  /**
+   * Delete a VPC. Delete a VPC specified by its VPC ID.
+   *
+   * @param request - The request {@link DeleteVPCRequest}
+   */
+  deleteVPC = request => this.client.fetch({
+    method: 'DELETE',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/vpcs/${validatePathParam('vpcId', request.vpcId)}`
+  });
+  pageOfListPrivateNetworks = (request = {}) => this.client.fetch({
+    method: 'GET',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/private-networks`,
+    urlParams: urlParams(['dhcp_enabled', request.dhcpEnabled], ['name', request.name], ['order_by', request.orderBy ?? 'created_at_asc'], ['organization_id', request.organizationId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['private_network_ids', request.privateNetworkIds], ['project_id', request.projectId], ['tags', request.tags], ['vpc_id', request.vpcId])
+  }, unmarshalListPrivateNetworksResponse);
+
+  /**
+   * List Private Networks. List existing Private Networks in the specified
+   * region. By default, the Private Networks returned in the list are ordered
+   * by creation date in ascending order, though this can be modified via the
+   * order_by field.
+   *
+   * @param request - The request {@link ListPrivateNetworksRequest}
+   * @returns A Promise of ListPrivateNetworksResponse
+   */
+  listPrivateNetworks = (request = {}) => enrichForPagination('privateNetworks', this.pageOfListPrivateNetworks, request);
+
+  /**
+   * Create a Private Network. Create a new Private Network. Once created, you
+   * can attach Scaleway resources which are in the same region.
+   *
+   * @param request - The request {@link CreatePrivateNetworkRequest}
+   * @returns A Promise of PrivateNetwork
+   */
+  createPrivateNetwork = (request = {}) => this.client.fetch({
+    body: JSON.stringify(marshalCreatePrivateNetworkRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$2,
+    method: 'POST',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/private-networks`
+  }, unmarshalPrivateNetwork);
+
+  /**
+   * Get a Private Network. Retrieve information about an existing Private
+   * Network, specified by its Private Network ID. Its full details are returned
+   * in the response object.
+   *
+   * @param request - The request {@link GetPrivateNetworkRequest}
+   * @returns A Promise of PrivateNetwork
+   */
+  getPrivateNetwork = request => this.client.fetch({
+    method: 'GET',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}`
+  }, unmarshalPrivateNetwork);
+
+  /**
+   * Update Private Network. Update parameters (such as name or tags) of an
+   * existing Private Network, specified by its Private Network ID.
+   *
+   * @param request - The request {@link UpdatePrivateNetworkRequest}
+   * @returns A Promise of PrivateNetwork
+   */
+  updatePrivateNetwork = request => this.client.fetch({
+    body: JSON.stringify(marshalUpdatePrivateNetworkRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$2,
+    method: 'PATCH',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}`
+  }, unmarshalPrivateNetwork);
+
+  /**
+   * Delete a Private Network. Delete an existing Private Network. Note that you
+   * must first detach all resources from the network, in order to delete it.
+   *
+   * @param request - The request {@link DeletePrivateNetworkRequest}
+   */
+  deletePrivateNetwork = request => this.client.fetch({
+    method: 'DELETE',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}`
+  });
+
+  /**
+   * Migrate Private Networks from zoned to regional. Transform multiple
+   * existing zoned Private Networks (scoped to a single Availability Zone) into
+   * regional Private Networks, scoped to an entire region. You can transform
+   * one or many Private Networks (specified by their Private Network IDs)
+   * within a single Scaleway Organization or Project, with the same call.
+   *
+   * @param request - The request {@link MigrateZonalPrivateNetworksRequest}
+   */
+  migrateZonalPrivateNetworks = (request = {}) => this.client.fetch({
+    body: JSON.stringify(marshalMigrateZonalPrivateNetworksRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$2,
+    method: 'POST',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/private-networks/migrate-zonal`
+  });
+
+  /**
+   * Enable DHCP on a Private Network. Enable DHCP managed on an existing
+   * Private Network. Note that you will not be able to deactivate it
+   * afterwards.
+   *
+   * @param request - The request {@link EnableDHCPRequest}
+   * @returns A Promise of PrivateNetwork
+   */
+  enableDHCP = request => this.client.fetch({
+    body: '{}',
+    headers: jsonContentHeaders$2,
+    method: 'POST',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}/enable-dhcp`
+  }, unmarshalPrivateNetwork);
+
+  /**
+   * Set the subnets of a Private Network. Set subnets for an existing Private
+   * Network. Note that the method is PUT and not PATCH. Any existing subnets
+   * will be removed in favor of the new specified set of subnets.
+   *
+   * @param request - The request {@link SetSubnetsRequest}
+   * @returns A Promise of SetSubnetsResponse
+   */
+  setSubnets = request => this.client.fetch({
+    body: JSON.stringify(marshalSetSubnetsRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$2,
+    method: 'PUT',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}/subnets`
+  }, unmarshalSetSubnetsResponse);
+
+  /**
+   * Add subnets to a Private Network. Add new subnets to an existing Private
+   * Network.
+   *
+   * @param request - The request {@link AddSubnetsRequest}
+   * @returns A Promise of AddSubnetsResponse
+   */
+  addSubnets = request => this.client.fetch({
+    body: JSON.stringify(marshalAddSubnetsRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$2,
+    method: 'POST',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}/subnets`
+  }, unmarshalAddSubnetsResponse);
+
+  /**
+   * Delete subnets from a Private Network. Delete the specified subnets from a
+   * Private Network.
+   *
+   * @param request - The request {@link DeleteSubnetsRequest}
+   * @returns A Promise of DeleteSubnetsResponse
+   */
+  deleteSubnets = request => this.client.fetch({
+    body: JSON.stringify(marshalDeleteSubnetsRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$2,
+    method: 'DELETE',
+    path: `/vpc/v2/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/private-networks/${validatePathParam('privateNetworkId', request.privateNetworkId)}/subnets`
+  }, unmarshalDeleteSubnetsResponse);
+};
+
+// This file was automatically generated. DO NOT EDIT.
+// If you have any remark or suggestion do not hesitate to open an issue.
+
 var index_gen$2 = /*#__PURE__*/Object.freeze({
   __proto__: null,
   API: API$2
@@ -27450,7 +28577,8 @@ var index_gen$2 = /*#__PURE__*/Object.freeze({
 
 var index$2 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v1: index_gen$2
+  v1: index_gen$3,
+  v2: index_gen$2
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -27804,9 +28932,9 @@ const jsonContentHeaders$1 = {
 };
 
 /** Public Gateways API. */
-let API$1 = class API extends API$q {
+let API$1 = class API extends API$s {
   /** Lists the available zones of the API. */
-  static LOCALITIES = ['fr-par-1', 'fr-par-2', 'nl-ams-1', 'nl-ams-2', 'pl-waw-1', 'pl-waw-2'];
+  static LOCALITIES = ['fr-par-1', 'fr-par-2', 'nl-ams-1', 'nl-ams-2', 'nl-ams-3', 'pl-waw-1', 'pl-waw-2'];
   pageOfListGateways = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/vpc-gw/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/gateways`,
@@ -28365,7 +29493,7 @@ var index$1 = /*#__PURE__*/Object.freeze({
 // If you have any remark or suggestion do not hesitate to open an issue.
 
 /** Lists transient statutes of the enum {@link HostingStatus}. */
-const HOSTING_TRANSIENT_STATUSES = ['delivering', 'deleting'];
+const HOSTING_TRANSIENT_STATUSES = ['delivering', 'deleting', 'migrating'];
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
@@ -28512,7 +29640,7 @@ const jsonContentHeaders = {
 };
 
 /** Web Hosting API. */
-class API extends API$q {
+class API extends API$s {
   /** Lists the available regions of the API. */
   static LOCALITIES = ['fr-par'];
 
@@ -28672,20 +29800,21 @@ var index = /*#__PURE__*/Object.freeze({
   v1alpha1: index_gen
 });
 
-exports.API = API$q;
-exports.Account = index$s;
-exports.AppleSilicon = index$r;
-exports.BareMetal = index$p;
-exports.Billing = index$o;
-exports.Cockpit = index$n;
-exports.Container = index$m;
-exports.Domain = index$l;
-exports.Errors = index$t;
-exports.FlexibleIP = index$k;
-exports.Function = index$j;
-exports.IAM = index$i;
-exports.IOT = index$f;
-exports.Instance = index$g;
+exports.API = API$s;
+exports.Account = index$t;
+exports.AppleSilicon = index$s;
+exports.BareMetal = index$q;
+exports.Billing = index$p;
+exports.Cockpit = index$o;
+exports.Container = index$n;
+exports.Domain = index$m;
+exports.Errors = index$u;
+exports.FlexibleIP = index$l;
+exports.Function = index$k;
+exports.IAM = index$j;
+exports.IOT = index$g;
+exports.IPFS = index$f;
+exports.Instance = index$h;
 exports.K8S = index$d;
 exports.LB = index$b;
 exports.MNQ = index$9;
