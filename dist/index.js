@@ -1917,12 +1917,12 @@ function isLoopbackAddress(host) {
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const fetchNode = __nccwpck_require__(9805)
-const fetch = fetchNode.fetch.bind({})
-
-fetch.polyfill = true
 
 if (!global.fetch) {
+  const fetch = fetchNode.fetch.bind({})
+
   global.fetch = fetch
+  global.fetch.polyfill = true
   global.Response = fetchNode.Response
   global.Headers = fetchNode.Headers
   global.Request = fetchNode.Request
@@ -3708,8 +3708,11 @@ function fixResponseChunkedTransferBadEnding(request, errorCallback) {
 
 		if (headers['transfer-encoding'] === 'chunked' && !headers['content-length']) {
 			response.once('close', function (hadError) {
+				// tests for socket presence, as in some situations the
+				// the 'socket' event is not triggered for the request
+				// (happens in deno), avoids `TypeError`
 				// if a data listener is still present we didn't end cleanly
-				const hasDataListener = socket.listenerCount('data') > 0;
+				const hasDataListener = socket && socket.listenerCount('data') > 0;
 
 				if (hasDataListener && !hadError) {
 					const err = new Error('Premature close');
