@@ -7477,7 +7477,7 @@ const assertValidSettings = obj => {
   }
 };
 
-const version = 'v1.17.0';
+const version = 'v1.19.0';
 const userAgent = `scaleway-sdk-js/${version}`;
 
 const isBrowser = () => typeof window !== 'undefined' && typeof window.document !== 'undefined';
@@ -17657,6 +17657,7 @@ const marshalUpdatePrivateNICRequest = (request, defaults) => ({
 const marshalUpdateServerRequest = (request, defaults) => ({
   boot_type: request.bootType,
   bootscript: request.bootscript,
+  commercial_type: request.commercialType,
   dynamic_ip_required: request.dynamicIpRequired,
   enable_ipv6: request.enableIpv6,
   name: request.name,
@@ -20283,7 +20284,9 @@ const unmarshalClusterType = data => {
     availability: data.availability,
     commitmentDelay: data.commitment_delay,
     maxNodes: data.max_nodes,
-    name: data.name
+    name: data.name,
+    resiliency: data.resiliency,
+    sla: data.sla
   };
 };
 const unmarshalNode = data => {
@@ -24715,6 +24718,7 @@ const unmarshalNodeType$1 = data => {
     description: data.description,
     disabled: data.disabled,
     generation: data.generation,
+    instanceRange: data.instance_range,
     isBssdCompatible: data.is_bssd_compatible,
     isHaRequired: data.is_ha_required,
     memory: data.memory,
@@ -28324,7 +28328,6 @@ const marshalCreatePrivateNetworkRequest = (request, defaults) => ({
   vpc_id: request.vpcId
 });
 const marshalCreateVPCRequest = (request, defaults) => ({
-  default_private_network_name: request.defaultPrivateNetworkName,
   name: request.name || randomName('vpc'),
   project_id: request.projectId ?? defaults.defaultProjectId,
   tags: request.tags
@@ -28386,7 +28389,7 @@ let API$2 = class API extends API$s {
    * @param request - The request {@link CreateVPCRequest}
    * @returns A Promise of VPC
    */
-  createVPC = request => this.client.fetch({
+  createVPC = (request = {}) => this.client.fetch({
     body: JSON.stringify(marshalCreateVPCRequest(request, this.client.settings)),
     headers: jsonContentHeaders$2,
     method: 'POST',
@@ -29557,6 +29560,7 @@ const unmarshalHosting = data => {
     dnsStatus: data.dns_status,
     domain: data.domain,
     id: data.id,
+    offerEndOfLife: data.offer_end_of_life,
     offerId: data.offer_id,
     offerName: data.offer_name,
     options: unmarshalArrayOfObject(data.options, unmarshalHostingOption),
@@ -29588,6 +29592,7 @@ const unmarshalOffer = data => {
   return {
     available: data.available,
     billingOperationPath: data.billing_operation_path,
+    endOfLife: data.end_of_life,
     id: data.id,
     price: data.price ? unmarshalMoney(data.price) : undefined,
     product: data.product ? unmarshalOfferProduct(data.product) : undefined,
