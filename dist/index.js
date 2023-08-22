@@ -7477,7 +7477,7 @@ const assertValidSettings = obj => {
   }
 };
 
-const version = 'v1.19.0';
+const version = 'v1.24.0';
 const userAgent = `scaleway-sdk-js/${version}`;
 
 const isBrowser = () => typeof window !== 'undefined' && typeof window.document !== 'undefined';
@@ -9013,6 +9013,141 @@ const randomName = function () {
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
+const unmarshalProject$1 = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'Project' failed as data isn't a dictionary.`);
+  }
+  return {
+    createdAt: unmarshalDate(data.created_at),
+    description: data.description,
+    id: data.id,
+    name: data.name,
+    organizationId: data.organization_id,
+    updatedAt: unmarshalDate(data.updated_at)
+  };
+};
+const unmarshalListProjectsResponse$1 = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'ListProjectsResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    projects: unmarshalArrayOfObject(data.projects, unmarshalProject$1),
+    totalCount: data.total_count
+  };
+};
+const marshalCreateProjectRequest = (request, defaults) => ({
+  description: request.description,
+  name: request.name || randomName('proj'),
+  organization_id: request.organizationId ?? defaults.defaultOrganizationId
+});
+const marshalUpdateProjectRequest = (request, defaults) => ({
+  description: request.description,
+  name: request.name
+});
+
+// This file was automatically generated. DO NOT EDIT.
+// If you have any remark or suggestion do not hesitate to open an issue.
+const jsonContentHeaders$p = {
+  'Content-Type': 'application/json; charset=utf-8'
+};
+
+/**
+ * Account API.
+ *
+ * User related data. This API allows you to manage projects.
+ */
+let API$r = class API extends API$s {
+  /**
+   * Create a new Project for an Organization. Deprecated in favor of Account
+   * API v3. Generate a new Project for an Organization, specifying its
+   * configuration including name and description.
+   *
+   * @deprecated
+   * @param request - The request {@link CreateProjectRequest}
+   * @returns A Promise of Project
+   */
+  createProject = (request = {}) => this.client.fetch({
+    body: JSON.stringify(marshalCreateProjectRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$p,
+    method: 'POST',
+    path: `/account/v2/projects`
+  }, unmarshalProject$1);
+  pageOfListProjects = (request = {}) => this.client.fetch({
+    method: 'GET',
+    path: `/account/v2/projects`,
+    urlParams: urlParams(['name', request.name], ['order_by', request.orderBy ?? 'created_at_asc'], ['organization_id', request.organizationId ?? this.client.settings.defaultOrganizationId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_ids', request.projectIds])
+  }, unmarshalListProjectsResponse$1);
+
+  /**
+   * List all Projects of an Organization. Deprecated in favor of Account API
+   * v3. List all Projects of an Organization. The response will include the
+   * total number of Projects as well as their associated Organizations, names
+   * and IDs. Other information include the creation and update date of the
+   * Project.
+   *
+   * @deprecated
+   * @param request - The request {@link ListProjectsRequest}
+   * @returns A Promise of ListProjectsResponse
+   */
+  listProjects = (request = {}) => enrichForPagination('projects', this.pageOfListProjects, request);
+
+  /**
+   * Get an existing Project. Deprecated in favor of Account API v3. Retrieve
+   * information about an existing Project, specified by its Project ID. Its
+   * full details, including ID, name and description, are returned in the
+   * response object.
+   *
+   * @deprecated
+   * @param request - The request {@link GetProjectRequest}
+   * @returns A Promise of Project
+   */
+  getProject = (request = {}) => this.client.fetch({
+    method: 'GET',
+    path: `/account/v2/projects/${validatePathParam('projectId', request.projectId ?? this.client.settings.defaultProjectId)}`
+  }, unmarshalProject$1);
+
+  /**
+   * Delete an existing Project. Deprecated in favor of Account API v3. Delete
+   * an existing Project, specified by its Project ID. The Project needs to be
+   * empty (meaning there are no resources left in it) to be deleted
+   * effectively. Note that deleting a Project is permanent, and cannot be
+   * undone.
+   *
+   * @deprecated
+   * @param request - The request {@link DeleteProjectRequest}
+   */
+  deleteProject = (request = {}) => this.client.fetch({
+    method: 'DELETE',
+    path: `/account/v2/projects/${validatePathParam('projectId', request.projectId ?? this.client.settings.defaultProjectId)}`
+  });
+
+  /**
+   * Update Project. Deprecated in favor of Account API v3. Update the
+   * parameters of an existing Project, specified by its Project ID. These
+   * parameters include the name and description.
+   *
+   * @deprecated
+   * @param request - The request {@link UpdateProjectRequest}
+   * @returns A Promise of Project
+   */
+  updateProject = (request = {}) => this.client.fetch({
+    body: JSON.stringify(marshalUpdateProjectRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$p,
+    method: 'PATCH',
+    path: `/account/v2/projects/${validatePathParam('projectId', request.projectId ?? this.client.settings.defaultProjectId)}`
+  }, unmarshalProject$1);
+};
+
+// This file was automatically generated. DO NOT EDIT.
+// If you have any remark or suggestion do not hesitate to open an issue.
+
+var index_gen$o = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  API: API$r
+});
+
+// This file was automatically generated. DO NOT EDIT.
+// If you have any remark or suggestion do not hesitate to open an issue.
 const unmarshalProject = data => {
   if (!isJSONObject(data)) {
     throw new TypeError(`Unmarshalling the type 'Project' failed as data isn't a dictionary.`);
@@ -9035,12 +9170,12 @@ const unmarshalListProjectsResponse = data => {
     totalCount: data.total_count
   };
 };
-const marshalCreateProjectRequest = (request, defaults) => ({
+const marshalProjectApiCreateProjectRequest = (request, defaults) => ({
   description: request.description,
   name: request.name || randomName('proj'),
   organization_id: request.organizationId ?? defaults.defaultOrganizationId
 });
-const marshalUpdateProjectRequest = (request, defaults) => ({
+const marshalProjectApiUpdateProjectRequest = (request, defaults) => ({
   description: request.description,
   name: request.name
 });
@@ -9054,35 +9189,35 @@ const jsonContentHeaders$o = {
 /**
  * Account API.
  *
- * User related data. This API allows you to manage projects.
+ * This API allows you to manage projects.
  */
-let API$r = class API extends API$s {
+class ProjectAPI extends API$s {
   /**
    * Create a new Project for an Organization. Generate a new Project for an
    * Organization, specifying its configuration including name and description.
    *
-   * @param request - The request {@link CreateProjectRequest}
+   * @param request - The request {@link ProjectApiCreateProjectRequest}
    * @returns A Promise of Project
    */
-  createProject = (request = {}) => this.client.fetch({
-    body: JSON.stringify(marshalCreateProjectRequest(request, this.client.settings)),
+  createProject = request => this.client.fetch({
+    body: JSON.stringify(marshalProjectApiCreateProjectRequest(request, this.client.settings)),
     headers: jsonContentHeaders$o,
     method: 'POST',
-    path: `/account/v2/projects`
+    path: `/account/v3/projects`
   }, unmarshalProject);
   pageOfListProjects = (request = {}) => this.client.fetch({
     method: 'GET',
-    path: `/account/v2/projects`,
+    path: `/account/v3/projects`,
     urlParams: urlParams(['name', request.name], ['order_by', request.orderBy ?? 'created_at_asc'], ['organization_id', request.organizationId ?? this.client.settings.defaultOrganizationId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_ids', request.projectIds])
   }, unmarshalListProjectsResponse);
 
   /**
    * List all Projects of an Organization. List all Projects of an Organization.
    * The response will include the total number of Projects as well as their
-   * associated Organizations, names and IDs. Other information include the
+   * associated Organizations, names, and IDs. Other information includes the
    * creation and update date of the Project.
    *
-   * @param request - The request {@link ListProjectsRequest}
+   * @param request - The request {@link ProjectApiListProjectsRequest}
    * @returns A Promise of ListProjectsResponse
    */
   listProjects = (request = {}) => enrichForPagination('projects', this.pageOfListProjects, request);
@@ -9092,12 +9227,12 @@ let API$r = class API extends API$s {
    * specified by its Project ID. Its full details, including ID, name and
    * description, are returned in the response object.
    *
-   * @param request - The request {@link GetProjectRequest}
+   * @param request - The request {@link ProjectApiGetProjectRequest}
    * @returns A Promise of Project
    */
   getProject = (request = {}) => this.client.fetch({
     method: 'GET',
-    path: `/account/v2/projects/${validatePathParam('projectId', request.projectId ?? this.client.settings.defaultProjectId)}`
+    path: `/account/v3/projects/${validatePathParam('projectId', request.projectId ?? this.client.settings.defaultProjectId)}`
   }, unmarshalProject);
 
   /**
@@ -9106,39 +9241,86 @@ let API$r = class API extends API$s {
    * left in it) to be deleted effectively. Note that deleting a Project is
    * permanent, and cannot be undone.
    *
-   * @param request - The request {@link DeleteProjectRequest}
+   * @param request - The request {@link ProjectApiDeleteProjectRequest}
    */
   deleteProject = (request = {}) => this.client.fetch({
     method: 'DELETE',
-    path: `/account/v2/projects/${validatePathParam('projectId', request.projectId ?? this.client.settings.defaultProjectId)}`
+    path: `/account/v3/projects/${validatePathParam('projectId', request.projectId ?? this.client.settings.defaultProjectId)}`
   });
 
   /**
    * Update Project. Update the parameters of an existing Project, specified by
    * its Project ID. These parameters include the name and description.
    *
-   * @param request - The request {@link UpdateProjectRequest}
+   * @param request - The request {@link ProjectApiUpdateProjectRequest}
    * @returns A Promise of Project
    */
   updateProject = (request = {}) => this.client.fetch({
-    body: JSON.stringify(marshalUpdateProjectRequest(request, this.client.settings)),
+    body: JSON.stringify(marshalProjectApiUpdateProjectRequest(request, this.client.settings)),
     headers: jsonContentHeaders$o,
     method: 'PATCH',
-    path: `/account/v2/projects/${validatePathParam('projectId', request.projectId ?? this.client.settings.defaultProjectId)}`
+    path: `/account/v3/projects/${validatePathParam('projectId', request.projectId ?? this.client.settings.defaultProjectId)}`
   }, unmarshalProject);
+}
+
+// This file was automatically generated. DO NOT EDIT.
+// If you have any remark or suggestion do not hesitate to open an issue.
+
+const ProjectApiCreateProjectRequest = {
+  description: {
+    maxLength: 200
+  },
+  name: {
+    maxLength: 64,
+    minLength: 1,
+    pattern: /^[a-zA-Z0-9\._\- ]+$/
+  }
 };
+const ProjectApiListProjectsRequest = {
+  name: {
+    maxLength: 64,
+    minLength: 1,
+    pattern: /^[a-zA-Z0-9\._\- ]+$/
+  },
+  page: {
+    greaterThan: 0
+  },
+  pageSize: {
+    greaterThanOrEqual: 1,
+    lessThanOrEqual: 100
+  }
+};
+const ProjectApiUpdateProjectRequest = {
+  description: {
+    maxLength: 200
+  },
+  name: {
+    maxLength: 64,
+    minLength: 1,
+    pattern: /^[a-zA-Z0-9\._\- ]+$/
+  }
+};
+
+var validationRules_gen$6 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  ProjectApiCreateProjectRequest: ProjectApiCreateProjectRequest,
+  ProjectApiListProjectsRequest: ProjectApiListProjectsRequest,
+  ProjectApiUpdateProjectRequest: ProjectApiUpdateProjectRequest
+});
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
 
 var index_gen$n = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  API: API$r
+  ProjectAPI: ProjectAPI,
+  ValidationRules: validationRules_gen$6
 });
 
 var index$t = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  v2: index_gen$n
+  v2: index_gen$o,
+  v3: index_gen$n
 });
 
 // This file was automatically generated. DO NOT EDIT.
@@ -13584,7 +13766,7 @@ class RegistrarAPI extends API$s {
   pageOfListContacts = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/domain/v2beta1/contacts`,
-    urlParams: urlParams(['domain', request.domain], ['organization_id', request.organizationId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_id', request.projectId])
+    urlParams: urlParams(['domain', request.domain], ['email_status', request.emailStatus ?? 'email_status_unknown'], ['organization_id', request.organizationId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_id', request.projectId], ['role', request.role ?? 'unknown_role'])
   }, unmarshalListContactsResponse);
 
   /**
@@ -15409,6 +15591,10 @@ const marshalCreateSSHKeyRequest = (request, defaults) => ({
   project_id: request.projectId ?? defaults.defaultProjectId,
   public_key: request.publicKey
 });
+const marshalCreateUserRequest$1 = (request, defaults) => ({
+  email: request.email,
+  organization_id: request.organizationId ?? defaults.defaultOrganizationId
+});
 const marshalRemoveGroupMemberRequest = (request, defaults) => ({
   ...resolveOneOf([{
     param: 'user_id',
@@ -15581,6 +15767,20 @@ let API$i = class API extends API$s {
     method: 'DELETE',
     path: `/iam/v1alpha1/users/${validatePathParam('userId', request.userId)}`
   });
+
+  /**
+   * Create a new user. Create a new user. You must define the `organization_id`
+   * and the `email` in your request.
+   *
+   * @param request - The request {@link CreateUserRequest}
+   * @returns A Promise of User
+   */
+  createUser = request => this.client.fetch({
+    body: JSON.stringify(marshalCreateUserRequest$1(request, this.client.settings)),
+    headers: jsonContentHeaders$g,
+    method: 'POST',
+    path: `/iam/v1alpha1/users`
+  }, unmarshalUser$1);
   pageOfListApplications = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/iam/v1alpha1/applications`,
@@ -17688,7 +17888,7 @@ const jsonContentHeaders$f = {
 /** Instance API. */
 let API$h = class API extends API$s {
   /** Lists the available zones of the API. */
-  static LOCALITIES = ['fr-par-1', 'fr-par-2', 'fr-par-3', 'nl-ams-1', 'nl-ams-2', 'nl-ams-3', 'pl-waw-1', 'pl-waw-2'];
+  static LOCALITIES = ['fr-par-1', 'fr-par-2', 'fr-par-3', 'nl-ams-1', 'nl-ams-2', 'nl-ams-3', 'pl-waw-1', 'pl-waw-2', 'pl-waw-3'];
 
   /**
    * Get availability. Get availability for all Instance types.
@@ -17729,7 +17929,7 @@ let API$h = class API extends API$s {
   pageOfListServers = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/instance/v1/zones/${validatePathParam('zone', request.zone ?? this.client.settings.defaultZone)}/servers`,
-    urlParams: urlParams(['commercial_type', request.commercialType], ['name', request.name], ['order', request.order], ['organization', request.organization], ['page', request.page], ['per_page', request.perPage ?? this.client.settings.defaultPageSize], ['private_ip', request.privateIp], ['private_network', request.privateNetwork], ['project', request.project], ['state', request.state], ['tags', request.tags && request.tags.length > 0 ? request.tags.join(',') : undefined], ['without_ip', request.withoutIp])
+    urlParams: urlParams(['commercial_type', request.commercialType], ['name', request.name], ['order', request.order], ['organization', request.organization], ['page', request.page], ['per_page', request.perPage ?? this.client.settings.defaultPageSize], ['private_ip', request.privateIp], ['private_network', request.privateNetwork], ['private_networks', request.privateNetworks && request.privateNetworks.length > 0 ? request.privateNetworks.join(',') : undefined], ['project', request.project], ['state', request.state], ['tags', request.tags && request.tags.length > 0 ? request.tags.join(',') : undefined], ['without_ip', request.withoutIp])
   }, unmarshalListServersResponse);
 
   /**
@@ -20283,7 +20483,9 @@ const unmarshalClusterType = data => {
   return {
     availability: data.availability,
     commitmentDelay: data.commitment_delay,
+    dedicated: data.dedicated,
     maxNodes: data.max_nodes,
+    memory: data.memory,
     name: data.name,
     resiliency: data.resiliency,
     sla: data.sla
@@ -21419,7 +21621,9 @@ const unmarshalPrivateNetworkDHCPConfig = data => {
   if (!isJSONObject(data)) {
     throw new TypeError(`Unmarshalling the type 'PrivateNetworkDHCPConfig' failed as data isn't a dictionary.`);
   }
-  return {};
+  return {
+    ipId: data.ip_id
+  };
 };
 const unmarshalPrivateNetworkIpamConfig = data => {
   if (!isJSONObject(data)) {
@@ -21711,7 +21915,9 @@ const marshalHealthCheck = (request, defaults) => ({
     value: request.httpsConfig ? marshalHealthCheckHttpsConfig(request.httpsConfig) : undefined
   }])
 });
-const marshalPrivateNetworkDHCPConfig = (request, defaults) => ({});
+const marshalPrivateNetworkDHCPConfig = (request, defaults) => ({
+  ip_id: request.ipId
+});
 const marshalPrivateNetworkIpamConfig = (request, defaults) => ({});
 const marshalPrivateNetworkStaticConfig = (request, defaults) => ({
   ip_address: request.ipAddress
@@ -24430,7 +24636,7 @@ const INSTANCE_TRANSIENT_STATUSES = ['provisioning', 'configuring', 'deleting', 
 const MAINTENANCE_TRANSIENT_STATUSES = ['pending'];
 
 /** Lists transient statutes of the enum {@link ReadReplicaStatus}. */
-const READ_REPLICA_TRANSIENT_STATUSES = ['provisioning', 'initializing', 'deleting', 'configuring'];
+const READ_REPLICA_TRANSIENT_STATUSES = ['provisioning', 'initializing', 'deleting', 'configuring', 'promoting'];
 
 /** Lists transient statutes of the enum {@link SnapshotStatus}. */
 const SNAPSHOT_TRANSIENT_STATUSES = ['creating', 'restoring', 'deleting'];
@@ -25515,6 +25721,20 @@ let API$9 = class API extends API$s {
     method: 'POST',
     path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/read-replicas/${validatePathParam('readReplicaId', request.readReplicaId)}/reset`
   }, unmarshalReadReplica);
+
+  /**
+   * Promote a Read Replica. Promote a Read Replica to Database Instance
+   * automatically.
+   *
+   * @param request - The request {@link PromoteReadReplicaRequest}
+   * @returns A Promise of Instance
+   */
+  promoteReadReplica = request => this.client.fetch({
+    body: '{}',
+    headers: jsonContentHeaders$9,
+    method: 'POST',
+    path: `/rdb/v1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/read-replicas/${validatePathParam('readReplicaId', request.readReplicaId)}/promote`
+  }, unmarshalInstance);
 
   /**
    * Create an endpoint for a Read Replica. Create a new endpoint for a Read
@@ -27048,6 +27268,18 @@ var index$6 = /*#__PURE__*/Object.freeze({
 
 // This file was automatically generated. DO NOT EDIT.
 // If you have any remark or suggestion do not hesitate to open an issue.
+const unmarshalFolder = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'Folder' failed as data isn't a dictionary.`);
+  }
+  return {
+    createdAt: unmarshalDate(data.created_at),
+    id: data.id,
+    name: data.name,
+    path: data.path,
+    projectId: data.project_id
+  };
+};
 const unmarshalSecret = data => {
   if (!isJSONObject(data)) {
     throw new TypeError(`Unmarshalling the type 'Secret' failed as data isn't a dictionary.`);
@@ -27059,6 +27291,7 @@ const unmarshalSecret = data => {
     isManaged: data.is_managed,
     isProtected: data.is_protected,
     name: data.name,
+    path: data.path,
     projectId: data.project_id,
     region: data.region,
     status: data.status,
@@ -27091,6 +27324,15 @@ const unmarshalAccessSecretVersionResponse = data => {
     dataCrc32: data.data_crc32,
     revision: data.revision,
     secretId: data.secret_id
+  };
+};
+const unmarshalListFoldersResponse = data => {
+  if (!isJSONObject(data)) {
+    throw new TypeError(`Unmarshalling the type 'ListFoldersResponse' failed as data isn't a dictionary.`);
+  }
+  return {
+    folders: unmarshalArrayOfObject(data.folders, unmarshalFolder),
+    totalCount: data.total_count
   };
 };
 const unmarshalListSecretVersionsResponse = data => {
@@ -27131,9 +27373,15 @@ const marshalAddSecretOwnerRequest = (request, defaults) => ({
   product: request.product ?? 'unknown',
   product_name: request.productName
 });
+const marshalCreateFolderRequest = (request, defaults) => ({
+  name: request.name,
+  path: request.path,
+  project_id: request.projectId ?? defaults.defaultProjectId
+});
 const marshalCreateSecretRequest = (request, defaults) => ({
   description: request.description,
   name: request.name,
+  path: request.path,
   project_id: request.projectId ?? defaults.defaultProjectId,
   tags: request.tags,
   type: request.type ?? 'unknown_secret_type'
@@ -27160,6 +27408,7 @@ const marshalGeneratePasswordRequest = (request, defaults) => ({
 const marshalUpdateSecretRequest = (request, defaults) => ({
   description: request.description,
   name: request.name,
+  path: request.path,
   tags: request.tags
 });
 const marshalUpdateSecretVersionRequest = (request, defaults) => ({
@@ -27183,7 +27432,7 @@ let API$6 = class API extends API$s {
   static LOCALITIES = ['fr-par'];
 
   /**
-   * Create a secret. You must sepcify the `region` to create a secret.
+   * Create a secret. You must specify the `region` to create a secret.
    *
    * @param request - The request {@link CreateSecretRequest}
    * @returns A Promise of Secret
@@ -27194,6 +27443,19 @@ let API$6 = class API extends API$s {
     method: 'POST',
     path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets`
   }, unmarshalSecret);
+
+  /**
+   * Create folder.
+   *
+   * @param request - The request {@link CreateFolderRequest}
+   * @returns A Promise of Folder
+   */
+  createFolder = request => this.client.fetch({
+    body: JSON.stringify(marshalCreateFolderRequest(request, this.client.settings)),
+    headers: jsonContentHeaders$6,
+    method: 'POST',
+    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/folders`
+  }, unmarshalFolder);
 
   /**
    * Get metadata using the secret's ID. Retrieve the metadata of a secret
@@ -27211,6 +27473,11 @@ let API$6 = class API extends API$s {
    * Get metadata using the secret's name. Retrieve the metadata of a secret
    * specified by the `region` and `secret_name` parameters.
    *
+   * GetSecretByName usage is now deprecated.
+   *
+   * Scaleway recommends you to use ListSecrets with the `name` filter.
+   *
+   * @deprecated
    * @param request - The request {@link GetSecretByNameRequest}
    * @returns A Promise of Secret
    */
@@ -27237,7 +27504,7 @@ let API$6 = class API extends API$s {
   pageOfListSecrets = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets`,
-    urlParams: urlParams(['is_managed', request.isManaged], ['name', request.name], ['order_by', request.orderBy ?? 'name_asc'], ['organization_id', request.organizationId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_id', request.projectId], ['tags', request.tags])
+    urlParams: urlParams(['is_managed', request.isManaged], ['name', request.name], ['order_by', request.orderBy ?? 'name_asc'], ['organization_id', request.organizationId], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['path', request.path], ['project_id', request.projectId], ['tags', request.tags])
   }, unmarshalListSecretsResponse);
 
   /**
@@ -27249,6 +27516,19 @@ let API$6 = class API extends API$s {
    * @returns A Promise of ListSecretsResponse
    */
   listSecrets = (request = {}) => enrichForPagination('secrets', this.pageOfListSecrets, request);
+  pageOfListFolders = (request = {}) => this.client.fetch({
+    method: 'GET',
+    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/folders`,
+    urlParams: urlParams(['order_by', request.orderBy ?? 'created_at_asc'], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['path', request.path], ['project_id', request.projectId ?? this.client.settings.defaultProjectId])
+  }, unmarshalListFoldersResponse);
+
+  /**
+   * List secrets. Retrieve the list of folders created within a Project.
+   *
+   * @param request - The request {@link ListFoldersRequest}
+   * @returns A Promise of ListFoldersResponse
+   */
+  listFolders = (request = {}) => enrichForPagination('folders', this.pageOfListFolders, request);
 
   /**
    * Delete a secret. Delete a given secret specified by the `region` and
@@ -27259,6 +27539,16 @@ let API$6 = class API extends API$s {
   deleteSecret = request => this.client.fetch({
     method: 'DELETE',
     path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/secrets/${validatePathParam('secretId', request.secretId)}`
+  });
+
+  /**
+   * Delete a given folder specified by the and `folder_id` parameter.
+   *
+   * @param request - The request {@link DeleteFolderRequest}
+   */
+  deleteFolder = request => this.client.fetch({
+    method: 'DELETE',
+    path: `/secret-manager/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/folders/${validatePathParam('folderId', request.folderId)}`
   });
 
   /**
@@ -27812,6 +28102,7 @@ const unmarshalEmail = data => {
   }
   return {
     createdAt: unmarshalDate(data.created_at),
+    flags: data.flags,
     id: data.id,
     lastTries: unmarshalArrayOfObject(data.last_tries, unmarshalEmailTry),
     mailFrom: data.mail_from,
@@ -27954,7 +28245,7 @@ let API$4 = class API extends API$s {
   pageOfListEmails = (request = {}) => this.client.fetch({
     method: 'GET',
     path: `/transactional-email/v1alpha1/regions/${validatePathParam('region', request.region ?? this.client.settings.defaultRegion)}/emails`,
-    urlParams: urlParams(['domain_id', request.domainId], ['mail_from', request.mailFrom], ['mail_rcpt', request.mailRcpt], ['mail_to', request.mailTo], ['message_id', request.messageId], ['order_by', request.orderBy ?? 'created_at_desc'], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_id', request.projectId], ['search', request.search], ['since', request.since], ['statuses', request.statuses], ['subject', request.subject], ['until', request.until])
+    urlParams: urlParams(['domain_id', request.domainId], ['flags', request.flags], ['mail_from', request.mailFrom], ['mail_rcpt', request.mailRcpt], ['mail_to', request.mailTo], ['message_id', request.messageId], ['order_by', request.orderBy ?? 'created_at_desc'], ['page', request.page], ['page_size', request.pageSize ?? this.client.settings.defaultPageSize], ['project_id', request.projectId], ['search', request.search], ['since', request.since], ['statuses', request.statuses], ['subject', request.subject], ['until', request.until])
   }, unmarshalListEmailsResponse);
 
   /**
