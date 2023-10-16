@@ -59,14 +59,14 @@ function getSecretValue(api, secret) {
             name: secret.name,
             path: secret.path,
             page: 1,
-            pageSize: 1
+            pageSize: 1,
         });
         if (secretList.totalCount < 1) {
             throw new Error(`No secret found with '${secret.name}' name and '${secret.path}' path`);
         }
         const secretResponse = yield api.accessSecretVersion({
             secretId: secretList.secrets[0].id,
-            revision: "latest_enabled"
+            revision: "latest_enabled",
         });
         return Buffer.from(secretResponse.data, "base64").toString("binary");
     });
