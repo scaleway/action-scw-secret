@@ -46,7 +46,7 @@ export function extractAlias(input: string): [string, Secret] {
 }
 
 export function splitNameAndPath(ref: string): [string, string] {
-  let path = "/"
+  let path = "/";
   const sep = ref.lastIndexOf("/");
   if (sep > 0) {
     path = ref.substring(0, sep);
