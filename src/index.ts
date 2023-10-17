@@ -21,19 +21,17 @@ export async function run(): Promise<void> {
     ];
 
     for (let secretConf of secretConfigInputs) {
-      const [envName, secretName] = extractAlias(secretConf);
+      const [envName, secret] = extractAlias(secretConf);
 
       try {
-        const secretValue = await getSecretValue(api, secretName);
+        const secretValue = await getSecretValue(api, secret);
         core.setSecret(secretValue);
         core.debug(
-          `Injecting secret ${secretName} as environment variable '${envName}'.`
+          `Injecting secret ${secret} as environment variable '${envName}'.`,
         );
         core.exportVariable(envName, secretValue);
       } catch (error) {
-        core.setFailed(
-          `Failed to fetch secret: '${secretName}'. Error: ${error}.`
-        );
+        core.setFailed(`Failed to fetch secret: '${secret}'. Error: ${error}.`);
       }
     }
   } catch (error) {
