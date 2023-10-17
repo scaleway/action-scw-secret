@@ -46,13 +46,12 @@ export function extractAlias(input: string): [string, Secret] {
 }
 
 export function splitNameAndPath(ref: string): [string, string] {
-  const s = ref.split("/");
-  const name = s[s.length - 1];
-  let path = "/";
-  if (s.length > 2) {
-    path = s.slice(0, s.length - 1).join("/");
+  let path = "/"
+  const sep = ref.lastIndexOf("/");
+  if (sep > 0) {
+    path = ref.substring(0, sep);
   }
-
+  const name = ref.substring(sep + 1);
   return [name, path];
 }
 
