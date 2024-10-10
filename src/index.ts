@@ -14,7 +14,7 @@ export async function run(): Promise<void> {
       defaultZone: core.getInput("default-zone"),
     });
 
-    const api = new Secret.v1alpha1.API(client);
+    const api = new Secret.v1beta1.API(client);
 
     const secretConfigInputs: string[] = [
       ...new Set(core.getMultilineInput("secret-names")),
