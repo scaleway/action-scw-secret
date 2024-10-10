@@ -56,7 +56,7 @@ export function splitNameAndPath(ref: string): [string, string] {
 }
 
 export async function getSecretValue(
-  api: Secret.v1alpha1.API,
+  api: Secret.v1beta1.API,
   secret: Secret,
 ): Promise<string> {
   const secretList = await api.listSecrets({
