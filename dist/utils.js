@@ -1,16 +1,4 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSecretValue = exports.splitNameAndPath = exports.extractAlias = exports.transformToValidEnvName = void 0;
-function transformToValidEnvName(secretName) {
+export function transformToValidEnvName(secretName) {
     // Leading digits are invalid
     if (secretName.match(/^[0-9]/)) {
         secretName = "_".concat(secretName);
@@ -18,8 +6,7 @@ function transformToValidEnvName(secretName) {
     // Remove invalid characters
     return secretName.replace(/[^a-zA-Z0-9_]/g, "_").toUpperCase();
 }
-exports.transformToValidEnvName = transformToValidEnvName;
-function extractAlias(input) {
+export function extractAlias(input) {
     const parsedInput = input.split(",");
     let secretRef = input.trim();
     let secretPath = "/";
@@ -42,8 +29,7 @@ function extractAlias(input) {
     }
     return [alias, { name: secretName, path: secretPath }];
 }
-exports.extractAlias = extractAlias;
-function splitNameAndPath(ref) {
+export function splitNameAndPath(ref) {
     let path = "/";
     const sep = ref.lastIndexOf("/");
     if (sep > 0) {
@@ -52,23 +38,20 @@ function splitNameAndPath(ref) {
     const name = ref.substring(sep + 1);
     return [name, path];
 }
-exports.splitNameAndPath = splitNameAndPath;
-function getSecretValue(api, secret) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const secretList = yield api.listSecrets({
-            name: secret.name,
-            path: secret.path,
-            page: 1,
-            pageSize: 1,
-        });
-        if (secretList.totalCount < 1) {
-            throw new Error(`No secret found with '${secret.name}' name and '${secret.path}' path`);
-        }
-        const secretResponse = yield api.accessSecretVersion({
-            secretId: secretList.secrets[0].id,
-            revision: "latest_enabled",
-        });
-        return Buffer.from(secretResponse.data, "base64").toString("binary");
+export async function getSecretValue(api, secret) {
+    const secretList = await api.listSecrets({
+        name: secret.name,
+        path: secret.path,
+        page: 1,
+        pageSize: 1,
+        scheduledForDeletion: false,
     });
+    if (secretList.totalCount < 1) {
+        throw new Error(`No secret found with '${secret.name}' name and '${secret.path}' path`);
+    }
+    const secretResponse = await api.accessSecretVersion({
+        secretId: secretList.secrets[0].id,
+        revision: "latest_enabled",
+    });
+    return Buffer.from(secretResponse.data, "base64").toString("binary");
 }
-exports.getSecretValue = getSecretValue;

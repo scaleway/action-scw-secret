@@ -1,4 +1,4 @@
-import { Secret } from "@scaleway/sdk";
+import type { Secretv1beta1 } from "@scaleway/sdk-secret";
 
 export type Secret = {
   name: string;
@@ -56,7 +56,7 @@ export function splitNameAndPath(ref: string): [string, string] {
 }
 
 export async function getSecretValue(
-  api: Secret.v1beta1.API,
+  api: Secretv1beta1.API,
   secret: Secret,
 ): Promise<string> {
   const secretList = await api.listSecrets({
@@ -64,6 +64,7 @@ export async function getSecretValue(
     path: secret.path,
     page: 1,
     pageSize: 1,
+    scheduledForDeletion: false,
   });
 
   if (secretList.totalCount < 1) {

@@ -9,8 +9,10 @@ This action retrives secrets from Scaleway Secret Manager and inject them as env
 **Required** One or more secret names to retrieve.
 
 Format:
+
 - `secret-name`: Will fetch `secret-name` latest version and export its value to `SECRET_NAME`
 - `MY_ENV_VAR,secret-name`: Will fetch `secret-name` latest version and export its value to `MY_ENV_VAR`
+- `/my/secret`: Will fetch `secret` in the path `/my` with latest version and export its value to `SECRET`
 
 ### `access-key`
 

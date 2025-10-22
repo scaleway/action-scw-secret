@@ -1,4 +1,4 @@
-import assert from "assert";
+import { describe, expect, test } from "@jest/globals";
 import {
   transformToValidEnvName,
   splitNameAndPath,
@@ -28,9 +28,9 @@ describe("transform to validate env name", () => {
   ];
 
   testCases.forEach((tc) => {
-    it(tc.input, () => {
+    test(tc.input, () => {
       const got = transformToValidEnvName(tc.input);
-      assert.equal(got, tc.envName);
+      expect(got).toBe(tc.envName);
     });
   });
 });
@@ -56,10 +56,10 @@ describe("split name and path", () => {
   ];
 
   testCases.forEach((tc) => {
-    it(tc.ref, () => {
+    test(tc.ref, () => {
       const [name, path] = splitNameAndPath(tc.ref);
-      assert.equal(name, tc.name);
-      assert.equal(path, tc.path);
+      expect(name).toBe(tc.name);
+      expect(path).toBe(tc.path);
     });
   });
 });
@@ -107,10 +107,10 @@ describe("extract alias", () => {
   ];
 
   testCases.forEach((tc) => {
-    it(tc.input, () => {
+    test(tc.input, () => {
       const [alias, secret] = extractAlias(tc.input);
-      assert.equal(alias, tc.alias);
-      assert.deepEqual(secret, tc.secret);
+      expect(alias).toBe(tc.alias);
+      expect(secret).toEqual(tc.secret);
     });
   });
 });
