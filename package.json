@@ -15,7 +15,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@actions/core": "^1.11.1",
-    "@scaleway/sdk": "^2.49.0",
+    "@scaleway/sdk-client": "^1.3.1",
+    "@scaleway/sdk-secret": "^1.2.4",
     "cross-fetch": "^4.0.0"
   },
   "devDependencies": {

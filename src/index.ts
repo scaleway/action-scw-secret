@@ -1,6 +1,7 @@
 import * as core from "@actions/core";
 import "cross-fetch/polyfill";
-import { createClient, Secret } from "@scaleway/sdk";
+import { createClient } from "@scaleway/sdk-client";
+import { Secretv1beta1 } from "@scaleway/sdk-secret";
 import { extractAlias, getSecretValue } from "./utils";
 
 export async function run(): Promise<void> {
@@ -14,7 +15,7 @@ export async function run(): Promise<void> {
       defaultZone: core.getInput("default-zone"),
     });
 
-    const api = new Secret.v1beta1.API(client);
+    const api = new Secretv1beta1.API(client);
 
     const secretConfigInputs: string[] = [
       ...new Set(core.getMultilineInput("secret-names")),
