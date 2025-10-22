@@ -21,12 +21,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
-      - name: Set Node.js 16.x
-        uses: actions/setup-node@v3.6.0
+      - name: Set Node.js
+        uses: actions/setup-node@v5
         with:
-          node-version: 16.x
+          node-version-file: .node-version
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
@@ -36,18 +37,25 @@ jobs:
           npm run build
           npm run package
 
-      - name: Compare the expected and actual dist/ directories
+      - name: Compare Directories
+        id: diff
         run: |
-          if [ "$(git diff --ignore-space-at-eol dist/ | wc -l)" -gt "0" ]; then
-            echo "Detected uncommitted changes after build.  See status below:"
-            git diff
+          if [ ! -d dist/ ]; then
+            echo "Expected dist/ directory does not exist.  See status below:"
+            ls -la ./
             exit 1
           fi
-        id: diff
+          if [ "$(git diff --ignore-space-at-eol --text dist/ | wc -l)" -gt "0" ]; then
+            echo "Detected uncommitted changes after build. See status below:"
+            git diff --ignore-space-at-eol --text dist/
+            exit 1
+          fi
 
       # If index.js was different than expected, upload the expected version as an artifact
-      - uses: actions/upload-artifact@v3
-        if: ${{ failure() && steps.diff.conclusion == 'failure' }}
+      - if: ${{ failure() && steps.diff.outcome == 'failure' }}
+        name: Upload Artifact
+        id: upload
+        uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist/
