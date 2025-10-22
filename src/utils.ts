@@ -64,7 +64,7 @@ export async function getSecretValue(
     path: secret.path,
     page: 1,
     pageSize: 1,
-    scheduledForDeletion: false
+    scheduledForDeletion: false,
   });
 
   if (secretList.totalCount < 1) {
