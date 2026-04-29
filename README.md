@@ -2,6 +2,12 @@
 
 This action retrives secrets from Scaleway Secret Manager and inject them as environment variables.
 
+## Requirements
+
+This github action uses the Scaleway SDK to perform calls against the Scaleway API. It needs a valid API key with the following rules:
+- `SecretManagerReadOnly`: to list secrets
+- `SecretManagerSecretAccess`: to access secret content
+
 ## Inputs
 
 ### `secrets-names`
