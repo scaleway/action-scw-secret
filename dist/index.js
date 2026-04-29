@@ -9853,11 +9853,11 @@ async function run() {
             try {
                 const secretValue = await getSecretValue(api, secret);
                 core.setSecret(secretValue);
-                core.debug(`Injecting secret ${secret} as environment variable '${envName}'.`);
+                core.debug(`Injecting secret /${secret.path}/${secret.name} as environment variable '${envName}'.`);
                 core.exportVariable(envName, secretValue);
             }
             catch (error) {
-                core.setFailed(`Failed to fetch secret: '${secret}'. Error: ${error}.`);
+                core.setFailed(`Failed to fetch secret: '/${secret.path}/${secret.name}'. Error: ${error}.`);
             }
         }
     }
