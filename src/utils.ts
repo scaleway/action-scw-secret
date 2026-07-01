@@ -58,6 +58,8 @@ export function splitNameAndPath(ref: string): [string, string] {
 export async function getSecretValue(
   api: Secretv1beta1.API,
   secret: Secret,
+  organizationId?: string,
+  projectId?: string,
 ): Promise<string> {
   const secretList = await api.listSecrets({
     name: secret.name,
@@ -65,6 +67,8 @@ export async function getSecretValue(
     page: 1,
     pageSize: 1,
     scheduledForDeletion: false,
+    organizationId: organizationId,
+    projectId: projectId,
   });
 
   if (secretList.totalCount < 1) {

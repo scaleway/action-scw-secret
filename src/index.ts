@@ -25,7 +25,12 @@ export async function run(): Promise<void> {
       const [envName, secret] = extractAlias(secretConf);
 
       try {
-        const secretValue = await getSecretValue(api, secret);
+        const secretValue = await getSecretValue(
+          api,
+          secret,
+          client.settings.defaultOrganizationId,
+          client.settings.defaultProjectId,
+        );
         core.setSecret(secretValue);
         core.debug(
           `Injecting secret /${secret.path}/${secret.name} as environment variable '${envName}'.`,
