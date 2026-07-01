@@ -7885,7 +7885,7 @@ function assertValidAuthenticationSecrets(obj) {
 
 
 ;// CONCATENATED MODULE: ./node_modules/@scaleway/sdk-client/dist/package.json.js
-const version = "1.3.0";
+const version = "1.3.2";
 const pkg = {
   version
 };
@@ -9160,6 +9160,7 @@ const unmarshalSecretVersion = (data) => {
     description: data.description,
     ephemeralProperties: data.ephemeral_properties ? unmarshalEphemeralProperties(data.ephemeral_properties) : void 0,
     latest: data.latest,
+    region: data.region,
     revision: data.revision,
     secretId: data.secret_id,
     status: data.status,
@@ -9810,13 +9811,15 @@ function splitNameAndPath(ref) {
     const name = ref.substring(sep + 1);
     return [name, path];
 }
-async function getSecretValue(api, secret) {
+async function getSecretValue(api, secret, organizationId, projectId) {
     const secretList = await api.listSecrets({
         name: secret.name,
         path: secret.path,
         page: 1,
         pageSize: 1,
         scheduledForDeletion: false,
+        organizationId: organizationId,
+        projectId: projectId,
     });
     if (secretList.totalCount < 1) {
         throw new Error(`No secret found with '${secret.name}' name and '${secret.path}' path`);
@@ -9851,7 +9854,7 @@ async function run() {
         for (let secretConf of secretConfigInputs) {
             const [envName, secret] = extractAlias(secretConf);
             try {
-                const secretValue = await getSecretValue(api, secret);
+                const secretValue = await getSecretValue(api, secret, client.settings.defaultOrganizationId, client.settings.defaultProjectId);
                 core.setSecret(secretValue);
                 core.debug(`Injecting secret /${secret.path}/${secret.name} as environment variable '${envName}'.`);
                 core.exportVariable(envName, secretValue);
