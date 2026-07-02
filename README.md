@@ -30,7 +30,7 @@ Format:
 
 ### `default-project-id`
 
-Scaleway default project ID.
+**Required** Scaleway default project ID.
 
 ### `default-organization-id`
 
