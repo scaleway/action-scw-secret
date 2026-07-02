@@ -38,13 +38,15 @@ export function splitNameAndPath(ref) {
     const name = ref.substring(sep + 1);
     return [name, path];
 }
-export async function getSecretValue(api, secret) {
+export async function getSecretValue(api, secret, organizationId, projectId) {
     const secretList = await api.listSecrets({
         name: secret.name,
         path: secret.path,
         page: 1,
         pageSize: 1,
         scheduledForDeletion: false,
+        organizationId: organizationId,
+        projectId: projectId,
     });
     if (secretList.totalCount < 1) {
         throw new Error(`No secret found with '${secret.name}' name and '${secret.path}' path`);
