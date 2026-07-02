@@ -9811,14 +9811,13 @@ function splitNameAndPath(ref) {
     const name = ref.substring(sep + 1);
     return [name, path];
 }
-async function getSecretValue(api, secret, organizationId, projectId) {
+async function getSecretValue(api, secret, projectId) {
     const secretList = await api.listSecrets({
         name: secret.name,
         path: secret.path,
         page: 1,
         pageSize: 1,
         scheduledForDeletion: false,
-        organizationId: organizationId,
         projectId: projectId,
     });
     if (secretList.totalCount < 1) {
@@ -9854,7 +9853,7 @@ async function run() {
         for (let secretConf of secretConfigInputs) {
             const [envName, secret] = extractAlias(secretConf);
             try {
-                const secretValue = await getSecretValue(api, secret, client.settings.defaultOrganizationId, client.settings.defaultProjectId);
+                const secretValue = await getSecretValue(api, secret, client.settings.defaultProjectId);
                 core.setSecret(secretValue);
                 core.debug(`Injecting secret /${secret.path}/${secret.name} as environment variable '${envName}'.`);
                 core.exportVariable(envName, secretValue);

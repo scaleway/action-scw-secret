@@ -28,7 +28,6 @@ export async function run(): Promise<void> {
         const secretValue = await getSecretValue(
           api,
           secret,
-          client.settings.defaultOrganizationId,
           client.settings.defaultProjectId,
         );
         core.setSecret(secretValue);
